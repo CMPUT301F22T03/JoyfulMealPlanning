@@ -18,6 +18,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * The main activity of Recipe
+ * @author Qiaosong
+ * @version 1.0
+ */
 public class RecipeActivity extends AppCompatActivity {
 
     final String TAG = "Sample";
@@ -38,6 +43,10 @@ public class RecipeActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         final CollectionReference recipeCollectionReference = db.collection("recipe");
 
+
+        //Make the changes in DB can be reflected in the listview
+        //NOTE: The Recipe Object in recipeDataList can only be updated with 4 parameters:
+        //RecipeTitle, RecipeCategory, RecipePreparationTime, RecipeNumberOfServings
         recipeCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
