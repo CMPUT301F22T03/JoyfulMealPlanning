@@ -60,47 +60,5 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
         return view;
     }
 
-    /**@NonNull
-    @Override
-    public IngredientAdapter.myVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.content, parent, false);
-        return new IngredientAdapter.myVH(view);
-    }
 
-    @Override
-    public void onBindViewHolder(@NonNull IngredientAdapter.myVH holder, int position) {
-          holder.calendarView.setDate(20221030);
-          holder.desText.setText(ingredients.get(0).getDescription());
-          holder.locationText.setText(ingredients.get(0).getLocation());
-          holder.CategoryText.setText(ingredients.get(0).getCategory());
-          holder.AmountText.setText(ingredients.get(0).getAmount().toString());
-          holder.Unit_CostText.setText(ingredients.get(0).getUnit_Cost().toString());
-
-
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return ingredients.size();
-    }
-
-    public static class myVH extends RecyclerView.ViewHolder {
-
-        CalendarView calendarView;
-        TextView desText, locationText, CategoryText, AmountText, Unit_CostText;
-
-
-        public myVH(@NonNull View itemView) {
-            super(itemView);
-
-            calendarView = itemView.findViewById(R.id.calendarView2);
-            desText = itemView.findViewById(R.id.textView4);
-            locationText = itemView.findViewById(R.id.textView5);
-            CategoryText = itemView.findViewById(R.id.textView6);
-            AmountText = itemView.findViewById(R.id.textView7);
-
-        }
-    }*/
 }

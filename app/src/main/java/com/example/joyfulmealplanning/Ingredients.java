@@ -16,8 +16,7 @@ public class Ingredients {
     private Integer Unit_Cost;
 
     public Ingredients(String description, Date best_before_date, String location, String category, Integer amount, Integer unit_Cost) {
-        //super(description, best_before_date, category, location, amount, unit_Cost);
-        //super(itemView);
+
         Description = description;
         Best_before_date = best_before_date;
         Location = location;
@@ -26,9 +25,6 @@ public class Ingredients {
         Unit_Cost = unit_Cost;
     }
 
-    //public Ingredients(@NonNull View itemView) {
-       // super(itemView);
-   // }
 
     public String getDescription() {
         return Description;

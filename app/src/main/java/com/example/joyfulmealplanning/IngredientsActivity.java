@@ -39,15 +39,6 @@ public class IngredientsActivity extends AppCompatActivity {
         back_button = findViewById(R.id.imageButton);
         floatingActionButton = findViewById(R.id.floatingActionButton);
 
-        /**ING.setDescription("Apple");
-        ING.setAmount(2);
-        ING.setCategory("Fruit");
-        ING.setLocation("Fridge");
-        ING.setBest_before_date(new Date(2022, 10,30));
-        ING.setUnit_Cost(1);*/
-
-        //ingredients.add(ING);
-
         ingredientsList = findViewById(R.id.listView);
 
         setUpIngredientModels();
