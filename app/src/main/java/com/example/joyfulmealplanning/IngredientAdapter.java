@@ -1,13 +1,13 @@
 package com.example.joyfulmealplanning;
 
+import static com.google.api.ResourceProto.resource;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.my
 
     private Context context;
 
-    /**public IngredientAdapter(@NonNull Context context, int resource, ArrayList<Ingredients> ingredients) {
-        super(context, resource);
+    public IngredientAdapter(@NonNull Context context, ArrayList<Ingredients> ingredients) {
+
         this.context = context;
         this.ingredients = ingredients;
     }
 
-    @NonNull
+    /**@NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;

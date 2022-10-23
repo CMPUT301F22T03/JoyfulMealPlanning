@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,11 +26,10 @@ import java.util.Map;
  *
  * @author Fan Zhu, Mashiad Hasan, Yuxuan Yang, Xiangxu Meng, Qiaosong Deng & Zhaoqi Ma
  * @version 1.0
- *
+ * @since 2022-10-18
  */
 public class MainActivity extends AppCompatActivity {
-    RecyclerView ingredientsList;
-    RecyclerView.Adapter<Ingredients> ingredientsAdapter;
+
     ImageView imageView;
 
     @Override
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.w(TAG, "Error adding document", e);
                     }
                 });
+
 
         imageView = findViewById(R.id.imageView);
 

@@ -1,6 +1,7 @@
 package com.example.joyfulmealplanning;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +12,12 @@ import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 public class IngredientsActivity extends AppCompatActivity {
+    RecyclerView ingredientsList;
+    IngredientAdapter ingredientsAdapter;
+    ArrayList<Ingredients> ingredients = new ArrayList<>();
     ImageButton back_button;
     FloatingActionButton floatingActionButton;
 
@@ -36,6 +42,9 @@ public class IngredientsActivity extends AppCompatActivity {
 
             }
         });
+
+        ingredientsList = findViewById(R.id.recyclerView);
+        ingredientsAdapter = new IngredientAdapter(this, ingredients );
 
     }
 
