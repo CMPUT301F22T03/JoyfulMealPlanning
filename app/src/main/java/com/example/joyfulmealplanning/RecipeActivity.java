@@ -73,5 +73,33 @@ public class RecipeActivity extends AppCompatActivity {
             }
         });
 
+        //Long click to delete an item in the listView.
+        recipeList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
+                final String RecipeTitle = recipeDataList.get(position).getRecipeTitle();
+                recipeCollectionReference.document(RecipeTitle)
+                        .delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                    Toast.makeText(getApplicationContext(),"Recipe: " + RecipeTitle + " has been deleted",Toast.LENGTH_LONG).show();
+                                } else{
+                                    Log.d(TAG, "DocumentSnapshot not deleted!");
+                                }
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error deleting document", e);
+                            }
+                        });
+                return true;
+            }
+        });
     }
 }
