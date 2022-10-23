@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ import java.util.Map;
  *
  */
 public class MainActivity extends AppCompatActivity {
+    RecyclerView ingredientsList;
+    RecyclerView.Adapter<Ingredients> ingredientsAdapter;
     ImageView imageView;
 
     @Override

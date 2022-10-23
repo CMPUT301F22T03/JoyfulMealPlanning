@@ -1,8 +1,13 @@
 package com.example.joyfulmealplanning;
 
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.Date;
 
-public class Ingredients {
+public class Ingredients extends RecyclerView.ViewHolder {
     private String Description;
     private Date Best_before_date;
     private String Location;
@@ -10,13 +15,18 @@ public class Ingredients {
     private Integer Amount;
     private Integer Unit_Cost;
 
-    public Ingredients(String description, Date best_before_date, String location, String category, Integer amount, Integer unit_Cost) {
+    public Ingredients(@NonNull View itemView, String description, Date best_before_date, String location, String category, Integer amount, Integer unit_Cost) {
+        super(itemView);
         Description = description;
         Best_before_date = best_before_date;
         Location = location;
         Category = category;
         Amount = amount;
         Unit_Cost = unit_Cost;
+    }
+
+    public Ingredients(@NonNull View itemView) {
+        super(itemView);
     }
 
     public String getDescription() {

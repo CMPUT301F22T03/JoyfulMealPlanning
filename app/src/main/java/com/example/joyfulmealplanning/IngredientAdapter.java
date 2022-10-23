@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.myVH> {
 
     private ArrayList<Ingredients> ingredients;
+
     private Context context;
 
     /**public IngredientAdapter(@NonNull Context context, int resource, ArrayList<Ingredients> ingredients) {
