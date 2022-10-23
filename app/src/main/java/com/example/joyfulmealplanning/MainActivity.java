@@ -19,6 +19,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ *
+ * @author Fan Zhu, Mashiad Hasan, Yuxuan Yang, Xiangxu Meng, Qiaosong Deng & Zhaoqi Ma
+ * @version 1.0
+ *
+ */
 public class MainActivity extends AppCompatActivity {
     ImageView imageView;
 
@@ -62,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void switchActivity(View view) {
-        Intent intent = new Intent(this, Ingredients.class);
+        Intent intent = new Intent(this, IngredientsActivity.class);
         startActivity(intent);
     }
 
