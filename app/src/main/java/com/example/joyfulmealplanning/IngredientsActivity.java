@@ -1,6 +1,7 @@
 package com.example.joyfulmealplanning;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -45,6 +46,8 @@ public class IngredientsActivity extends AppCompatActivity {
 
         ingredientsList = findViewById(R.id.recyclerView);
         ingredientsAdapter = new IngredientAdapter(this, ingredients );
+        ingredientsList.setAdapter(ingredientsAdapter);
+        ingredientsList.setLayoutManager(new LinearLayoutManager(this));
 
     }
 
