@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Date;
 
-public class Ingredients extends RecyclerView.ViewHolder {
+public class Ingredients {
     private String Description;
     private Date Best_before_date;
     private String Location;
@@ -15,8 +15,9 @@ public class Ingredients extends RecyclerView.ViewHolder {
     private Integer Amount;
     private Integer Unit_Cost;
 
-    public Ingredients(@NonNull View itemView, String description, Date best_before_date, String location, String category, Integer amount, Integer unit_Cost) {
-        super(itemView);
+    public Ingredients(String description, Date best_before_date, String location, String category, Integer amount, Integer unit_Cost) {
+        //super(description, best_before_date, category, location, amount, unit_Cost);
+        //super(itemView);
         Description = description;
         Best_before_date = best_before_date;
         Location = location;
@@ -25,9 +26,9 @@ public class Ingredients extends RecyclerView.ViewHolder {
         Unit_Cost = unit_Cost;
     }
 
-    public Ingredients(@NonNull View itemView) {
-        super(itemView);
-    }
+    //public Ingredients(@NonNull View itemView) {
+       // super(itemView);
+   // }
 
     public String getDescription() {
         return Description;

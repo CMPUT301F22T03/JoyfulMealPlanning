@@ -1,5 +1,6 @@
 package com.example.joyfulmealplanning;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,18 +10,25 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class IngredientsActivity extends AppCompatActivity {
-    RecyclerView ingredientsList;
+    ListView ingredientsList;
     IngredientAdapter ingredientsAdapter;
-    ArrayList<Ingredients> ingredients = new ArrayList<>();
+    ArrayAdapter<Ingredients> ingredientsArrayAdapter;
+    ArrayList<Ingredients> ingredientModels = new ArrayList<>();
     ImageButton back_button;
     FloatingActionButton floatingActionButton;
+    //Ingredients ING;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +38,22 @@ public class IngredientsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         back_button = findViewById(R.id.imageButton);
         floatingActionButton = findViewById(R.id.floatingActionButton);
+
+        /**ING.setDescription("Apple");
+        ING.setAmount(2);
+        ING.setCategory("Fruit");
+        ING.setLocation("Fridge");
+        ING.setBest_before_date(new Date(2022, 10,30));
+        ING.setUnit_Cost(1);*/
+
+        //ingredients.add(ING);
+
+        ingredientsList = findViewById(R.id.listView);
+
+        setUpIngredientModels();
+
+        ingredientsArrayAdapter = new IngredientAdapter(this, ingredientModels );
+
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,17 +61,17 @@ public class IngredientsActivity extends AppCompatActivity {
             }
         });
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        /**floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                  ingredients.add(ING);
+                  ingredientsAdapter = new IngredientAdapter(view.getContext(), ingredients);
+                  ingredientsList.setAdapter(ingredientsAdapter);
             }
-        });
+        });*/
 
-        ingredientsList = findViewById(R.id.recyclerView);
-        ingredientsAdapter = new IngredientAdapter(this, ingredients );
-        ingredientsList.setAdapter(ingredientsAdapter);
-        ingredientsList.setLayoutManager(new LinearLayoutManager(this));
+        ingredientsList.setAdapter(ingredientsArrayAdapter);
+
 
     }
 
@@ -63,4 +87,16 @@ public class IngredientsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void setUpIngredientModels() {
+          String[] Descriptions = {"Apple"};
+          Date[] Dates = {new Date(2022, 10, 30)};
+          String[] Locations = {"Fridge"};
+          String[] Categories = {"Fruit"};
+          Integer[] Amounts = {2};
+          Integer[] Unit_Costs = {1};
+
+          for (int i = 0; i < Descriptions.length; i++) {
+              ingredientModels.add(new Ingredients(Descriptions[i], Dates[i], Locations[i], Categories[i], Amounts[i], Unit_Costs[i]));
+          }
+    }
 }
