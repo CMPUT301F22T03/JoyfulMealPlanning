@@ -19,31 +19,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.205" />
 
-    <Button
-        android:id="@+id/Ingredient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="100dp"
-        android:text="Ingredient"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="111dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="172dp"
+        android:layout_marginEnd="124dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/MealPlan"
         app:layout_constraintEnd_toStartOf="@+id/Recipe"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.035"
+        app:srcCompat="@drawable/ic_baseline_fastfood_24" />
 
     <Button
         android:id="@+id/Recipe"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="201dp"
         android:layout_marginEnd="60dp"
         android:text="Recipe"
-        app:layout_constraintBaseline_toBaselineOf="@+id/Ingredient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/Ingredient" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/MealPlan"
@@ -55,8 +56,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ShoppingList"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Ingredient" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/ShoppingList"
@@ -68,5 +68,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/MealPlan" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="INGREDIENT"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
