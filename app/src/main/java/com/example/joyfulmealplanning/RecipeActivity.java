@@ -1,20 +1,13 @@
 package com.example.joyfulmealplanning;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,6 +16,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * The main activity of Recipe
@@ -79,33 +73,5 @@ public class RecipeActivity extends AppCompatActivity {
             }
         });
 
-        //Long click to delete an item in the list view.
-        recipeList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
-                final String RecipeTitle = recipeDataList.get(position).getRecipeTitle();
-                recipeCollectionReference.document(RecipeTitle)
-                        .delete()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                                    Toast.makeText(getApplicationContext(),"Recipe: " + RecipeTitle + " has been deleted",Toast.LENGTH_LONG).show();
-                                } else{
-                                    Log.d(TAG, "DocumentSnapshot not deleted!");
-                                }
-
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error deleting document", e);
-                            }
-                        });
-                return true;
-            }
-        });
     }
 }
