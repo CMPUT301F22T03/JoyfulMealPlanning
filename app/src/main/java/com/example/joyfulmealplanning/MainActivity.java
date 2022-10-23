@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,7 +32,10 @@ import java.util.Map;
  */
 public class MainActivity extends AppCompatActivity {
 
+
+    Button Recipe;
     ImageView imageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
+        Recipe = findViewById(R.id.Recipe);
+        Recipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent RecipeIntent = new Intent(MainActivity.this, RecipeActivity.class);
+                startActivity(RecipeIntent);
+            }
+        });
+
+
         imageView = findViewById(R.id.imageView);
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
     public void switchActivity(View view) {
         Intent intent = new Intent(this, IngredientsActivity.class);
         startActivity(intent);
+
     }
 
 
