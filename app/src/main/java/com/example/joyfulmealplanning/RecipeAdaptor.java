@@ -13,11 +13,21 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The custom Adapter for the ListView of recipe_list
+ * @author Qiaosong
+ * @version 1.0
+ */
 public class RecipeAdaptor extends ArrayAdapter<Recipe>{
 
     private ArrayList<Recipe> Recipes;
     private Context context;
 
+    /**
+     * The constructor of RecipeAdaptor
+     * @param context {@link Context}
+     * @param Recipes {@link ArrayList<Recipe>}
+     */
     public RecipeAdaptor(@NonNull Context context, ArrayList<Recipe> Recipes) {
         super(context, 0, Recipes);
         this.context = context;
