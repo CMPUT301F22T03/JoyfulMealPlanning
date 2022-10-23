@@ -79,7 +79,7 @@ public class RecipeActivity extends AppCompatActivity {
             }
         });
 
-        //Long click to delete an item in the list view.
+        //Long click to delete an item in the listView.
         recipeList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
