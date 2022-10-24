@@ -19,6 +19,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+/**
+ * The Ingredients activity class
+ * @author Fan Zhu
+ * @version 1.0
+ */
 public class IngredientsActivity extends AppCompatActivity {
     ListView ingredientsList;
     IngredientAdapter ingredientsAdapter;
