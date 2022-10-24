@@ -26,7 +26,6 @@ public class IngredientsActivity extends AppCompatActivity {
     private ArrayList<Ingredients> ingredientModels = new ArrayList<>();
     private ImageButton back_button;
     private FloatingActionButton floatingActionButton;
-    //Ingredients ING;
 
 
 
