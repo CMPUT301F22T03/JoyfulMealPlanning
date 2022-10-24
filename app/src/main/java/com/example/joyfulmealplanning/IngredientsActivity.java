@@ -20,12 +20,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class IngredientsActivity extends AppCompatActivity {
-    ListView ingredientsList;
-    IngredientAdapter ingredientsAdapter;
-    ArrayAdapter<Ingredients> ingredientsArrayAdapter;
-    ArrayList<Ingredients> ingredientModels = new ArrayList<>();
-    ImageButton back_button;
-    FloatingActionButton floatingActionButton;
+    private ListView ingredientsList;
+    private IngredientAdapter ingredientsAdapter;
+    private ArrayAdapter<Ingredients> ingredientsArrayAdapter;
+    private ArrayList<Ingredients> ingredientModels = new ArrayList<>();
+    private ImageButton back_button;
+    private FloatingActionButton floatingActionButton;
     //Ingredients ING;
 
 
