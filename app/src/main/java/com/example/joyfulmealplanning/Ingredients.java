@@ -9,20 +9,20 @@ import java.util.Date;
 
 public class Ingredients {
     private String Description;
-    private Date Best_before_date;
+    private Integer Best_before_date;
     private String Location;
     private String Category;
     private Integer Amount;
-    private Integer Unit_Cost;
+    private String Unit;
 
-    public Ingredients(String description, Date best_before_date, String location, String category, Integer amount, Integer unit_Cost) {
+    public Ingredients(String description, Integer best_before_date, String location, String category, Integer amount, String unit) {
 
         Description = description;
         Best_before_date = best_before_date;
         Location = location;
         Category = category;
         Amount = amount;
-        Unit_Cost = unit_Cost;
+        Unit = unit;
     }
 
 
@@ -34,11 +34,11 @@ public class Ingredients {
         Description = description;
     }
 
-    public Date getBest_before_date() {
+    public Integer getBest_before_date() {
         return Best_before_date;
     }
 
-    public void setBest_before_date(Date best_before_date) {
+    public void setBest_before_date(Integer best_before_date) {
         Best_before_date = best_before_date;
     }
 
@@ -66,11 +66,11 @@ public class Ingredients {
         Amount = amount;
     }
 
-    public Integer getUnit_Cost() {
-        return Unit_Cost;
+    public String getUnit() {
+        return Unit;
     }
 
-    public void setUnit_Cost(Integer unit_Cost) {
-        Unit_Cost = unit_Cost;
+    public void setUnit_Cost(String unit) {
+        Unit = unit;
     }
 }

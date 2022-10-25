@@ -2,8 +2,12 @@ package com.example.joyfulmealplanning;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -58,14 +63,18 @@ public class IngredientsActivity extends AppCompatActivity {
             }
         });
 
-        /**floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                  ingredients.add(ING);
-                  ingredientsAdapter = new IngredientAdapter(view.getContext(), ingredients);
-                  ingredientsList.setAdapter(ingredientsAdapter);
+                Intent inputIntent = new Intent(view.getContext(), Ingredient_InputActivity.class);
+                startActivity(inputIntent);
+
+//                  ingredients.add(ING);
+//                  ingredientsAdapter = new IngredientAdapter(view.getContext(), ingredients);
+//                  ingredientsList.setAdapter(ingredientsAdapter);
+
             }
-        });*/
+        });
 
         ingredientsList.setAdapter(ingredientsArrayAdapter);
 
@@ -86,14 +95,15 @@ public class IngredientsActivity extends AppCompatActivity {
 
     private void setUpIngredientModels() {
           String[] Descriptions = {"Apple"};
-          Date[] Dates = {new Date(2022, 10, 30)};
+          Integer[] Dates = {20221023};
           String[] Locations = {"Fridge"};
           String[] Categories = {"Fruit"};
           Integer[] Amounts = {2};
-          Integer[] Unit_Costs = {1};
+          String[] Units = {"g"};
+
 
           for (int i = 0; i < Descriptions.length; i++) {
-              ingredientModels.add(new Ingredients(Descriptions[i], Dates[i], Locations[i], Categories[i], Amounts[i], Unit_Costs[i]));
+              ingredientModels.add(new Ingredients(Descriptions[i], Dates[i], Locations[i], Categories[i], Amounts[i], Units[i]));
           }
     }
 }
