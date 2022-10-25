@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "786638289157",
+    "project_id": "joyfulmealplanning",
+    "storage_bucket": "joyfulmealplanning.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786638289157:android:61a517819d6028521e1f6c",
+        "android_client_info": {
+          "package_name": "com.example.joyfulmealplanning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "786638289157-arel9rco7pl20jofefnu3g41r585tlcn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3HGLbZRBX6P61XSakAXzZYh0BIS1yf58"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "786638289157-arel9rco7pl20jofefnu3g41r585tlcn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
