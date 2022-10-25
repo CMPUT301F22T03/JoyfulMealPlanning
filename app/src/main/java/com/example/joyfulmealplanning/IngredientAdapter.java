@@ -41,7 +41,7 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
 
         //CardView cardView;
         //CalendarView calendarView;
-        TextView desText, locationText, CategoryText, AmountText, Unit_CostText;
+        TextView desText, locationText, CategoryText, AmountText, UnitText, DateText;
 
         //cardView = view.findViewById(R.id.cardView);
         //calendarView = view.findViewById(R.id.calendarView2);
@@ -49,13 +49,17 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
         locationText = view.findViewById(R.id.textView5);
         CategoryText = view.findViewById(R.id.textView6);
         AmountText = view.findViewById(R.id.textView7);
+        UnitText = view.findViewById(R.id.textView8);
+        DateText = view.findViewById(R.id.textView9);
+
 
         //calendarView.setDate(20221030);
         desText.setText(ingredients.get(0).getDescription());
         locationText.setText(ingredients.get(0).getLocation());
         CategoryText.setText(ingredients.get(0).getCategory());
         AmountText.setText(ingredients.get(0).getAmount().toString());
-        //Unit_CostText.setText(ingredients.get(0).getUnit_Cost().toString());
+        UnitText.setText(ingredients.get(0).getUnit());
+        DateText.setText(ingredients.get(0).getBest_before_date().toString());
 
         return view;
     }
