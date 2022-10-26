@@ -35,7 +35,6 @@ public class IngredientsActivity extends AppCompatActivity {
     IngredientAdapter ingredientsAdapter;
     ArrayAdapter<Ingredients> ingredientsArrayAdapter;
     ArrayList<Ingredients> ingredientModels = new ArrayList<>();
-    ImageButton back_button;
     FloatingActionButton floatingActionButton;
     //Ingredients ING;
 
@@ -47,7 +46,7 @@ public class IngredientsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ingredients);
 
         Intent intent = getIntent();
-        back_button = findViewById(R.id.imageButton);
+
         floatingActionButton = findViewById(R.id.floatingActionButton);
 
         ingredientsList = findViewById(R.id.listView);
@@ -55,13 +54,6 @@ public class IngredientsActivity extends AppCompatActivity {
         setUpIngredientModels();
 
         ingredientsArrayAdapter = new IngredientAdapter(this, ingredientModels );
-
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switchToMain(view);
-            }
-        });
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
