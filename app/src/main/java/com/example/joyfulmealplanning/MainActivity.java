@@ -23,6 +23,15 @@ import java.util.Map;
 
 
 /**
+ * <h1>Joyful Meal Planning</h1>
+ *
+ * <p>
+ *     This app is designed to keep track of meal plans of users. It consists of four activities, including ingredients, recipes,
+ *     shopping lists and meal plans. Each activity records the entries of ingredients, recipes, shopping lists and meal plans,
+ *     users are free to add, edit and delete the entries or even upload images.
+ * </p>
+ *
+ * This activity class implements functionalities to switch to different activities, as well as to manipulate data in the Firestore database
  *
  * @author Fan Zhu, Mashiad Hasan, Yuxuan Yang, Xiangxu Meng, Qiaosong Deng & Zhaoqi Ma
  * @version 1.0

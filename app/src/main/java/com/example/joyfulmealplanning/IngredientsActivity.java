@@ -19,12 +19,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+/**
+ *
+ *
+ */
 public class IngredientsActivity extends AppCompatActivity {
     private ListView ingredientsList;
     private IngredientAdapter ingredientsAdapter;
     private ArrayAdapter<Ingredients> ingredientsArrayAdapter;
     private ArrayList<Ingredients> ingredientModels = new ArrayList<>();
-    private ImageButton back_button;
+    //private ImageButton back_button;
     private FloatingActionButton floatingActionButton;
 
 
@@ -35,7 +40,7 @@ public class IngredientsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ingredients);
 
         Intent intent = getIntent();
-        back_button = findViewById(R.id.imageButton);
+        //back_button = findViewById(R.id.imageButton);
         floatingActionButton = findViewById(R.id.floatingActionButton);
 
         ingredientsList = findViewById(R.id.listView);
@@ -44,12 +49,12 @@ public class IngredientsActivity extends AppCompatActivity {
 
         ingredientsArrayAdapter = new IngredientAdapter(this, ingredientModels );
 
-        back_button.setOnClickListener(new View.OnClickListener() {
+        /**back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switchToMain(view);
             }
-        });
+        });*/
 
         /**floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,10 +77,10 @@ public class IngredientsActivity extends AppCompatActivity {
         return true;
     }
 
-    public void switchToMain(View view) {
+    /**public void switchToMain(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-    }
+    }*/
 
     private void setUpIngredientModels() {
           String[] Descriptions = {"Apple"};
