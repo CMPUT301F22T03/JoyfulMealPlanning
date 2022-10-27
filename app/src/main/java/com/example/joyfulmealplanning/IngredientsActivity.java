@@ -21,8 +21,9 @@ import java.util.Date;
 
 
 /**
- *
- *
+ * This class implements the Ingredients activity, which allows the user to add, edit and delete ingredients
+ * @author Fan Zhu
+ * @since 2022-10-23
  */
 public class IngredientsActivity extends AppCompatActivity {
     private ListView ingredientsList;
