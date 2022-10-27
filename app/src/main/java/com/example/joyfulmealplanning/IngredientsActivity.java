@@ -27,18 +27,14 @@ import java.util.Date;
 
 /**
  * The Ingredients activity class
- * @author Fan Zhu
- * @version 1.0
+ * @author Fan Zhu and Xiangxu Meng
+ * @version 2.0
  */
-public class IngredientsActivity extends AppCompatActivity {
+public class IngredientsActivity extends AppCompatActivity implements IngredientFragment.OnFragmentInteractionListener{
     ListView ingredientsList;
-    IngredientAdapter ingredientsAdapter;
-    ArrayAdapter<Ingredients> ingredientsArrayAdapter;
+    ArrayAdapter<Ingredients> ingredientAdapter;
     ArrayList<Ingredients> ingredientModels = new ArrayList<>();
-    ImageButton back_button;
     FloatingActionButton floatingActionButton;
-    //Ingredients ING;
-
 
 
     @Override
@@ -46,37 +42,23 @@ public class IngredientsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients);
 
-        Intent intent = getIntent();
-        back_button = findViewById(R.id.imageButton);
         floatingActionButton = findViewById(R.id.floatingActionButton);
 
         ingredientsList = findViewById(R.id.listView);
 
         setUpIngredientModels();
 
-        ingredientsArrayAdapter = new IngredientAdapter(this, ingredientModels );
+        ingredientAdapter = new IngredientAdapter(this, ingredientModels );
 
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switchToMain(view);
-            }
-        });
+        ingredientsList.setAdapter(ingredientAdapter);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent inputIntent = new Intent(view.getContext(), Ingredient_InputActivity.class);
-                startActivity(inputIntent);
-
-//                  ingredients.add(ING);
-//                  ingredientsAdapter = new IngredientAdapter(view.getContext(), ingredients);
-//                  ingredientsList.setAdapter(ingredientsAdapter);
+                new IngredientFragment().show(getSupportFragmentManager(), "ADD_INGREDIENT");
 
             }
         });
-
-        ingredientsList.setAdapter(ingredientsArrayAdapter);
 
 
     }
@@ -88,22 +70,23 @@ public class IngredientsActivity extends AppCompatActivity {
         return true;
     }
 
-    public void switchToMain(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 
     private void setUpIngredientModels() {
           String[] Descriptions = {"Apple"};
-          Integer[] Dates = {20221023};
+          String[] Dates = {"20221023"};
           String[] Locations = {"Fridge"};
           String[] Categories = {"Fruit"};
-          Integer[] Amounts = {2};
+          String[] Amounts = {"2"};
           String[] Units = {"g"};
 
 
           for (int i = 0; i < Descriptions.length; i++) {
               ingredientModels.add(new Ingredients(Descriptions[i], Dates[i], Locations[i], Categories[i], Amounts[i], Units[i]));
           }
+    }
+
+    @Override
+    public void onOkPressed(Ingredients newIngredients) {
+        ingredientAdapter.add(newIngredients);
     }
 }
