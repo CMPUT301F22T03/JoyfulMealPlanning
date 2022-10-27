@@ -13,6 +13,21 @@
         android:theme="@style/Theme.JoyfulMealPlanning"
         tools:targetApi="31">
         <activity
+            android:name=".MealPlanActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Ingredient_InputActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".RecipeActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity">
@@ -30,8 +45,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

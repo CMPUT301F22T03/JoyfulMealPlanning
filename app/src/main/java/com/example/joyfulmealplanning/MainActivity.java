@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     Button Recipe;
+    Button MealPlan;
     ImageView imageView;
 
     @Override
@@ -56,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent RecipeIntent = new Intent(MainActivity.this, RecipeActivity.class);
+                startActivity(RecipeIntent);
+            }
+        });
+
+        MealPlan = findViewById(R.id.MealPlan);
+        MealPlan.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent RecipeIntent = new Intent(MainActivity.this, MealPlanActivity.class);
                 startActivity(RecipeIntent);
             }
         });
