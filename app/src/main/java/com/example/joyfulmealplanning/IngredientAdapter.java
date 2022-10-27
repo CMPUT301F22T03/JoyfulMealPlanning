@@ -39,23 +39,24 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
             view = LayoutInflater.from(context).inflate(R.layout.content, parent,false);
         }
 
-        //CardView cardView;
-        //CalendarView calendarView;
-        TextView desText, locationText, CategoryText, AmountText, Unit_CostText;
+        Ingredients ingredient = ingredients.get(position);
+        TextView desText, locationText, CategoryText, AmountText, UnitText, DateText;
 
-        //cardView = view.findViewById(R.id.cardView);
-        //calendarView = view.findViewById(R.id.calendarView2);
-        desText = view.findViewById(R.id.textView4);
-        locationText = view.findViewById(R.id.textView5);
-        CategoryText = view.findViewById(R.id.textView6);
-        AmountText = view.findViewById(R.id.textView7);
+        desText = view.findViewById(R.id.description_text);
+        locationText = view.findViewById(R.id.location_text);
+        CategoryText = view.findViewById(R.id.category_text);
+        AmountText = view.findViewById(R.id.amount_text);
+        UnitText = view.findViewById(R.id.unit_text);
+        DateText = view.findViewById(R.id.date_text);
+
 
         //calendarView.setDate(20221030);
-        desText.setText(ingredients.get(0).getDescription());
-        locationText.setText(ingredients.get(0).getLocation());
-        CategoryText.setText(ingredients.get(0).getCategory());
-        AmountText.setText(ingredients.get(0).getAmount().toString());
-        //Unit_CostText.setText(ingredients.get(0).getUnit_Cost().toString());
+        desText.setText(ingredient.getDescription());
+        locationText.setText(ingredient.getLocation());
+        CategoryText.setText(ingredient.getCategory());
+        AmountText.setText(ingredient.getAmount().toString());
+        UnitText.setText(ingredient.getUnit());
+        DateText.setText(ingredient.getBest_before_date().toString());
 
         return view;
     }

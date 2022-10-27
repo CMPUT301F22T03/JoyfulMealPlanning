@@ -1,76 +1,69 @@
 package com.example.joyfulmealplanning;
 
-import android.view.View;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.Date;
-
 public class Ingredients {
     private String Description;
-    private Date Best_before_date;
+    private String Best_before_date;
     private String Location;
     private String Category;
-    private Integer Amount;
-    private Integer Unit_Cost;
+    private String Amount;
+    private String Unit;
 
-    public Ingredients(String description, Date best_before_date, String location, String category, Integer amount, Integer unit_Cost) {
+    public Ingredients(String description, String best_before_date, String location, String category, String amount, String unit) {
 
-        Description = description;
-        Best_before_date = best_before_date;
-        Location = location;
-        Category = category;
-        Amount = amount;
-        Unit_Cost = unit_Cost;
+        this.Description = description;
+        this.Best_before_date = best_before_date;
+        this.Location = location;
+        this.Category = category;
+        this.Amount = amount;
+        this.Unit = unit;
     }
 
 
     public String getDescription() {
-        return Description;
+        return this.Description;
     }
 
-    public void setDescription(String description) {
-        Description = description;
+    public void setDescription(String newDescription) {
+        this.Description = newDescription;
     }
 
-    public Date getBest_before_date() {
-        return Best_before_date;
+    public String getBest_before_date() {
+        return this.Best_before_date;
     }
 
-    public void setBest_before_date(Date best_before_date) {
-        Best_before_date = best_before_date;
+    public void setBest_before_date(String newBest_before_date) {
+        Best_before_date = newBest_before_date;
     }
 
     public String getLocation() {
-        return Location;
+        return this.Location;
     }
 
-    public void setLocation(String location) {
-        Location = location;
+    public void setLocation(String newLocation) {
+        Location = newLocation;
     }
 
     public String getCategory() {
-        return Category;
+        return this.Category;
     }
 
-    public void setCategory(String category) {
-        Category = category;
+    public void setCategory(String newCategory) {
+        Category = newCategory;
     }
 
-    public Integer getAmount() {
-        return Amount;
+    public String getAmount() {
+        return this.Amount;
     }
 
-    public void setAmount(Integer amount) {
-        Amount = amount;
+    public void setAmount(String newAmount) {
+        Amount = newAmount;
     }
 
-    public Integer getUnit_Cost() {
-        return Unit_Cost;
+    public String getUnit() {
+        return this.Unit;
     }
 
-    public void setUnit_Cost(Integer unit_Cost) {
-        Unit_Cost = unit_Cost;
+    public void setUnit_Cost(String newUnit) {
+        Unit = newUnit;
     }
 }

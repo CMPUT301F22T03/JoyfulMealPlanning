@@ -2,6 +2,9 @@ package com.example.joyfulmealplanning;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -21,18 +25,15 @@ import java.util.Date;
 
 
 /**
- * This class implements the Ingredients activity, which allows the user to add, edit and delete ingredients
- * @author Fan Zhu
- * @since 2022-10-23
+ * The Ingredients activity class
+ * @author Fan Zhu and Xiangxu Meng
+ * @version 2.0
  */
-public class IngredientsActivity extends AppCompatActivity {
-    private ListView ingredientsList;
-    private IngredientAdapter ingredientsAdapter;
-    private ArrayAdapter<Ingredients> ingredientsArrayAdapter;
-    private ArrayList<Ingredients> ingredientModels = new ArrayList<>();
-    //private ImageButton back_button;
-    private FloatingActionButton floatingActionButton;
-
+public class IngredientsActivity extends AppCompatActivity implements IngredientFragment.OnFragmentInteractionListener{
+    ListView ingredientsList;
+    ArrayAdapter<Ingredients> ingredientAdapter;
+    ArrayList<Ingredients> ingredientModels = new ArrayList<>();
+    FloatingActionButton floatingActionButton;
 
 
     @Override
@@ -40,33 +41,23 @@ public class IngredientsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients);
 
-        Intent intent = getIntent();
-        //back_button = findViewById(R.id.imageButton);
         floatingActionButton = findViewById(R.id.floatingActionButton);
 
         ingredientsList = findViewById(R.id.listView);
 
         setUpIngredientModels();
 
-        ingredientsArrayAdapter = new IngredientAdapter(this, ingredientModels );
+        ingredientAdapter = new IngredientAdapter(this, ingredientModels );
 
-        /**back_button.setOnClickListener(new View.OnClickListener() {
+        ingredientsList.setAdapter(ingredientAdapter);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switchToMain(view);
-            }
-        });*/
+                new IngredientFragment().show(getSupportFragmentManager(), "ADD_INGREDIENT");
 
-        /**floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                  ingredients.add(ING);
-                  ingredientsAdapter = new IngredientAdapter(view.getContext(), ingredients);
-                  ingredientsList.setAdapter(ingredientsAdapter);
             }
-        });*/
-
-        ingredientsList.setAdapter(ingredientsArrayAdapter);
+        });
 
 
     }
@@ -78,21 +69,23 @@ public class IngredientsActivity extends AppCompatActivity {
         return true;
     }
 
-    /**public void switchToMain(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }*/
 
     private void setUpIngredientModels() {
           String[] Descriptions = {"Apple"};
-          Date[] Dates = {new Date(2022, 10, 30)};
+          String[] Dates = {"20221023"};
           String[] Locations = {"Fridge"};
           String[] Categories = {"Fruit"};
-          Integer[] Amounts = {2};
-          Integer[] Unit_Costs = {1};
+          String[] Amounts = {"2"};
+          String[] Units = {"g"};
+
 
           for (int i = 0; i < Descriptions.length; i++) {
-              ingredientModels.add(new Ingredients(Descriptions[i], Dates[i], Locations[i], Categories[i], Amounts[i], Unit_Costs[i]));
+              ingredientModels.add(new Ingredients(Descriptions[i], Dates[i], Locations[i], Categories[i], Amounts[i], Units[i]));
           }
+    }
+
+    @Override
+    public void onOkPressed(Ingredients newIngredients) {
+        ingredientAdapter.add(newIngredients);
     }
 }
