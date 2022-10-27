@@ -2,8 +2,10 @@ package com.example.joyfulmealplanning;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,7 +38,8 @@ public class RecipeActivity extends AppCompatActivity {
     ListView recipeList;
     ArrayAdapter<Recipe> recipeAdaptor;
     ArrayList<Recipe> recipeDataList;
-    FirebaseFirestore db;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    final CollectionReference recipeCollectionReference = db.collection("recipe");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +50,6 @@ public class RecipeActivity extends AppCompatActivity {
         recipeDataList = new ArrayList<>();
         recipeAdaptor = new RecipeAdaptor(this, recipeDataList);
         recipeList.setAdapter(recipeAdaptor);
-        db = FirebaseFirestore.getInstance();
-        final CollectionReference recipeCollectionReference = db.collection("recipe");
-
 
         //Make the changes in DB can be reflected in the listview
         //NOTE: The Recipe Object in recipeDataList can only be updated with 4 parameters:
@@ -86,29 +86,56 @@ public class RecipeActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
                 final String RecipeTitle = recipeDataList.get(position).getRecipeTitle();
-                recipeCollectionReference.document(RecipeTitle)
-                        .delete()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                                    Toast.makeText(getApplicationContext(),"Recipe: " + RecipeTitle + " has been deleted",Toast.LENGTH_LONG).show();
-                                } else{
-                                    Log.d(TAG, "DocumentSnapshot not deleted!");
-                                }
-
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error deleting document", e);
-                            }
-                        });
+                //AlertDialog diaBox = DeleteCheck(RecipeTitle);
+                //diaBox.show();
                 return true;
             }
         });
+    }
+    private AlertDialog DeleteCheck(String RecipeTitle)
+    {
+        AlertDialog myQuittingDialogBox = new AlertDialog.Builder(this)
+                // set message, title, and icon
+                .setTitle("Delete")
+                .setMessage("Do you want to Delete item: "+ RecipeTitle)
+                //.setIcon(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark_focused)
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        recipeCollectionReference.document(RecipeTitle)
+                            .delete()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                        Toast.makeText(getApplicationContext(),"Recipe: " + RecipeTitle + " has been deleted",Toast.LENGTH_LONG).show();
+                                    } else{
+                                        Log.d(TAG, "DocumentSnapshot not deleted!");
+                                    }
+
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error deleting document", e);
+                                }
+                            });
+                        dialog.dismiss();
+                    }
+
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+
+        return myQuittingDialogBox;
     }
 }
