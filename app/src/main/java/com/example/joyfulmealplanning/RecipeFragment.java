@@ -54,7 +54,6 @@ public class RecipeFragment extends DialogFragment {
     int servingNumber = 1;  //intermediate variable to hold the inputted count. Initialized to 0
     ArrayList<Map<String, Integer>> ingredientListArray;
 
-
     public interface OnFragmentInteractionListener{
         void onOkPressed(String oldRecipeTitle, Recipe newRecipe);
     }
@@ -75,7 +74,7 @@ public class RecipeFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_recipe, null);
-        initDatePicker();
+        //initDatePicker();
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         titleInput = view.findViewById(R.id.RecipeTitleInput);
@@ -87,7 +86,6 @@ public class RecipeFragment extends DialogFragment {
         ingredientList = view.findViewById(id.RecipeIngredientList);
         addIngredient = view.findViewById(id.RecipeAddIngredientButton);
         deleteIngredient = view.findViewById(id.RecipeDeleteIngredientButton);
-
 
         ArrayList<String> categories = new ArrayList<>();
         categories.add("appetizer");
@@ -119,7 +117,6 @@ public class RecipeFragment extends DialogFragment {
 //            }
 //        });
 
-
         String dialogTitle = "Add Recipe"; //title of the alert dialog
         String oldRecipeTitle = null;
         boolean addRecipe = true; //fist assume this fragment is used for adding food item
@@ -138,7 +135,6 @@ public class RecipeFragment extends DialogFragment {
             categorySpinner.setSelection(spinnerPosition);
             numberInput.setText(Integer.toString(recipe.getRecipeNumberOfServings()));
         }
-
 
         boolean finalAddRecipe = addRecipe;
         String finalOldRecipeTitle = oldRecipeTitle;
