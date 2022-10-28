@@ -25,7 +25,7 @@ import java.util.Date;
 
 
 /**
- * The Ingredients activity class
+ * The Ingredients activity class, allowing users to add, edit and delete ingredient entries
  * @author Fan Zhu and Xiangxu Meng
  * @version 2.0
  */
