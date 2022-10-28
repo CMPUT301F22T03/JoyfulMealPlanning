@@ -18,6 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+
+/**
+ * The IngredientAdapter class
+ * Creating an AdapterView for the dataset
+ * @author Fan Zhu
+ * @since 2022-10-23
+ */
 public class IngredientAdapter extends ArrayAdapter<Ingredients> {
 
     /*Declaration of variables*/

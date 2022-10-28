@@ -87,7 +87,7 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
     }
 
     /**
-     *
+     * Adds Ingredients object to the adapter
      * @param newIngredients
      */
     @Override

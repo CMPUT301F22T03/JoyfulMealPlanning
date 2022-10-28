@@ -2,7 +2,7 @@ package com.example.joyfulmealplanning;
 
 /**
  * The Ingredients object class
- * @author Fan Zhu
+ * @author Fan Zhu & Xiangxu Meng
  * @since 2022-10-23
  */
 public class Ingredients {
