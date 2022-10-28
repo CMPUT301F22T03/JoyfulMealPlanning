@@ -15,6 +15,13 @@
         android:textAlignment="center"
         android:textSize="30dp" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/mealPlanAddFAB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_baseline_add_24" />
+
     <ListView
         android:id="@+id/mealPlan_list"
         android:layout_width="match_parent"
