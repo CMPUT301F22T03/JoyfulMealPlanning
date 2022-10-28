@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RecipeIngredientListLabel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/RecipeTimeLabel"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
+        android:text="Preparation Time:"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeNumberLabel"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/RecipeTitleLabel"
+        app:layout_constraintTop_toBottomOf="@+id/RecipeNumberLabel" />
+
+    <TextView
+        android:id="@+id/recipeTimeLabel"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
+        android:text="Ingredient List:"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeTimeLabel"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/RecipeTitleLabel"
+        app:layout_constraintTop_toBottomOf="@+id/RecipeTimeLabel" />
+
+    <TextView
+        android:id="@+id/RecipeTitleLabel"
+        android:layout_width="73dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:paddingTop="10dp"
+        android:text="Title: "
+        app:layout_constraintEnd_toStartOf="@+id/RecipeTitleInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/RecipeCategoryLabel"
+        android:layout_width="73dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
+        android:text="Category:"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeTitleLabel"
+        app:layout_constraintStart_toStartOf="@+id/RecipeTitleLabel"
+        app:layout_constraintTop_toBottomOf="@+id/RecipeTitleLabel" />
+
+    <TextView
+        android:id="@+id/RecipeCommentsLabel"
+        android:layout_width="73dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
+        android:text="Comment:"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeTitleLabel"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/RecipeTitleLabel"
+        app:layout_constraintTop_toBottomOf="@+id/RecipeCategoryLabel" />
+
+    <TextView
+        android:id="@+id/RecipeNumberLabel"
+        android:layout_width="138dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
+        android:text="Number of Serving:"
+        app:layout_constraintStart_toStartOf="@+id/RecipeTitleLabel"
+        app:layout_constraintTop_toBottomOf="@+id/RecipeCommentsInput" />
+
+    <EditText
+        android:id="@+id/RecipeTitleInput"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="21dp"
+        android:hint="(30characters max)"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/RecipeTitleLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/RecipeTitleLabel"
+        app:layout_constraintTop_toTopOf="@+id/RecipeTitleLabel"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/RecipeTimeInput"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="10dp"
+        android:hint="enter time"
+        android:inputType="number"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/RecipeTimeLabel"
+        app:layout_constraintEnd_toStartOf="@+id/RecipeTimeUnit"
+        app:layout_constraintStart_toEndOf="@+id/RecipeTimeLabel"
+        app:layout_constraintTop_toTopOf="@+id/RecipeTimeLabel" />
+
+    <TextView
+        android:id="@+id/RecipeTimeUnit"
+        android:layout_width="140dp"
+        android:layout_height="0dp"
+        android:paddingTop="10dp"
+        android:text="minutes"
+        app:layout_constraintBottom_toBottomOf="@+id/RecipeTimeLabel"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeTitleInput"
+        app:layout_constraintTop_toTopOf="@+id/RecipeTimeLabel"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/RecipeCommentsInput"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="20dp"
+        android:hint="enter your comment here"
+        android:paddingTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeTitleInput"
+        app:layout_constraintStart_toEndOf="@+id/RecipeCommentsLabel"
+        app:layout_constraintTop_toTopOf="@+id/RecipeCommentsLabel" />
+
+    <EditText
+        android:id="@+id/RecipeNumberInput"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint="enter your number of serving"
+        android:inputType="number"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/RecipeNumberLabel"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeCommentsInput"
+        app:layout_constraintStart_toEndOf="@+id/RecipeNumberLabel"
+        app:layout_constraintTop_toTopOf="@+id/RecipeNumberLabel" />
+
+    <Spinner
+        android:id="@+id/RecipeCategorySpinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/RecipeCategoryLabel"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeTitleInput"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/RecipeCategoryLabel"
+        app:layout_constraintTop_toTopOf="@+id/RecipeCategoryLabel"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ScrollView
+        android:id="@+id/RecipeIngredientList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="-100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/recipeTimeLabel"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeTimeUnit"
+        app:layout_constraintStart_toEndOf="@+id/recipeTimeLabel"
+        app:layout_constraintTop_toTopOf="@+id/recipeTimeLabel">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/RecipeAddIngredientButton"
+        android:layout_width="99dp"
+        android:layout_height="37dp"
+        android:text="Add"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="@+id/RecipeIngredientList"
+        app:layout_constraintTop_toBottomOf="@+id/RecipeIngredientList" />
+
+    <Button
+        android:id="@+id/RecipeDeleteIngredientButton"
+        android:layout_width="99dp"
+        android:layout_height="37dp"
+        android:text="Delete"
+        android:textSize="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeIngredientList"
+        app:layout_constraintTop_toBottomOf="@+id/RecipeIngredientList" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

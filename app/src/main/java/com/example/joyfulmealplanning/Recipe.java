@@ -1,5 +1,6 @@
 package com.example.joyfulmealplanning;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ import java.util.Map;
  * @author Qiaosong
  * @version 1.0
  */
-public class Recipe {
+public class Recipe implements Serializable {
     private String RecipeTitle;
     private String RecipeCategory;
     private String RecipeComments;
@@ -61,7 +62,7 @@ public class Recipe {
     }
 
     /**
-     * This function returns Category
+     * This function returns RecipeCategorySpinner
      * @return {@link String}
      */
     public String getRecipeCategory() {
@@ -69,7 +70,7 @@ public class Recipe {
     }
 
     /**
-     * This function sets a new Category.
+     * This function sets a new RecipeCategorySpinner.
      * @param recipeCategory {@link String}
      */
     public void setRecipeCategory(String recipeCategory) {
