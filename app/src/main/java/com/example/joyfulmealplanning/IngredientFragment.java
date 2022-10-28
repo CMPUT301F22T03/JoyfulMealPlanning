@@ -18,6 +18,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * The IngredientFragment class
+ * Creating a DialogFragment that prompts users for information of ingredients
+ * @author Xiangxu Meng
+ *
+ */
 public class IngredientFragment extends DialogFragment {
     private EditText description, date, location, amount, unit, category;
     private OnFragmentInteractionListener listener;
@@ -58,17 +65,17 @@ public class IngredientFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String description_st = description.getText().toString();
-                        String date_st = date.getText().toString();
+                        Integer date_st = Integer.valueOf(date.getText().toString());
                         String location_st = location.getText().toString();
                         String category_st = category.getText().toString();
-                        String amount_st = amount.getText().toString();
+                        Integer amount_st = Integer.valueOf(amount.getText().toString());
                         String unit_st = unit.getText().toString();
                         ToFireBaseFireStore(description_st,date_st,location_st,category_st,amount_st,unit_st);
                         listener.onOkPressed(new Ingredients(description_st,date_st,location_st,category_st,amount_st,unit_st));
                     }
                 }).create();
     }
-    private void ToFireBaseFireStore(String description_st,String date_st,String location_st,String category_st,String amount_st,String unit_st){
+    private void ToFireBaseFireStore(String description_st,Integer date_st,String location_st,String category_st,Integer amount_st,String unit_st){
         FirebaseFirestore ff = FirebaseFirestore.getInstance();
         Map<String, Object> map = new HashMap<>();
         map.put("description", description_st);

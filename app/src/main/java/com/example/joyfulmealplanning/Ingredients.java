@@ -1,14 +1,20 @@
 package com.example.joyfulmealplanning;
 
+/**
+ * The Ingredients object class
+ * @author Fan Zhu & Xiangxu Meng
+ * @since 2022-10-23
+ */
 public class Ingredients {
+    /*Declaration of local variables*/
     private String Description;
-    private String Best_before_date;
+    private Integer Best_before_date;
     private String Location;
     private String Category;
-    private String Amount;
+    private Integer Amount;
     private String Unit;
 
-    public Ingredients(String description, String best_before_date, String location, String category, String amount, String unit) {
+    public Ingredients(String description, Integer best_before_date, String location, String category, Integer amount, String unit) {
 
         this.Description = description;
         this.Best_before_date = best_before_date;
@@ -19,6 +25,7 @@ public class Ingredients {
     }
 
 
+    /*Getters & setters*/
     public String getDescription() {
         return this.Description;
     }
@@ -27,11 +34,11 @@ public class Ingredients {
         this.Description = newDescription;
     }
 
-    public String getBest_before_date() {
+    public Integer getBest_before_date() {
         return this.Best_before_date;
     }
 
-    public void setBest_before_date(String newBest_before_date) {
+    public void setBest_before_date(Integer newBest_before_date) {
         Best_before_date = newBest_before_date;
     }
 
@@ -51,11 +58,11 @@ public class Ingredients {
         Category = newCategory;
     }
 
-    public String getAmount() {
+    public Integer getAmount() {
         return this.Amount;
     }
 
-    public void setAmount(String newAmount) {
+    public void setAmount(Integer newAmount) {
         Amount = newAmount;
     }
 
@@ -63,7 +70,7 @@ public class Ingredients {
         return this.Unit;
     }
 
-    public void setUnit_Cost(String newUnit) {
+    public void setUnit(String newUnit) {
         Unit = newUnit;
     }
 }
