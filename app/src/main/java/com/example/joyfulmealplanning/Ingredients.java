@@ -2,13 +2,13 @@ package com.example.joyfulmealplanning;
 
 public class Ingredients {
     private String Description;
-    private String Best_before_date;
+    private Integer Best_before_date;
     private String Location;
     private String Category;
-    private String Amount;
+    private Integer Amount;
     private String Unit;
 
-    public Ingredients(String description, String best_before_date, String location, String category, String amount, String unit) {
+    public Ingredients(String description, Integer best_before_date, String location, String category, Integer amount, String unit) {
 
         this.Description = description;
         this.Best_before_date = best_before_date;
@@ -27,11 +27,11 @@ public class Ingredients {
         this.Description = newDescription;
     }
 
-    public String getBest_before_date() {
+    public Integer getBest_before_date() {
         return this.Best_before_date;
     }
 
-    public void setBest_before_date(String newBest_before_date) {
+    public void setBest_before_date(Integer newBest_before_date) {
         Best_before_date = newBest_before_date;
     }
 
@@ -51,11 +51,11 @@ public class Ingredients {
         Category = newCategory;
     }
 
-    public String getAmount() {
+    public Integer getAmount() {
         return this.Amount;
     }
 
-    public void setAmount(String newAmount) {
+    public void setAmount(Integer newAmount) {
         Amount = newAmount;
     }
 
