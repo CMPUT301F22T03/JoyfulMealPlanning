@@ -74,10 +74,10 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
      */
     private void setUpIngredientModels() {
           String[] Descriptions = {"Apple"};
-          String[] Dates = {"20221023"};
+          Integer[] Dates = {20221023};
           String[] Locations = {"Fridge"};
           String[] Categories = {"Fruit"};
-          String[] Amounts = {"2"};
+          Integer[] Amounts = {2};
           String[] Units = {"g"};
 
 
