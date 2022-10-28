@@ -1,6 +1,12 @@
 package com.example.joyfulmealplanning;
 
+/**
+ * The Ingredients object class
+ * @author Fan Zhu & Xiangxu Meng
+ * @since 2022-10-23
+ */
 public class Ingredients {
+    /*Declaration of local variables*/
     private String Description;
     private String Best_before_date;
     private String Location;
@@ -8,6 +14,8 @@ public class Ingredients {
     private String Amount;
     private String Unit;
 
+
+    /*Constructor*/
     public Ingredients(String description, String best_before_date, String location, String category, String amount, String unit) {
 
         this.Description = description;
@@ -19,6 +27,7 @@ public class Ingredients {
     }
 
 
+    /*Getters & setters*/
     public String getDescription() {
         return this.Description;
     }
