@@ -86,8 +86,8 @@ public class RecipeActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
                 final String RecipeTitle = recipeDataList.get(position).getRecipeTitle();
-                AlertDialog diaBox = DeleteCheck(RecipeTitle);
-                diaBox.show();
+                //AlertDialog diaBox = DeleteCheck(RecipeTitle);
+                //diaBox.show();
                 return true;
             }
         });

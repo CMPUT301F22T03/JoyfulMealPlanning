@@ -1,13 +1,7 @@
 package com.example.joyfulmealplanning;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +9,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,11 +18,13 @@ import java.util.Date;
 
 
 /**
- * The Ingredients activity class
+ * The Ingredients activity class, allowing users to add, edit and delete ingredient entries
  * @author Fan Zhu and Xiangxu Meng
  * @version 2.0
+ * @since 2022-10-23
  */
 public class IngredientsActivity extends AppCompatActivity implements IngredientFragment.OnFragmentInteractionListener{
+    /*Declaration of variables*/
     ListView ingredientsList;
     ArrayAdapter<Ingredients> ingredientAdapter;
     ArrayList<Ingredients> ingredientModels = new ArrayList<>();
@@ -46,7 +40,7 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
 
         ingredientsList = findViewById(R.id.listView);
 
-        setUpIngredientModels();
+        setUpIngredientModels();//Sets up the data model of the Ingredient object
 
         ingredientAdapter = new IngredientAdapter(this, ingredientModels );
 
@@ -63,6 +57,11 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
 
     }
 
+    /**
+     * Creates a dropdown menu on the top app bar with a list of sorting methods as items
+     * @param menu
+     * @return {@link Boolean}
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -70,7 +69,9 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
         return true;
     }
 
-
+    /**
+     * Sets up the data model of the Ingredients class
+     */
     private void setUpIngredientModels() {
           String[] Descriptions = {"Apple"};
           Integer[] Dates = {20221023};
@@ -85,6 +86,10 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
           }
     }
 
+    /**
+     * Adds Ingredients object to the adapter
+     * @param newIngredients
+     */
     @Override
     public void onOkPressed(Ingredients newIngredients) {
         ingredientAdapter.add(newIngredients);

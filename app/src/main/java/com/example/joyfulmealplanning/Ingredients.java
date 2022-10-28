@@ -1,6 +1,12 @@
 package com.example.joyfulmealplanning;
 
+/**
+ * The Ingredients object class
+ * @author Fan Zhu & Xiangxu Meng
+ * @since 2022-10-23
+ */
 public class Ingredients {
+    /*Declaration of local variables*/
     private String Description;
     private Integer Best_before_date;
     private String Location;
@@ -19,6 +25,7 @@ public class Ingredients {
     }
 
 
+    /*Getters & setters*/
     public String getDescription() {
         return this.Description;
     }

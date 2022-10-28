@@ -18,6 +18,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * The IngredientFragment class
+ * Creating a DialogFragment that prompts users for information of ingredients
+ * @author Xiangxu Meng
+ *
+ */
 public class IngredientFragment extends DialogFragment {
     private EditText description, date, location, amount, unit, category;
     private OnFragmentInteractionListener listener;
