@@ -14,6 +14,7 @@ public class Ingredients {
     private Integer Amount;
     private String Unit;
 
+    /*Constructor*/
     public Ingredients(String description, Integer best_before_date, String location, String category, Integer amount, String unit) {
 
         this.Description = description;
