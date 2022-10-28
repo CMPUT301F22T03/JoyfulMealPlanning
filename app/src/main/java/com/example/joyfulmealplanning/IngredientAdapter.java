@@ -20,10 +20,16 @@ import java.util.Calendar;
 
 public class IngredientAdapter extends ArrayAdapter<Ingredients> {
 
+    /*Declaration of variables*/
     private ArrayList<Ingredients> ingredients;
 
     private Context context;
 
+    /**
+     * Constructor of the IngredientAdapter
+     * @param context
+     * @param ingredients
+     */
     public IngredientAdapter(@NonNull Context context, ArrayList<Ingredients> ingredients) {
         super(context,0,ingredients);
 
@@ -31,6 +37,13 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
         this.ingredients = ingredients;
     }
 
+    /**
+     * Inflates a view from content.xml to display data
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return {@link View}
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -50,7 +63,7 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
         DateText = view.findViewById(R.id.date_text);
 
 
-        //calendarView.setDate(20221030);
+
         desText.setText(ingredient.getDescription());
         locationText.setText(ingredient.getLocation());
         CategoryText.setText(ingredient.getCategory());
