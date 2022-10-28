@@ -63,7 +63,7 @@ public class Ingredients {
         return this.Unit;
     }
 
-    public void setUnit_Cost(String newUnit) {
+    public void setUnit(String newUnit) {
         Unit = newUnit;
     }
 }
