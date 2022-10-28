@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".IngredientsActivity"
-    >
-
+    tools:context=".IngredientsActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -29,14 +27,6 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:elevation="20dp"
-                app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
-
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="360dp"
@@ -53,7 +43,7 @@
     </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/IngredientAddButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -63,7 +53,7 @@
         app:elevation="10dp" />
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/IngredientListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

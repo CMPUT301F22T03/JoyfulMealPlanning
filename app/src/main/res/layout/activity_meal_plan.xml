@@ -5,29 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RecipeActivity">
+    tools:context=".MealPlanActivity">
 
     <TextView
-        android:id="@+id/recipeActivityTitle"
+        android:id="@+id/mealPlanActivityTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recipe"
+        android:text="Meal Plan"
         android:textAlignment="center"
         android:textSize="30dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/RecipeAddButton"
+        android:id="@+id/mealPlanAddFAB"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
         android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_baseline_add_24"
-        app:elevation="10dp" />
+        app:srcCompat="@drawable/ic_baseline_add_24" />
 
     <ListView
-        android:id="@+id/recipe_list"
+        android:id="@+id/mealPlan_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 </LinearLayout>

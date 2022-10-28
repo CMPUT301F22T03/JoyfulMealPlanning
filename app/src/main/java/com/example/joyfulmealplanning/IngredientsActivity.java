@@ -1,80 +1,99 @@
 package com.example.joyfulmealplanning;
 
-import androidx.annotation.NonNull;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-public class IngredientsActivity extends AppCompatActivity {
+
+/**
+ * The Ingredients activity class, allowing users to add, edit and delete ingredient entries
+ * @author Fan Zhu, Xiangxu Meng, Zhaoqi Ma
+ * @version 3.0
+ * @change deleted all database functionalities, arraylist, and testing data.
+ * database functionalities, arraylist, and arraylist adapters have been created inside
+ * the IngredientController class.
+ * @since 2022-10-23
+ */
+public class IngredientsActivity extends AppCompatActivity implements IngredientFragment.OnFragmentInteractionListener{
+    /*Declaration of variables*/
     ListView ingredientsList;
-    IngredientAdapter ingredientsAdapter;
-    ArrayAdapter<Ingredients> ingredientsArrayAdapter;
-    ArrayList<Ingredients> ingredientModels = new ArrayList<>();
-    ImageButton back_button;
-    FloatingActionButton floatingActionButton;
-    //Ingredients ING;
-
+    FloatingActionButton addIngredientButton;
+    IngredientController controller;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients);
+        controller = new IngredientController(IngredientsActivity.this);
+        addIngredientButton = findViewById(R.id.IngredientAddButton);
+        ingredientsList = findViewById(R.id.IngredientListView);
+        ingredientsList.setAdapter(controller.getArrayAdapter());
 
-        Intent intent = getIntent();
-        back_button = findViewById(R.id.imageButton);
-        floatingActionButton = findViewById(R.id.floatingActionButton);
-
-        ingredientsList = findViewById(R.id.listView);
-
-        setUpIngredientModels();
-
-        ingredientsArrayAdapter = new IngredientAdapter(this, ingredientModels );
-
-        back_button.setOnClickListener(new View.OnClickListener() {
+        ingredientsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onClick(View view) {
-                switchToMain(view);
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(IngredientsActivity.this); //open an alert window
+                builder.setCancelable(true)
+                        .setTitle("Notice")
+                        .setMessage("Are you sure to delete: " +
+                                controller.getIngredientAtIndex(i).getDescription()) //get food description
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            /*do nothing if 'cancel' is pressed*/
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            /*remove the selected item if 'confirm' is pressed*/
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                controller.deleteIngredient(i);
+                            }
+                        })
+                        .show();
+                return true;
             }
         });
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        ingredientsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent inputIntent = new Intent(view.getContext(), Ingredient_InputActivity.class);
-                startActivity(inputIntent);
-
-//                  ingredients.add(ING);
-//                  ingredientsAdapter = new IngredientAdapter(view.getContext(), ingredients);
-//                  ingredientsList.setAdapter(ingredientsAdapter);
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                IngredientFragment fragment =
+                        new IngredientFragment().newInstance(controller.getIngredientAtIndex(i));
+                fragment.show(getSupportFragmentManager(), "Edit Ingredient");
             }
         });
 
-        ingredientsList.setAdapter(ingredientsArrayAdapter);
+        addIngredientButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new IngredientFragment().show(getSupportFragmentManager(), "Add Ingredient");
+            }
+        });
 
 
     }
 
+    /**
+     * Creates a dropdown menu on the top app bar with a list of sorting methods as items
+     * @param menu
+     * @return {@link Boolean}
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -82,22 +101,18 @@ public class IngredientsActivity extends AppCompatActivity {
         return true;
     }
 
-    public void switchToMain(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 
-    private void setUpIngredientModels() {
-          String[] Descriptions = {"Apple"};
-          Integer[] Dates = {20221023};
-          String[] Locations = {"Fridge"};
-          String[] Categories = {"Fruit"};
-          Integer[] Amounts = {2};
-          String[] Units = {"g"};
-
-
-          for (int i = 0; i < Descriptions.length; i++) {
-              ingredientModels.add(new Ingredients(Descriptions[i], Dates[i], Locations[i], Categories[i], Amounts[i], Units[i]));
-          }
+    /**
+     * Adds Ingredients object to the adapter
+     * @param newIngredients
+     */
+    @Override
+    public void onOkPressed(String oldIngredientDesc, Ingredients newIngredients) {
+        if (oldIngredientDesc != null){
+            controller.deleteIngredient(oldIngredientDesc);
+            controller.addIngredient(newIngredients);
+        } else {
+            controller.addIngredient(newIngredients);
+        }
     }
 }
