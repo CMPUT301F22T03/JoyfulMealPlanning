@@ -34,8 +34,7 @@ import java.util.Map;
  * The main activity of Recipe
  * @author Qiaosong, Zhaoqi
  * @version 2.0
- * @change (version2.0):
- * Placed the FireStore manipulations and ArrayList/Adapter into the RecipeController class.
+ * @change Placed the FireStore manipulations and ArrayList/Adapter into the RecipeController class.
  */
 public class RecipeActivity extends AppCompatActivity implements RecipeFragment.OnFragmentInteractionListener{
     final String TAG = "Sample";
