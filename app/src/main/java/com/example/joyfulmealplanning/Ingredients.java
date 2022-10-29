@@ -1,11 +1,13 @@
 package com.example.joyfulmealplanning;
 
+import java.io.Serializable;
+
 /**
  * The Ingredients object class
  * @author Fan Zhu & Xiangxu Meng
  * @since 2022-10-23
  */
-public class Ingredients {
+public class Ingredients implements Serializable{
     /*Declaration of local variables*/
     private String Description;
     private Integer Best_before_date;
