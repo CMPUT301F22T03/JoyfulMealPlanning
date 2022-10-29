@@ -1,16 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".IngredientFragment"
-    >
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hello fragment" />
+        android:id="@+id/IngredientLocationLabel"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
+        android:text="Location:"
+        app:layout_constraintEnd_toEndOf="@+id/IngredientDescriptionLabel"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/IngredientDescriptionLabel"
+        app:layout_constraintTop_toBottomOf="@+id/IngredientCategoryLabel" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/IngredientCategoryLabel"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
+        android:text="Category:"
+        app:layout_constraintEnd_toEndOf="@+id/IngredientDescriptionLabel"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/IngredientDescriptionLabel"
+        app:layout_constraintTop_toBottomOf="@+id/IngredientBBDateLabel" />
 
+    <TextView
+        android:id="@+id/IngredientBBDateLabel"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
+        android:text="BestBefore:"
+        app:layout_constraintEnd_toEndOf="@+id/IngredientDescriptionLabel"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/IngredientDescriptionLabel"
+        app:layout_constraintTop_toBottomOf="@+id/IngredientAmountLabel" />
+
+    <TextView
+        android:id="@+id/IngredientDescriptionLabel"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:paddingTop="10dp"
+        android:text="Description:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/IngredientAmountLabel"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
+        android:text="Amount:"
+        app:layout_constraintEnd_toEndOf="@+id/IngredientDescriptionLabel"
+        app:layout_constraintStart_toStartOf="@+id/IngredientDescriptionLabel"
+        app:layout_constraintTop_toBottomOf="@+id/IngredientDescriptionLabel" />
+
+    <EditText
+        android:id="@+id/IngredientDescriptionInput"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="(30 characters max)"
+        android:maxLength="30"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/IngredientDescriptionLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/IngredientDescriptionLabel"
+        app:layout_constraintTop_toTopOf="@+id/IngredientDescriptionLabel"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/IngredientAmountInput"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="150dp"
+        android:ems="10"
+        android:hint="amount"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/IngredientAmountLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/IngredientAmountLabel"
+        app:layout_constraintTop_toTopOf="@+id/IngredientAmountLabel" />
+
+    <Spinner
+        android:id="@+id/IngredientUnitSpinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/IngredientAmountLabel"
+        app:layout_constraintEnd_toEndOf="@+id/IngredientDescriptionInput"
+        app:layout_constraintStart_toEndOf="@+id/IngredientAmountInput"
+        app:layout_constraintTop_toTopOf="@+id/IngredientAmountLabel" />
+
+    <TextView
+        android:id="@+id/IngredientBBDateDisplay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="best before date"
+        android:paddingTop="10dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/IngredientBBDateLabel"
+        app:layout_constraintEnd_toEndOf="@+id/IngredientAmountInput"
+        app:layout_constraintStart_toEndOf="@+id/IngredientBBDateLabel"
+        app:layout_constraintTop_toTopOf="@+id/IngredientBBDateLabel" />
+
+    <Button
+        android:id="@+id/IngredientBBDatePicker"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="20dp"
+        android:text="Choose Date"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/IngredientBBDateDisplay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/IngredientBBDateDisplay"
+        app:layout_constraintTop_toTopOf="@+id/IngredientBBDateDisplay" />
+
+    <Spinner
+        android:id="@+id/IngredientCategorySpinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/IngredientCategoryLabel"
+        app:layout_constraintEnd_toEndOf="@+id/IngredientBBDatePicker"
+        app:layout_constraintStart_toEndOf="@+id/IngredientCategoryLabel"
+        app:layout_constraintTop_toTopOf="@+id/IngredientCategoryLabel" />
+
+    <Spinner
+        android:id="@+id/IngredientLocationSpinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/IngredientLocationLabel"
+        app:layout_constraintEnd_toEndOf="@+id/IngredientCategorySpinner"
+        app:layout_constraintStart_toEndOf="@+id/IngredientLocationLabel"
+        app:layout_constraintTop_toTopOf="@+id/IngredientLocationLabel" />
+</androidx.constraintlayout.widget.ConstraintLayout>
