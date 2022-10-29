@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#A991ED"
     android:orientation="vertical"
     tools:context=".RecipeActivity">
 
@@ -15,8 +16,20 @@
         android:textAlignment="center"
         android:textSize="30dp" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/RecipeAddButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_baseline_add_24"
+        app:elevation="10dp" />
+
     <ListView
         android:id="@+id/recipe_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#BBF3E9" />
+
 </LinearLayout>

@@ -1,22 +1,16 @@
 package com.example.joyfulmealplanning;
 
-import static com.google.api.ResourceProto.resource;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CalendarView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 /**
@@ -56,7 +50,7 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.content, parent,false);
+            view = LayoutInflater.from(context).inflate(R.layout.ingredient_content, parent,false);
         }
 
         Ingredients ingredient = ingredients.get(position);
