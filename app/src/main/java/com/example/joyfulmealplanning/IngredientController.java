@@ -32,10 +32,11 @@ public class IngredientController {
     private ArrayList<Ingredients> ingredientList;
     private ArrayAdapter<Ingredients> ingredientsArrayAdapter;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    final CollectionReference ingredientsCollectionReference = db.collection("ingredient");
+    private CollectionReference ingredientsCollectionReference;
 
-    public IngredientController(Context parentActivity){
+    public IngredientController(Context parentActivity, String collectionPath){
         this.ingredientList = new ArrayList<>();
+        this.ingredientsCollectionReference = this.db.collection(collectionPath);
         this.ingredientsArrayAdapter = new IngredientAdapter(parentActivity, ingredientList);
         initDBListener();
     }
@@ -67,6 +68,10 @@ public class IngredientController {
 
             }
         });
+    }
+
+    public void switchDBPath(String newPath){
+        this.ingredientsCollectionReference = this.db.collection(newPath);
     }
 
     public Ingredients getIngredientAtIndex(int idx){

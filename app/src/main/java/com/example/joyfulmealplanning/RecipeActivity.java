@@ -1,34 +1,16 @@
 package com.example.joyfulmealplanning;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * The main activity of Recipe
@@ -40,16 +22,20 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
     final String TAG = "Sample";
     FloatingActionButton addRecipe;
     ListView recipeList;
-    RecipeController controller;
+    RecipeController recipeController;
+    IngredientController ingredientStorageController;
+    IngredientController ingredientListController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
-        controller = new RecipeController(RecipeActivity.this);
+        recipeController = new RecipeController(RecipeActivity.this);
+        ingredientStorageController = new IngredientController(RecipeActivity.this, "ingredient");
+        //ingredientListController = new IngredientController(RecipeActivity.this, "");
         addRecipe = findViewById(R.id.RecipeAddButton);
         recipeList = findViewById(R.id.recipe_list);
-        recipeList.setAdapter(controller.getArrayAdapter());
+        recipeList.setAdapter(recipeController.getArrayAdapter());
 
         //Long click to delete an item in the listView.
         recipeList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -60,7 +46,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
                 builder.setCancelable(true)
                         .setTitle("Notice")
                         .setMessage("Are you sure to delete: " +
-                                controller.getRecipeAtIndex(position).getRecipeTitle()) //get food description
+                                recipeController.getRecipeAtIndex(position).getRecipeTitle()) //get food description
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             /*do nothing if 'cancel' is pressed*/
                             @Override
@@ -72,7 +58,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
                             /*remove the selected item if 'confirm' is pressed*/
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                controller.deleteRecipe(position);
+                                recipeController.deleteRecipe(position);
                             }
                         })
                         .show();
@@ -85,7 +71,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 RecipeFragment fragment =
-                        new RecipeFragment().newInstance(controller.getRecipeAtIndex(i));
+                        new RecipeFragment().newInstance(recipeController.getRecipeAtIndex(i));
                 fragment.show(getSupportFragmentManager(), "Edit Recipe");
             }
         });
@@ -101,10 +87,10 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
     @Override
     public void onOkPressed(@Nullable String oldRecipeTitle, Recipe newRecipe) {
         if (oldRecipeTitle != null){
-            controller.deleteRecipe(oldRecipeTitle);
-            controller.addRecipe(newRecipe);
+            recipeController.deleteRecipe(oldRecipeTitle);
+            recipeController.addRecipe(newRecipe);
         } else {
-            controller.addRecipe(newRecipe);
+            recipeController.addRecipe(newRecipe);
         }
     }
 }

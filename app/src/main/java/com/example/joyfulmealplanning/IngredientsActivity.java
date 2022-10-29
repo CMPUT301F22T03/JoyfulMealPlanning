@@ -38,7 +38,7 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients);
-        controller = new IngredientController(IngredientsActivity.this);
+        controller = new IngredientController(IngredientsActivity.this, "ingredient");
         addIngredientButton = findViewById(R.id.IngredientAddButton);
         ingredientsList = findViewById(R.id.IngredientListView);
         ingredientsList.setAdapter(controller.getArrayAdapter());
