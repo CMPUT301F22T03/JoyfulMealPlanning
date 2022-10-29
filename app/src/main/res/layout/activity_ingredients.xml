@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FD9191"
     android:orientation="vertical"
     tools:context=".IngredientsActivity">
 
@@ -28,6 +29,7 @@
     <ListView
         android:id="@+id/IngredientListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#BBF3E9" />
 
 </LinearLayout>
