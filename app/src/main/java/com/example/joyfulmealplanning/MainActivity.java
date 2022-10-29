@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     Button Recipe;
     Button MealPlan;
     ImageView imageView;
+    Button ShoppingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +66,17 @@ public class MainActivity extends AppCompatActivity {
         MealPlan.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent RecipeIntent = new Intent(MainActivity.this, MealPlanActivity.class);
-                startActivity(RecipeIntent);
+                Intent MealPlanIntent = new Intent(MainActivity.this, MealPlanActivity.class);
+                startActivity(MealPlanIntent);
+            }
+        });
+
+        ShoppingList = findViewById(R.id.ShoppingList);
+        ShoppingList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ShoppingListIntent = new Intent(MainActivity.this, ShoppingListActivity.class);
+                startActivity(ShoppingListIntent);
             }
         });
 
