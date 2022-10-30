@@ -14,25 +14,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-
-/**
- * Instrumented Test class for MainActivity. All the UI tests are written here. Robotium test framework is used
- * @version 1.0
- * @author Fan Zhu
- * @see <a href = "https://github.com/RobotiumTech/">Robotium Test Framework</a>
- * @see <a href = "https://developer.android.com/training/testing/instrumented-tests">Instrumented Tests</a>
- */
 @RunWith(AndroidJUnit4.class)
-public class MainActivityTest {
-
-    /*Declaration of variables*/
+public class MealPlanActivityTest {
     private Solo solo;
 
 
     /*Establishes test rules*/
     @Rule
-    public ActivityTestRule<MainActivity> rule =
-            new ActivityTestRule<>(MainActivity.class, true, true);
+    public ActivityTestRule<IngredientsActivity> rule =
+            new ActivityTestRule<>(IngredientsActivity.class, true, true);
 
     /**
      * Runs before all tests and creates solo instance.
@@ -57,7 +47,7 @@ public class MainActivityTest {
      * @throws Exception
      */
     @After
-    public void tearDown() throws Exception{
+    public void knockDown() throws Exception{
         solo.finishOpenedActivities();
     }
 }
