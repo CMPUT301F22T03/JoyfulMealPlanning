@@ -54,7 +54,7 @@ public class RecipeAdaptor extends ArrayAdapter<Recipe>{
 
         recipeTitle.setText("Recipe Title: "+ recipe.getRecipeTitle());
         recipePreparationTime.setText("Preparation Time: "+ recipe.getRecipePreparationTime().toString());
-        recipeCategory.setText("Recipe Category: "+recipe.getRecipeCategory());
+        recipeCategory.setText("Recipe RecipeCategorySpinner: "+recipe.getRecipeCategory());
         recipeNumberOfServing.setText("Number Of Serving: "+ recipe.getRecipeNumberOfServings().toString());
 
         return view;
