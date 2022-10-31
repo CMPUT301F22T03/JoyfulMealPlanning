@@ -16,8 +16,8 @@ import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 public class MealPlanActivityTest {
+    /*Declaration of variables*/
     private Solo solo;
-
 
     /*Establishes test rules*/
     @Rule

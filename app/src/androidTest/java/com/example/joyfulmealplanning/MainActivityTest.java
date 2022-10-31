@@ -1,6 +1,7 @@
 package com.example.joyfulmealplanning;
 
 import android.app.Activity;
+import android.widget.ImageView;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -51,6 +52,35 @@ public class MainActivityTest {
     public void start() throws Exception{
         Activity activity = rule.getActivity();
     }
+
+
+    @Test
+    public void switchToIngredientsTest() {
+          solo.assertCurrentActivity("Wrong activity", MainActivity.class);
+
+          MainActivity activity = (MainActivity) solo.getCurrentActivity();
+          final ImageView IngredientsImage = activity.imageView;
+          solo.clickOnView(IngredientsImage);
+
+          solo.assertCurrentActivity("Wrong activity", IngredientsActivity.class);
+    }
+
+
+    @Test
+    public void switchToMealPlanTest() {
+        //TODO: Checks if the app switches to the MealPlan Activity
+    }
+
+    @Test
+    public void switchToRecipeTest() {
+        //TODO: Checks if the app switches to the Recipe Activity
+    }
+
+    @Test
+    public void switchToShoppingListTest() {
+        //TODO: Checks if the app switches to the ShoppingList Activity
+    }
+
 
     /**
      * Close activity after each test
