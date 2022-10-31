@@ -1,11 +1,13 @@
 package com.example.joyfulmealplanning;
 
+import java.io.Serializable;
+
 /**
  * The Ingredients object class
  * @author Fan Zhu & Xiangxu Meng
  * @since 2022-10-23
  */
-public class Ingredients {
+public class Ingredients implements Serializable{
     /*Declaration of local variables*/
     private String Description;
     private Integer Best_before_date;
@@ -14,6 +16,7 @@ public class Ingredients {
     private Integer Amount;
     private String Unit;
 
+    /*Constructor*/
     public Ingredients(String description, Integer best_before_date, String location, String category, Integer amount, String unit) {
 
         this.Description = description;
@@ -24,6 +27,12 @@ public class Ingredients {
         this.Unit = unit;
     }
 
+    public Ingredients(String description, Integer amount, String unit, String category){
+        this.Description = description;
+        this.Category = category;
+        this.Amount = amount;
+        this.Unit = unit;
+    }
 
     /*Getters & setters*/
     public String getDescription() {

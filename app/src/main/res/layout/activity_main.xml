@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9C27B0"
-    tools:context=".MainActivity"
-    >
+    android:background="#93C5F4"
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -43,6 +42,16 @@
         app:layout_constraintVertical_bias="0.035"
         app:srcCompat="@drawable/ic_baseline_fastfood_24" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:elevation="10dp"
+        android:text="INGREDIENT"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
     <Button
         android:id="@+id/Recipe"
         android:layout_width="wrap_content"
@@ -76,26 +85,18 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/MealPlan" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:elevation="10dp"
-        android:text="INGREDIENT"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
     <androidx.cardview.widget.CardView
-        android:layout_width="429dp"
-        android:layout_height="400dp"
+        android:layout_width="479dp"
+        android:layout_height="566dp"
         android:layout_marginTop="228dp"
-        app:cardBackgroundColor="#FF9595"
+        app:cardBackgroundColor="#BBF3E9"
         app:cardCornerRadius="50dp"
         app:cardElevation="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/MealPlan"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
