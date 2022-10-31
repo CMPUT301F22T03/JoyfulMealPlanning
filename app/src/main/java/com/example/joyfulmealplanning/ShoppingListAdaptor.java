@@ -50,7 +50,7 @@ public class ShoppingListAdaptor extends ArrayAdapter<Ingredients> {
 
         desText.setText("Description: " + ingredient.getDescription());
         CategoryText.setText("Category: " +ingredient.getCategory());
-        AmountText.setText("Amount: " + ingredient.getAmount().toString());
+        AmountText.setText("Amount Needed: " + ingredient.getAmount().toString());
         UnitText.setText("Unit: " + ingredient.getUnit());
 
         return view;
