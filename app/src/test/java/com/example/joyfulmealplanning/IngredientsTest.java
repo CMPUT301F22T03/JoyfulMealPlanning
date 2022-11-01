@@ -78,4 +78,36 @@ public class IngredientsTest {
         ingredients.setCategory(category);
         assertEquals(ingredients.getCategory(), category);
     }
+
+
+
+    @Test
+    public void getAmountTest(){
+        Integer amount = 10;
+        ingredients = new Ingredients("mango",20221231,"fridge","fruit",10,"g");
+        assertEquals(ingredients.getAmount(), amount);
+    }
+
+    @Test
+    public void setAmountTest(){
+        Integer amount = 15;
+        ingredients = new Ingredients("mango",20221231,"fridge","fruit",10,"g");
+        ingredients.setAmount(amount);
+        assertEquals(ingredients.getAmount(), amount);
+    }
+
+    @Test
+    public void getUnitTest(){
+        String unit = "g";
+        ingredients = new Ingredients("mango",20221231,"fridge","fruit",10,"g");
+        assertEquals(ingredients.getUnit(), unit);
+    }
+
+    @Test
+    public void setUnitTest(){
+        String unit = "lbs";
+        ingredients = new Ingredients("mango",20221231,"fridge","fruit",10,"g");
+        ingredients.setUnit(unit);
+        assertEquals(ingredients.getUnit(), unit);
+    }
 }
