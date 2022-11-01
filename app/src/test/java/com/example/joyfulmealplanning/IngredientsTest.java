@@ -49,4 +49,33 @@ public class IngredientsTest {
         assertEquals(ingredients.getBest_before_date(), date);
     }
 
+    @Test
+    public void getLocationTest(){
+        String location = "fridge";
+        ingredients = new Ingredients("mango",20221231,"fridge","fruit",10,"g");
+        assertEquals(ingredients.getLocation(), location);
+    }
+
+    @Test
+    public void setLocationTest(){
+        String location = "pantry";
+        ingredients = new Ingredients("mango",20221231,"fridge","fruit",10,"g");
+        ingredients.setLocation(location);
+        assertEquals(ingredients.getLocation(), location);
+    }
+
+    @Test
+    public void getCategoryTest(){
+        String category = "fruit";
+        ingredients = new Ingredients("mango",20221231,"fridge","fruit",10,"g");
+        assertEquals(ingredients.getCategory(), category);
+    }
+
+    @Test
+    public void setCategoryTest(){
+        String category = "vegetable";
+        ingredients = new Ingredients("mango",20221231,"fridge","fruit",10,"g");
+        ingredients.setCategory(category);
+        assertEquals(ingredients.getCategory(), category);
+    }
 }
