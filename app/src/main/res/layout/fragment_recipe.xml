@@ -149,39 +149,44 @@
         app:layout_constraintTop_toTopOf="@+id/RecipeCategoryLabel"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ScrollView
+    <ListView
         android:id="@+id/RecipeIngredientList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="-100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/recipeTimeLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/RecipeDeleteIngredientButton"
         app:layout_constraintEnd_toEndOf="@+id/RecipeTimeUnit"
         app:layout_constraintStart_toEndOf="@+id/recipeTimeLabel"
-        app:layout_constraintTop_toTopOf="@+id/recipeTimeLabel">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        app:layout_constraintTop_toTopOf="@+id/recipeTimeLabel" />
 
     <Button
-        android:id="@+id/RecipeAddIngredientButton"
-        android:layout_width="99dp"
-        android:layout_height="37dp"
-        android:text="Add"
+        android:id="@+id/RecipeAddIngredientFromStorageButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Add from storage"
         android:textSize="10dp"
-        app:layout_constraintStart_toStartOf="@+id/RecipeIngredientList"
-        app:layout_constraintTop_toBottomOf="@+id/RecipeIngredientList" />
+        app:layout_constraintEnd_toEndOf="@+id/recipeTimeLabel"
+        app:layout_constraintStart_toStartOf="@+id/recipeTimeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/recipeTimeLabel" />
+
+    <Button
+        android:id="@+id/RecipeAddNewIngredientButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Add new"
+        android:textSize="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/recipeTimeLabel"
+        app:layout_constraintStart_toStartOf="@+id/recipeTimeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/RecipeAddIngredientFromStorageButton" />
 
     <Button
         android:id="@+id/RecipeDeleteIngredientButton"
-        android:layout_width="99dp"
-        android:layout_height="37dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:text="Delete"
         android:textSize="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/RecipeIngredientList"
-        app:layout_constraintTop_toBottomOf="@+id/RecipeIngredientList" />
+        app:layout_constraintEnd_toEndOf="@+id/recipeTimeLabel"
+        app:layout_constraintStart_toStartOf="@+id/recipeTimeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/RecipeAddNewIngredientButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

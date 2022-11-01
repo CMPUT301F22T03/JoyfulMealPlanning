@@ -22,24 +22,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 /**
- * The Ingredients controller class that is responsible for modifying a list of
- * ingredients in FireStore database and link it with a local list of ingredients.
- * @author Zhaoqi Ma
+ * The Ingredients controller class, responsible for the modification of a list of
+ * ingredients in FireStore database and the connection with a local list of ingredients.
+ * @author Zhaoqi Ma & Fan Zhu
  * @version 1.0
  * @since 2022-10-28
  */
 public class IngredientController {
+    /*Declaration of variables*/
     private ArrayList<Ingredients> ingredientList;
     private ArrayAdapter<Ingredients> ingredientsArrayAdapter;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    final CollectionReference ingredientsCollectionReference = db.collection("ingredient");
+    private CollectionReference ingredientsCollectionReference;
 
-    public IngredientController(Context parentActivity){
+    /*Constructor*/
+    public IngredientController(Context parentActivity, String collectionPath){
         this.ingredientList = new ArrayList<>();
+        this.ingredientsCollectionReference = this.db.collection(collectionPath);
         this.ingredientsArrayAdapter = new IngredientAdapter(parentActivity, ingredientList);
         initDBListener();
     }
 
+    /**
+    * Initialize Database and add ingredients into the ArrayList
+     */
     private void initDBListener(){
         ingredientsCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -69,18 +75,45 @@ public class IngredientController {
         });
     }
 
+    /**
+     * Switch the path of the DB collection to newPath
+     * @param newPath
+     */
+    public void switchDBPath(String newPath){
+        this.ingredientsCollectionReference = this.db.collection(newPath);
+    }
+
+    /**
+     * Returns the Ingredient at given index
+     * @param idx
+     * @return {@link Ingredients}
+     */
     public Ingredients getIngredientAtIndex(int idx){
         return this.ingredientList.get(idx);
     }
 
+    /**
+     * Fetches the IngredientList
+     * @return {@link ArrayList}
+     */
     public ArrayList<Ingredients> getIngredientList(){
         return this.ingredientList;
     }
 
+
+    /**
+     * Returns the adapter for the Ingredients
+     * @return {@link ArrayAdapter}
+     */
     public ArrayAdapter<Ingredients> getArrayAdapter(){
         return this.ingredientsArrayAdapter;
     }
 
+    /**
+     * Packs the ingredients into a HashMap
+     * @param ingredients
+     * @return {@link Map}
+     */
     private Map<String, Object> packIngredientsToMap(Ingredients ingredients){
         Map<String, Object> packedIngredients = new HashMap<>();
         packedIngredients.put("description", ingredients.getDescription());
@@ -92,6 +125,11 @@ public class IngredientController {
         return packedIngredients;
     }
 
+    /**
+     * Adds a given ingredient to the ingredientList as well as the DB collections
+     * @param ingredients
+     * @return {@link Boolean}
+     */
     public boolean addIngredient(Ingredients ingredients){
         for (Ingredients ing : this.ingredientList){
             if (ing.getDescription() == ingredients.getDescription()){
@@ -119,6 +157,10 @@ public class IngredientController {
         return true;
     }
 
+    /**
+     * Takes the description of ingredient as the parameter and delete the document from the DB
+     * @param ingredientDesc
+     */
     public void deleteIngredient(String ingredientDesc){
         this.ingredientsCollectionReference.document(ingredientDesc)
                 .delete()
@@ -138,6 +180,10 @@ public class IngredientController {
                 });
     }
 
+    /**
+     * Deletes an ingredient at given index
+     * @param idx
+     */
     public void deleteIngredient(int idx){
         Ingredients selectedIngredient = this.ingredientList.get(idx);
         String desc = selectedIngredient.getDescription();

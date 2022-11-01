@@ -16,6 +16,7 @@ public class Ingredients implements Serializable{
     private Integer Amount;
     private String Unit;
 
+    /*Constructor*/
     public Ingredients(String description, Integer best_before_date, String location, String category, Integer amount, String unit) {
 
         this.Description = description;
@@ -26,6 +27,12 @@ public class Ingredients implements Serializable{
         this.Unit = unit;
     }
 
+    public Ingredients(String description, Integer amount, String unit, String category){
+        this.Description = description;
+        this.Category = category;
+        this.Amount = amount;
+        this.Unit = unit;
+    }
 
     /*Getters & setters*/
     public String getDescription() {
