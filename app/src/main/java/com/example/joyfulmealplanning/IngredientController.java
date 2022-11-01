@@ -33,12 +33,12 @@ public class IngredientController {
     private ArrayList<Ingredients> ingredientList;
     private ArrayAdapter<Ingredients> ingredientsArrayAdapter;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference ingredientsCollectionReference;
-
+    private CollectionReference ingredientsCollectionReference = db.collection("ingredients");
+//, String collectionPath
     /*Constructor*/
-    public IngredientController(Context parentActivity, String collectionPath){
+    public IngredientController(Context parentActivity){
         this.ingredientList = new ArrayList<>();
-        this.ingredientsCollectionReference = this.db.collection(collectionPath);
+        //this.ingredientsCollectionReference = this.db.collection(collectionPath);
         this.ingredientsArrayAdapter = new IngredientAdapter(parentActivity, ingredientList);
         initDBListener();
     }
