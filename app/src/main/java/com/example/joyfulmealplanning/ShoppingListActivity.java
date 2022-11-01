@@ -1,0 +1,39 @@
+package com.example.joyfulmealplanning;
+
+import static android.content.ContentValues.TAG;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+
+public class ShoppingListActivity extends AppCompatActivity {
+
+    private ShoppingListController ShoppingListController;
+    ListView ShoppingList;
+    ArrayAdapter<Ingredients> ShoppingListAdaptor;
+    ArrayList<Ingredients> ShoppingIngredientDataList;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_shopping_list);
+        ShoppingList = findViewById(R.id.ShoppingList);
+        ShoppingListController = new ShoppingListController(this);
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                //ShoppingListAdaptor = ShoppingListController.getShoppingListAdaptor();
+                ShoppingIngredientDataList = ShoppingListController.getShoppingIngredientDataList();
+                Log.d(TAG,"Try to get Adaptor!!!!!!!!!!!!");
+                ShoppingListAdaptor = new ShoppingListAdaptor(ShoppingListActivity.this,ShoppingIngredientDataList);
+                ShoppingListAdaptor = ShoppingListController.getShoppingListAdaptor();
+                ShoppingList.setAdapter(ShoppingListAdaptor);
+            }
+        }, 2000);
+    }
+}
