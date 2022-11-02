@@ -34,6 +34,7 @@ import java.util.Map;
  */
 
 public class RecipeController {
+    private boolean DBActionComplete = false;
     private ArrayList<Recipe> recipeList;
     private ArrayAdapter<Recipe> recipeArrayAdapter;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -50,7 +51,6 @@ public class RecipeController {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 recipeList.clear();
-
                 for(QueryDocumentSnapshot doc: queryDocumentSnapshots){
                     Log.d(TAG, String.valueOf(doc.getData().get("title")));
                     Log.d(TAG, String.valueOf(doc.getData().get("category")));
@@ -85,6 +85,7 @@ public class RecipeController {
                                     (String) documentSnapshot.getData().get("category"));
                             ingredientList.add(ingredient);
                         }
+                        //DBActionComplete = true;
                     }
                 });
     }
@@ -139,32 +140,73 @@ public class RecipeController {
         return true;
     }
 
-    public void deleteRecipe(String recipeTitle){
-        this.recipeCollectionReference.document(recipeTitle)
-                .delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+    private void deleteOrUpdateRecipe(String recipeTitle, boolean updateRecipe, @Nullable Recipe newRecipe){
+        this.recipeCollectionReference.document(recipeTitle).collection("ingredient").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(Void unused) {
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot doc: queryDocumentSnapshots){
+                            recipeCollectionReference.document(recipeTitle).collection("ingredient")
+                                    .document(doc.getId()).delete();
+                        }
                         Log.d(TAG, recipeTitle +
-                                "recipe successfully deleted!");
+                                "recipe ingredient list successfully deleted!");
+                        /*
+                        delete the whole recipe only after its ingredients has been deleted
+                         */
+                        recipeCollectionReference.document(recipeTitle)
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d(TAG, recipeTitle +
+                                                "recipe successfully deleted!");
+                                        /*
+                                        if updating a recipe, add the recipe only after the old one
+                                        has been deleted.
+                                         */
+                                        if (updateRecipe){
+                                            addRecipe(newRecipe);
+                                        }
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error deleting document"
+                                                + recipeTitle + "recipe", e);
+                                    }
+                                });
+                        DBActionComplete = true;
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error deleting document"
+                        Log.w(TAG, "Error deleting ingredient list of "
                                 + recipeTitle + "recipe", e);
+                        DBActionComplete = true;
                     }
                 });
+
+        return;
     }
 
     public void deleteRecipe(int idx){
         Recipe selectedRecipe = this.recipeList.get(idx);
         String title = selectedRecipe.getRecipeTitle();
-        deleteRecipe(title);
+        deleteOrUpdateRecipe(title, false, null);
     }
 
-    public void addIngredientListTo(String recipeTitle, ArrayList<Ingredients> ingredientList){
+    public void deleteRecipe(String recipeTitle){
+        deleteOrUpdateRecipe(recipeTitle, false, null);
+    }
+
+    public void updateRecipe(String oldRecipeTitle, Recipe updatedRecipe){
+        deleteOrUpdateRecipe(oldRecipeTitle, true, updatedRecipe);
+    }
+
+    private void addIngredientListTo(String recipeTitle, ArrayList<Ingredients> ingredientList){
         for (Ingredients ingredient : ingredientList){
             Map<String, Object> packedIngredient = new HashMap<>();
             packedIngredient.put("description", ingredient.getDescription());

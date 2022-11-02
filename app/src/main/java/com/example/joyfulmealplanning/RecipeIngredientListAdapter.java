@@ -49,7 +49,7 @@ public class RecipeIngredientListAdapter extends ArrayAdapter<Ingredients> {
         TextView ingredientCategory = view.findViewById(R.id.RecipeIngredientCategory);
 
         ingredientDesc.setText(ingredient.getDescription());
-        ingredientAmount.setText(ingredient.getAmount());
+        ingredientAmount.setText(String.valueOf(ingredient.getAmount()));
         ingredientUnit.setText(ingredient.getUnit());
         ingredientCategory.setText(ingredient.getCategory());
         return view;

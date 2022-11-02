@@ -87,10 +87,11 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
     }
 
     @Override
-    public void onOkPressed(@Nullable String oldRecipeTitle, Recipe newRecipe, ArrayList<Ingredients> requiredIngredients) {
+    public void onOkPressed(@Nullable String oldRecipeTitle, Recipe newRecipe) {
         if (oldRecipeTitle != null){
-            recipeController.deleteRecipe(oldRecipeTitle);
+            recipeController.updateRecipe(oldRecipeTitle, newRecipe);
+        } else {
+            recipeController.addRecipe(newRecipe);
         }
-        recipeController.addRecipe(newRecipe);
     }
 }

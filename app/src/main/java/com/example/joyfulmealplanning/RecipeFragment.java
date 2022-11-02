@@ -21,6 +21,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.joyfulmealplanning.R.id;
@@ -46,10 +47,10 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
 //    private DatePickerDialog timePicker;  //datePicker widget
 //    private Button timeButton;  //choose a date button
     private EditText numberInput; //text box for user-input food count
-    private RecyclerView recipeIngredientList;
+    private ListView recipeIngredientList;
     private Button addStorageIngredientButton;
     private Button addNewIngredientButton;
-    private  Button deleteIngredientButton;
+    private Button deleteIngredientButton;
     String title; //intermediate variable to hold the inputted food description
     String comments;
     String selectedTime; //intermediate variable to hold the selected BB date
@@ -58,6 +59,7 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
     Integer selectedIngredientPosition = null; //integer location of the selected ingredient from the ingredient list
     private IngredientController ingredientStorageController;
     ArrayList<Ingredients> requiredIngredients;
+    ArrayAdapter<Ingredients> recipeIngredientListAdaptor;
 
     @Override
     public void onOkPressed(String oldIngredientDesc, Ingredients newIngredients) {
@@ -65,7 +67,7 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
     }
 
     public interface OnFragmentInteractionListener{
-        void onOkPressed(String oldRecipeTitle, Recipe newRecipe, ArrayList<Ingredients> requiredIngredients);
+        void onOkPressed(String oldRecipeTitle, Recipe newRecipe);
     }
 
     /*check if the activity that called this fragment is implementing the OnFragmentInteractionListener interface*/
@@ -99,7 +101,11 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
         addNewIngredientButton = view.findViewById(id.RecipeAddNewIngredientButton);
         deleteIngredientButton = view.findViewById(id.RecipeDeleteIngredientButton);
         requiredIngredients = new ArrayList<>();
-        ArrayAdapter<Ingredients> recipeIngredientListAdaptor = new IngredientAdapter(getContext(), requiredIngredients);
+//        requiredIngredients.add(new Ingredients("test ingredient1", 1, "kg", "meat"));
+//        requiredIngredients.add(new Ingredients("test ingredient2", 2, "pack", "fruit"));
+        recipeIngredientListAdaptor = new RecipeIngredientListAdapter(getContext(), requiredIngredients);
+//        recipeIngredientList.setLayoutManager(new LinearLayoutManager(getContext()));
+//        recipeIngredientList.setAdapter(new RecipeIngredientListAdaptor(getContext(), requiredIngredients));
         recipeIngredientList.setAdapter(recipeIngredientListAdaptor);
 
         ArrayList<String> categories = new ArrayList<>();
@@ -122,22 +128,6 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
-        });
-
-        addStorageIngredientButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder addStorageIngredientDialog = RecipeSelectIngredientDialog();
-                addStorageIngredientDialog.show();
-            }
-        });
-
-        addNewIngredientButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder addNewIngredientDialog = RecipeAddNewIngredientDialog();
-                addNewIngredientDialog.show();
             }
         });
 
@@ -165,7 +155,26 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
         deleteIngredientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requiredIngredients.remove(selectedIngredientPosition);
+                requiredIngredients.remove(Integer.parseInt(selectedIngredientPosition.toString()));
+                recipeIngredientListAdaptor.notifyDataSetChanged();
+            }
+        });
+
+        addStorageIngredientButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder addStorageIngredientDialog = RecipeSelectIngredientDialog();
+                addStorageIngredientDialog.show();
+                //recipeIngredientListAdaptor.notifyDataSetChanged();
+            }
+        });
+
+        addNewIngredientButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder addNewIngredientDialog = RecipeAddNewIngredientDialog();
+                addNewIngredientDialog.show();
+                //recipeIngredientListAdaptor.notifyDataSetChanged();
             }
         });
 
@@ -183,7 +192,11 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
 
             Recipe recipe = (Recipe) bundle.getSerializable("recipe"); //extract the food object stored in the bundle
             //set the widgets with the provided information from the extracted food object.
-            requiredIngredients = recipe.getRecipeIngredientsList();
+            requiredIngredients.clear();
+            for (Ingredients ingredient : recipe.getRecipeIngredientsList()){
+                requiredIngredients.add(ingredient);
+            }
+            recipeIngredientListAdaptor.notifyDataSetChanged();
             titleInput.setText(recipe.getRecipeTitle());
             oldRecipeTitle = recipe.getRecipeTitle();
             timeInput.setText(recipe.getRecipePreparationTime().toString());
@@ -210,9 +223,9 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                         Recipe newRecipe = new Recipe(title, selectedCategory, comments,
                                 Integer.parseInt(selectedTime), servingNumber, requiredIngredients);
                         if (finalAddRecipe){
-                            listener.onOkPressed(null, newRecipe, requiredIngredients);
+                            listener.onOkPressed(null, newRecipe);
                         } else {
-                            listener.onOkPressed(finalOldRecipeTitle, newRecipe, requiredIngredients);
+                            listener.onOkPressed(finalOldRecipeTitle, newRecipe);
                         }
                     }
                 }).create();
@@ -263,10 +276,15 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Ingredients selectedIngredient = ingredientStorageController.getIngredientAtIndex(selectedItemPosition);
                         Integer ingredientAmount = Integer.valueOf(ingredientAmountInput.getText().toString());
+//                        recipeIngredientListAdaptor.add(new Ingredients(
+//                                selectedIngredient.getDescription(),
+//                                ingredientAmount, selectedIngredient.getUnit(),
+//                                selectedIngredient.getCategory()));
                         requiredIngredients.add(new Ingredients(
                                 selectedIngredient.getDescription(),
                                 ingredientAmount, selectedIngredient.getUnit(),
                                 selectedIngredient.getCategory()));
+                        recipeIngredientListAdaptor.notifyDataSetChanged();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -344,10 +362,15 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Integer ingredientAmount = Integer.valueOf(ingredientAmountInput.getText().toString());
+//                        recipeIngredientListAdaptor.add(new Ingredients(
+//                                ingredientDescInput.getText().toString(),
+//                                ingredientAmount, selectedIngredientUnit,
+//                                selectedIngredientCategory));
                         requiredIngredients.add(new Ingredients(
                                 ingredientDescInput.getText().toString(),
                                 ingredientAmount, selectedIngredientUnit,
                                 selectedIngredientCategory));
+                        recipeIngredientListAdaptor.notifyDataSetChanged();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

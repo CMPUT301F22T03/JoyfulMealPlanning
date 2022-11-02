@@ -6,24 +6,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.Group
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:constraint_referenced_ids="RecipeAddStorageIngredientAmountInput,RecipeAddStorageIngredientUnit" />
+        android:layout_height="81dp">
 
-    <TextView
-        android:id="@+id/RecipeAddStorageIngredientUnit"
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/RecipeAddStorageIngredientUnit"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="20dp"
+            android:paddingTop="10dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/RecipeAddStorageIngredientAmountInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/RecipeAddStorageIngredientAmountInput"
+            app:layout_constraintTop_toTopOf="@+id/RecipeAddStorageIngredientAmountInput"
+            app:layout_constraintVertical_bias="0.423" />
 
-    <EditText
-        android:id="@+id/RecipeAddStorageIngredientAmountInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="amount"
-        android:inputType="number" />
+        <EditText
+            android:id="@+id/RecipeAddStorageIngredientAmountInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="amount"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ListView
         android:id="@+id/RecipeAddIngredientListView"
