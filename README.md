@@ -11,4 +11,4 @@ Welcome to the JoyfulMealPlanning!
 | Yuxuan Yang | yang28 | yang28@ualberta.ca|
 
 ## Wiki Page
-Link to our Wiki page
+Link to our Wiki page: https://github.com/CMPUT301F22T03/JoyfulMealPlanning/wiki
