@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:constraint_referenced_ids="RecipeAddStorageIngredientAmountInput,RecipeAddStorageIngredientUnit" />
+
+    <TextView
+        android:id="@+id/RecipeAddStorageIngredientUnit"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <EditText
+        android:id="@+id/RecipeAddStorageIngredientAmountInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="amount"
+        android:inputType="number" />
+
+    <ListView
+        android:id="@+id/RecipeAddIngredientListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

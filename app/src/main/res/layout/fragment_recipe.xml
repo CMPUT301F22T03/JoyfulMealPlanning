@@ -117,7 +117,7 @@
     <EditText
         android:id="@+id/RecipeCommentsInput"
         android:layout_width="0dp"
-        android:layout_height="140dp"
+        android:layout_height="80dp"
         android:layout_marginStart="20dp"
         android:hint="enter your comment here"
         android:paddingTop="10dp"
@@ -149,16 +149,6 @@
         app:layout_constraintTop_toTopOf="@+id/RecipeCategoryLabel"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ListView
-        android:id="@+id/RecipeIngredientList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/RecipeDeleteIngredientButton"
-        app:layout_constraintEnd_toEndOf="@+id/RecipeTimeUnit"
-        app:layout_constraintStart_toEndOf="@+id/recipeTimeLabel"
-        app:layout_constraintTop_toTopOf="@+id/recipeTimeLabel" />
-
     <Button
         android:id="@+id/RecipeAddIngredientFromStorageButton"
         android:layout_width="0dp"
@@ -188,5 +178,15 @@
         app:layout_constraintEnd_toEndOf="@+id/recipeTimeLabel"
         app:layout_constraintStart_toStartOf="@+id/recipeTimeLabel"
         app:layout_constraintTop_toBottomOf="@+id/RecipeAddNewIngredientButton" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecipeIngredientList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/RecipeDeleteIngredientButton"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeTimeUnit"
+        app:layout_constraintStart_toEndOf="@+id/RecipeAddNewIngredientButton"
+        app:layout_constraintTop_toTopOf="@+id/recipeTimeLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,14 +9,19 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,15 +62,31 @@ public class RecipeController {
                     String RecipeCategory = (String) doc.getData().get("category");
                     Long RecipePreparationTime = (Long)doc.getData().get("preparation time");
                     Long RecipeNumberOfServings = (Long)doc.getData().get("number of servings");
-
+                    ArrayList<Ingredients> retrievedIngredients = new ArrayList<>();
+                    retrieveIngredientList(RecipeTitle, retrievedIngredients);
                     //recipeDataList.add(new Recipe(RecipeTitle, RecipeCategory,"",RecipeNumberOfServings,RecipePreparationTime, new ArrayList<>()));
                     recipeList.add(new Recipe(RecipeTitle, RecipeCategory,"",
                             RecipePreparationTime.intValue(),RecipeNumberOfServings.intValue(),
-                            new ArrayList<>()));
+                            retrievedIngredients));
                     recipeArrayAdapter.notifyDataSetChanged();
                 }
             }
         });
+    }
+
+    private void retrieveIngredientList(String recipeTitle, ArrayList<Ingredients> ingredientList){
+        recipeCollectionReference.document(recipeTitle).collection("ingredient")
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots){
+                            Ingredients ingredient = new Ingredients((String) documentSnapshot.getData().get("description"),
+                                    (int)(long) documentSnapshot.getData().get("amount"), (String) documentSnapshot.getData().get("unit"),
+                                    (String) documentSnapshot.getData().get("category"));
+                            ingredientList.add(ingredient);
+                        }
+                    }
+                });
     }
 
     public Recipe getRecipeAtIndex(int idx){
@@ -114,6 +135,7 @@ public class RecipeController {
                                                 "recipe could not be added!" + e.toString());
                                     }
                                 });
+        addIngredientListTo(recipe.getRecipeTitle(), recipe.getRecipeIngredientsList());
         return true;
     }
 
@@ -140,6 +162,33 @@ public class RecipeController {
         Recipe selectedRecipe = this.recipeList.get(idx);
         String title = selectedRecipe.getRecipeTitle();
         deleteRecipe(title);
+    }
+
+    public void addIngredientListTo(String recipeTitle, ArrayList<Ingredients> ingredientList){
+        for (Ingredients ingredient : ingredientList){
+            Map<String, Object> packedIngredient = new HashMap<>();
+            packedIngredient.put("description", ingredient.getDescription());
+            packedIngredient.put("amount", ingredient.getAmount());
+            packedIngredient.put("unit", ingredient.getUnit());
+            packedIngredient.put("category", ingredient.getCategory());
+            this.recipeCollectionReference.document(recipeTitle).collection("ingredient")
+                    .document(ingredient.getDescription())
+                    .set(packedIngredient)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Log.d(TAG, ingredient.getDescription() +
+                                    "successfully added to" + recipeTitle);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "failed on adding" + ingredient.getDescription() +
+                                    "to" + recipeTitle);
+                        }
+                    });
+        }
     }
 
 }

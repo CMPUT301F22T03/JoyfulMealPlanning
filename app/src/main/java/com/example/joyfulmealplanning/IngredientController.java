@@ -97,6 +97,7 @@ public class IngredientController {
         return packedIngredients;
     }
 
+
     public boolean addIngredient(Ingredients ingredients){
         for (Ingredients ing : this.ingredientList){
             if (ing.getDescription() == ingredients.getDescription()){
@@ -148,5 +149,14 @@ public class IngredientController {
         String desc = selectedIngredient.getDescription();
         deleteIngredient(desc);
     }
+
+    public void addToLocalList(Ingredients ingredients){
+        this.ingredientList.add(ingredients);
+    }
+
+    public void deleteFromLocalList(int idx){
+        this.ingredientList.remove(idx);
+    }
+
 
 }

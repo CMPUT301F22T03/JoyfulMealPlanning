@@ -12,6 +12,8 @@ import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 /**
  * The main activity of Recipe
  * @author Qiaosong, Zhaoqi
@@ -85,12 +87,10 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
     }
 
     @Override
-    public void onOkPressed(@Nullable String oldRecipeTitle, Recipe newRecipe) {
+    public void onOkPressed(@Nullable String oldRecipeTitle, Recipe newRecipe, ArrayList<Ingredients> requiredIngredients) {
         if (oldRecipeTitle != null){
             recipeController.deleteRecipe(oldRecipeTitle);
-            recipeController.addRecipe(newRecipe);
-        } else {
-            recipeController.addRecipe(newRecipe);
         }
+        recipeController.addRecipe(newRecipe);
     }
 }
