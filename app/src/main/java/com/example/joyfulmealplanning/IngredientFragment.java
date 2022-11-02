@@ -31,7 +31,7 @@ import java.util.Calendar;
  * Creating a DialogFragment that prompts users for information of ingredients
  * @author Xiangxu Meng, Zhaoqi Ma
  * @version 2.0
- * @change Modified the fragment so that it can properly handle both editing and adding
+ * @change Modified the fragment so that it can properly handle both editing and addition
  * of ingredients
  * @since 2022-10-23
  */

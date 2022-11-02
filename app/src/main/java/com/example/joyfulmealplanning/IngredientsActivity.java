@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -38,7 +39,7 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients);
-        controller = new IngredientController(IngredientsActivity.this, "ingredient");
+        controller = new IngredientController(IngredientsActivity.this);
         addIngredientButton = findViewById(R.id.IngredientAddButton);
         ingredientsList = findViewById(R.id.IngredientListView);
         ingredientsList.setAdapter(controller.getArrayAdapter());

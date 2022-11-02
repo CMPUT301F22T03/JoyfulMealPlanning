@@ -89,7 +89,7 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
         super.onCreate(savedInstanceState);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_recipe, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        ingredientStorageController = new IngredientController(view.getContext(), "ingredient");
+        ingredientStorageController = new IngredientController(view.getContext());
 
         titleInput = view.findViewById(R.id.RecipeTitleInput);
         timeInput = view.findViewById(R.id.RecipeTimeInput);

@@ -33,7 +33,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
         recipeController = new RecipeController(RecipeActivity.this);
-        ingredientStorageController = new IngredientController(RecipeActivity.this, "ingredient");
+        ingredientStorageController = new IngredientController(RecipeActivity.this);
         //ingredientListController = new IngredientController(RecipeActivity.this, "");
         addRecipe = findViewById(R.id.RecipeAddButton);
         recipeList = findViewById(R.id.recipe_list);

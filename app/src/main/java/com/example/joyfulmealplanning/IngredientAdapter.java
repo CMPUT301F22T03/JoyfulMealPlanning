@@ -50,7 +50,7 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.ingredient_adaptor, parent,false);
+            view = LayoutInflater.from(context).inflate(R.layout.ingredient_content, parent,false);
         }
 
         Ingredients ingredient = ingredients.get(position);
