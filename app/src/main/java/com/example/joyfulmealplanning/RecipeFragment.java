@@ -15,13 +15,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.joyfulmealplanning.R.id;
 
@@ -46,20 +47,19 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
 //    private DatePickerDialog timePicker;  //datePicker widget
 //    private Button timeButton;  //choose a date button
     private EditText numberInput; //text box for user-input food count
-    private ListView ingredientList;
+    private ListView recipeIngredientList;
     private Button addStorageIngredientButton;
     private Button addNewIngredientButton;
-    private  Button deleteIngredient;
+    private Button deleteIngredientButton;
     String title; //intermediate variable to hold the inputted food description
     String comments;
     String selectedTime; //intermediate variable to hold the selected BB date
     String selectedCategory; //intermediate variable to hold the selected location
     int servingNumber = 1;  //intermediate variable to hold the inputted count. Initialized to 0
-
+    Integer selectedIngredientPosition = null; //integer location of the selected ingredient from the ingredient list
     private IngredientController ingredientStorageController;
-    private IngredientController ingredientListController;
     ArrayList<Ingredients> requiredIngredients;
-
+    ArrayAdapter<Ingredients> recipeIngredientListAdaptor;
 
     @Override
     public void onOkPressed(String oldIngredientDesc, Ingredients newIngredients) {
@@ -88,22 +88,25 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_recipe, null);
-        //initDatePicker();
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        ingredientStorageController = new IngredientController(view.getContext(), "ingredient");
-        //ingredientListController = new IngredientController(view.getContext(), "");
-
+        ingredientStorageController = new IngredientController(view.getContext());
 
         titleInput = view.findViewById(R.id.RecipeTitleInput);
         timeInput = view.findViewById(R.id.RecipeTimeInput);
         categorySpinner = view.findViewById(id.RecipeCategorySpinner);
         commentsInput =  view.findViewById(id.RecipeCommentsInput);
-        //timeButton = view.findViewById(id.RecipeTimeUnit);
         numberInput = view.findViewById(id.RecipeNumberInput);
-        ingredientList = view.findViewById(id.RecipeIngredientList);
+        recipeIngredientList = view.findViewById(id.RecipeIngredientList);
         addStorageIngredientButton = view.findViewById(id.RecipeAddIngredientFromStorageButton);
         addNewIngredientButton = view.findViewById(id.RecipeAddNewIngredientButton);
-        deleteIngredient = view.findViewById(id.RecipeDeleteIngredientButton);
+        deleteIngredientButton = view.findViewById(id.RecipeDeleteIngredientButton);
+        requiredIngredients = new ArrayList<>();
+//        requiredIngredients.add(new Ingredients("test ingredient1", 1, "kg", "meat"));
+//        requiredIngredients.add(new Ingredients("test ingredient2", 2, "pack", "fruit"));
+        recipeIngredientListAdaptor = new RecipeIngredientListAdapter(getContext(), requiredIngredients);
+//        recipeIngredientList.setLayoutManager(new LinearLayoutManager(getContext()));
+//        recipeIngredientList.setAdapter(new RecipeIngredientListAdaptor(getContext(), requiredIngredients));
+        recipeIngredientList.setAdapter(recipeIngredientListAdaptor);
 
         ArrayList<String> categories = new ArrayList<>();
         categories.add("appetizer");
@@ -128,12 +131,53 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
             }
         });
 
+        recipeIngredientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if((selectedIngredientPosition == null)){
+                    selectedIngredientPosition = i;
+                    oldSelection = view;
+                    view.setBackgroundColor(Color.parseColor("#FF9A9595"));
+                }else if((selectedIngredientPosition != i)){
+                    clearSelection();
+                    selectedIngredientPosition = i;
+                    oldSelection = view;
+                    view.setBackgroundColor(Color.parseColor("#FF9A9595"));
+                }
+            }
+            private void clearSelection() {
+                if(oldSelection != null) {
+                    oldSelection.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
+                }
+            }
+        });
+
+        deleteIngredientButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requiredIngredients.remove(Integer.parseInt(selectedIngredientPosition.toString()));
+                recipeIngredientListAdaptor.notifyDataSetChanged();
+            }
+        });
+
         addStorageIngredientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder addStorageIngredientDialog = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder addStorageIngredientDialog = RecipeSelectIngredientDialog();
+                addStorageIngredientDialog.show();
+                //recipeIngredientListAdaptor.notifyDataSetChanged();
             }
         });
+
+        addNewIngredientButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder addNewIngredientDialog = RecipeAddNewIngredientDialog();
+                addNewIngredientDialog.show();
+                //recipeIngredientListAdaptor.notifyDataSetChanged();
+            }
+        });
+
 
 
         String dialogTitle = "Add Recipe"; //title of the alert dialog
@@ -145,8 +189,14 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
             /*if the bundle is not empty, then this is an editing fragment*/
             dialogTitle = "Edit Recipe";
             addRecipe = false;
+
             Recipe recipe = (Recipe) bundle.getSerializable("recipe"); //extract the food object stored in the bundle
             //set the widgets with the provided information from the extracted food object.
+            requiredIngredients.clear();
+            for (Ingredients ingredient : recipe.getRecipeIngredientsList()){
+                requiredIngredients.add(ingredient);
+            }
+            recipeIngredientListAdaptor.notifyDataSetChanged();
             titleInput.setText(recipe.getRecipeTitle());
             oldRecipeTitle = recipe.getRecipeTitle();
             timeInput.setText(recipe.getRecipePreparationTime().toString());
@@ -170,11 +220,8 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                         comments = commentsInput.getText().toString();
                         selectedTime = timeInput.getText().toString();
                         servingNumber = Integer.parseInt(numberInput.getText().toString());
-
-                        ArrayList<Map<String, Integer>> ingredientListArray = new ArrayList<>();
-
                         Recipe newRecipe = new Recipe(title, selectedCategory, comments,
-                                Integer.parseInt(selectedTime), servingNumber, ingredientListArray);
+                                Integer.parseInt(selectedTime), servingNumber, requiredIngredients);
                         if (finalAddRecipe){
                             listener.onOkPressed(null, newRecipe);
                         } else {
@@ -192,7 +239,7 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
     View oldSelection = null;
 
     private AlertDialog.Builder RecipeSelectIngredientDialog(){
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.recipe_add_ingredient_from_storage_stage1,null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.recipe_add_ingredient_from_storage,null);
         ListView ingredientList = view.findViewById(id.RecipeAddIngredientListView);
         EditText ingredientAmountInput = view.findViewById(id.RecipeAddStorageIngredientAmountInput);
         TextView unit = view.findViewById(id.RecipeAddStorageIngredientUnit);
@@ -229,10 +276,101 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Ingredients selectedIngredient = ingredientStorageController.getIngredientAtIndex(selectedItemPosition);
                         Integer ingredientAmount = Integer.valueOf(ingredientAmountInput.getText().toString());
+//                        recipeIngredientListAdaptor.add(new Ingredients(
+//                                selectedIngredient.getDescription(),
+//                                ingredientAmount, selectedIngredient.getUnit(),
+//                                selectedIngredient.getCategory()));
                         requiredIngredients.add(new Ingredients(
                                 selectedIngredient.getDescription(),
                                 ingredientAmount, selectedIngredient.getUnit(),
                                 selectedIngredient.getCategory()));
+                        recipeIngredientListAdaptor.notifyDataSetChanged();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                })
+                .create();
+        return builder;
+    }
+
+    String selectedIngredientUnit;
+    String selectedIngredientCategory;
+    private AlertDialog.Builder RecipeAddNewIngredientDialog(){
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.recipe_add_new_ingredient,null);
+        EditText ingredientDescInput = view.findViewById(id.RecipeNewIngredientDescriptionInput);
+        EditText ingredientAmountInput = view.findViewById(id.RecipeNewIngredientAmountInput);
+        Spinner ingredientUnitSpinner = view.findViewById(id.RecipeNewIngredientUnitSpinner);
+        Spinner ingredientCategorySpinner = view.findViewById(id.RecipeNewIngredientCategorySpinner);
+
+        ArrayList<String> units = new ArrayList<>();
+        units.add("pack");
+        units.add("bottle");
+        units.add("g");
+        units.add("kg");
+        units.add("lb");
+        units.add("oz");
+        units.add("mL");
+        units.add("L");
+        units.add("tsp");
+        units.add("tbsp");
+
+        ArrayList<String > categories = new ArrayList<>();
+        categories.add("meat");
+        categories.add("vegetable");
+        categories.add("fruit");
+        categories.add("spices");
+        categories.add("seasoning");
+        categories.add("drink");
+        categories.add("alcohol");
+
+        initializeSpinner(ingredientUnitSpinner, units);
+        initializeSpinner(ingredientCategorySpinner, categories);
+
+        ingredientUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedIngredientUnit = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        ingredientCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedIngredientCategory = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder
+                .setView(view)
+                .setTitle("Add a new ingredient")
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Integer ingredientAmount = Integer.valueOf(ingredientAmountInput.getText().toString());
+//                        recipeIngredientListAdaptor.add(new Ingredients(
+//                                ingredientDescInput.getText().toString(),
+//                                ingredientAmount, selectedIngredientUnit,
+//                                selectedIngredientCategory));
+                        requiredIngredients.add(new Ingredients(
+                                ingredientDescInput.getText().toString(),
+                                ingredientAmount, selectedIngredientUnit,
+                                selectedIngredientCategory));
+                        recipeIngredientListAdaptor.notifyDataSetChanged();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -275,5 +413,13 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
         RecipeFragment fragment = new RecipeFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private void initializeSpinner(Spinner spinner, ArrayList<String> selectionList){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, selectionList);
+        adapter.setDropDownViewResource(
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 }

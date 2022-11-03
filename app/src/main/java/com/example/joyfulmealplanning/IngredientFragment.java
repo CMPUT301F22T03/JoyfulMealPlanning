@@ -20,6 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -43,6 +45,9 @@ public class IngredientFragment extends DialogFragment {
     private DatePickerDialog timePicker;
     private String description, selectedUnit, selectedCategory, selectedLocation, BBDate;
     Integer amount = 1;
+    public ArrayList<String> units;
+    public ArrayList<String> categories;
+    public ArrayList<String> locations;
 
     public interface OnFragmentInteractionListener {
         void onOkPressed(String oldIngredientDesc, Ingredients newIngredients);
@@ -75,7 +80,7 @@ public class IngredientFragment extends DialogFragment {
         locationSpinner = view.findViewById(R.id.IngredientLocationSpinner);
         BBDatePicker = view.findViewById(R.id.IngredientBBDatePicker);
 
-        ArrayList<String> units = new ArrayList<>();
+        units = new ArrayList<>();
         units.add("pack");
         units.add("bottle");
         units.add("g");
@@ -87,7 +92,7 @@ public class IngredientFragment extends DialogFragment {
         units.add("tsp");
         units.add("tbsp");
 
-        ArrayList<String> categories = new ArrayList<>();
+        categories = new ArrayList<>();
         categories.add("meat");
         categories.add("vegetable");
         categories.add("fruit");
@@ -96,7 +101,7 @@ public class IngredientFragment extends DialogFragment {
         categories.add("drink");
         categories.add("alcohol");
 
-        ArrayList<String> locations = new ArrayList<>();
+        locations = new ArrayList<>();
         locations.add("fridge");
         locations.add("freezer");
         locations.add("shelve");

@@ -22,7 +22,7 @@ public class Recipe implements Serializable {
     private String RecipeComments;
     private Integer RecipeNumberOfServings;
     private Integer RecipePreparationTime;
-    private ArrayList<Map<String,Integer>> RecipeIngredientsList;
+    private ArrayList<Ingredients> RecipeIngredientsList;
 
     /**
      *This is a constructor to create a Recipe object.
@@ -32,11 +32,11 @@ public class Recipe implements Serializable {
      * @param recipeComments The comments of the Recipe {@link String}
      * @param recipePreparationTime The Preparation Time of the Recipe {@link Integer}
      * @param recipeNumberOfServings The Number of Servings of the Recipe {@link Integer}
-     * @param recipeIngredientsList The Ingredient List of the Recipe {@link ArrayList<Map<String, Integer>>}
+     * @param recipeIngredientsList The Ingredient List of the Recipe {@link ArrayList<Ingredients>}
      */
     public Recipe(String recipeTitle, String recipeCategory, String recipeComments,
                   Integer recipePreparationTime,Integer recipeNumberOfServings,
-                  ArrayList<Map<String, Integer>> recipeIngredientsList) {
+                  ArrayList<Ingredients> recipeIngredientsList) {
         RecipeTitle = recipeTitle;
         RecipeCategory = recipeCategory;
         RecipeComments = recipeComments;
@@ -129,7 +129,7 @@ public class Recipe implements Serializable {
      * This function returns Ingredient list
      * @return {@link ArrayList<Map<String, Integer>>}
      */
-    public ArrayList<Map<String, Integer>> getRecipeIngredientsList() {
+    public ArrayList<Ingredients> getRecipeIngredientsList() {
         return RecipeIngredientsList;
     }
 
@@ -137,7 +137,7 @@ public class Recipe implements Serializable {
      * This function sets a new Ingredients List.
      * @param recipeIngredientsList {@link ArrayList<Map<String, Integer>>}
      */
-    public void setRecipeIngredientsList(ArrayList<Map<String, Integer>> recipeIngredientsList) {
+    public void setRecipeIngredientsList(ArrayList<Ingredients> recipeIngredientsList) {
         RecipeIngredientsList = recipeIngredientsList;
     }
 }
