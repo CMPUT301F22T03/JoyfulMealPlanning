@@ -93,16 +93,6 @@
         app:layout_constraintStart_toEndOf="@+id/IngredientAmountLabel"
         app:layout_constraintTop_toTopOf="@+id/IngredientAmountLabel" />
 
-    <Spinner
-        android:id="@+id/IngredientUnitSpinner"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/IngredientAmountLabel"
-        app:layout_constraintEnd_toEndOf="@+id/IngredientDescriptionInput"
-        app:layout_constraintStart_toEndOf="@+id/IngredientAmountInput"
-        app:layout_constraintTop_toTopOf="@+id/IngredientAmountLabel" />
-
     <TextView
         android:id="@+id/IngredientBBDateDisplay"
         android:layout_width="0dp"
@@ -129,23 +119,42 @@
         app:layout_constraintStart_toEndOf="@+id/IngredientBBDateDisplay"
         app:layout_constraintTop_toTopOf="@+id/IngredientBBDateDisplay" />
 
-    <Spinner
-        android:id="@+id/IngredientCategorySpinner"
+    <EditText
+        android:id="@+id/IngredientUnitInput"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
+        android:ems="10"
+        android:hint="unit"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/IngredientAmountInput"
+        app:layout_constraintEnd_toEndOf="@+id/IngredientDescriptionInput"
+        app:layout_constraintStart_toEndOf="@+id/IngredientAmountInput"
+        app:layout_constraintTop_toTopOf="@+id/IngredientAmountInput" />
+
+    <EditText
+        android:id="@+id/IngredientCategoryInput"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:ems="10"
+        android:hint="category"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/IngredientCategoryLabel"
         app:layout_constraintEnd_toEndOf="@+id/IngredientBBDatePicker"
         app:layout_constraintStart_toEndOf="@+id/IngredientCategoryLabel"
         app:layout_constraintTop_toTopOf="@+id/IngredientCategoryLabel" />
 
-    <Spinner
-        android:id="@+id/IngredientLocationSpinner"
+    <EditText
+        android:id="@+id/IngredientLocationInput"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
+        android:ems="10"
+        android:hint="location"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/IngredientLocationLabel"
-        app:layout_constraintEnd_toEndOf="@+id/IngredientCategorySpinner"
+        app:layout_constraintEnd_toEndOf="@+id/IngredientCategoryInput"
         app:layout_constraintStart_toEndOf="@+id/IngredientLocationLabel"
         app:layout_constraintTop_toTopOf="@+id/IngredientLocationLabel" />
 </androidx.constraintlayout.widget.ConstraintLayout>
