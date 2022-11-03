@@ -1,6 +1,8 @@
 package com.example.joyfulmealplanning;
 
 import android.app.Activity;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -41,6 +43,20 @@ public class IngredientsActivityTest {
     @Test
     public void start() throws Exception{
         Activity activity = rule.getActivity();
+    }
+
+    @Test
+    public void checkList(){
+        solo.assertCurrentActivity("Wrong Activity",IngredientsActivity.class);
+
+        solo.clickOnView(solo.getView(R.id.IngredientAddButton));
+
+        solo.enterText((EditText) solo.getView(R.id.IngredientDescriptionInput) , "Test_Ingredient1");
+        solo.enterText((EditText) solo.getView(R.id.IngredientAmountInput) , String.valueOf(10));
+        solo.enterText((EditText) solo.getView(R.id.IngredientUnitInput) , "kg");
+        solo.clickOnView(solo.getView(R.id.IngredientBBDatePicker));
+        solo.enterText((EditText) solo.getView(R.id.IngredientCategoryInput) , "fruit");
+        solo.enterText((EditText) solo.getView(R.id.IngredientLocationInput) , "fridge");
     }
 
     /**
