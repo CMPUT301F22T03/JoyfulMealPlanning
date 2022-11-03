@@ -34,6 +34,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                 ShoppingListAdaptor = ShoppingListController.getShoppingListAdaptor();
                 ShoppingList.setAdapter(ShoppingListAdaptor);
             }
-        }, 2000);
+        }, 1000);
     }
 }
