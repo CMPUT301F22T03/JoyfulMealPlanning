@@ -75,6 +75,7 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 IngredientFragment fragment =
                         new IngredientFragment().newInstance(controller.getIngredientAtIndex(i));
+                fragment.onAttach(view.getContext());
                 fragment.show(getSupportFragmentManager(), "Edit Ingredient");
             }
         });

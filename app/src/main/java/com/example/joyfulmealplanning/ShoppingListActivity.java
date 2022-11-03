@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class ShoppingListActivity extends AppCompatActivity {
+public class ShoppingListActivity extends AppCompatActivity implements IngredientFragment.OnFragmentInteractionListener{
 
     private ShoppingListController ShoppingListController;
     ListView ShoppingList;
@@ -35,5 +37,19 @@ public class ShoppingListActivity extends AppCompatActivity {
                 ShoppingList.setAdapter(ShoppingListAdaptor);
             }
         }, 2000);
+        ShoppingList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+                ShoppingListFragment fragment =
+                        new ShoppingListFragment().newInstance(ShoppingListAdaptor.getItem(position));
+                fragment.show(getSupportFragmentManager(), "Edit Ingredient");
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public void onOkPressed(String oldIngredientDesc, Ingredients newIngredients) {
+
     }
 }
