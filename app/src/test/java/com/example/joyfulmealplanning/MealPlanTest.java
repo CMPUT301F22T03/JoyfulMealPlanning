@@ -49,7 +49,35 @@ public class MealPlanTest {
         assertEquals(mealPLan.getID(), ID);
     }
 
+    @Test
+    public void getNumberOfServingsTest(){
+        Integer numberOfServings = 2;
+        mealPLan = new MealPLan ("apple_ingredient","apple",2,"ingredient");
+        assertEquals(mealPLan.getNumberOfServings(), numberOfServings);
+    }
 
+    @Test
+    public void setNumberOfServingsTest(){
+        Integer numberOfServings = 5;
+        mealPLan = new MealPLan ("apple_ingredient","apple",2,"ingredient");
+        mealPLan.setNumberOfServings(numberOfServings);
+        assertEquals(mealPLan.getNumberOfServings(), numberOfServings );
+    }
+
+    @Test
+    public void getTypeTest(){
+        String type = "ingredient";
+        mealPLan = new MealPLan ("apple_ingredient","apple",2,"ingredient");
+        assertEquals(mealPLan.getType(), type);
+    }
+
+    @Test
+    public void setTypeTest(){
+        String type = "recipe";
+        mealPLan = new MealPLan ("apple_ingredient","apple",2,"ingredient");
+        mealPLan.setType(type);
+        assertEquals(mealPLan.getType(), type);
+    }
 
 
 
