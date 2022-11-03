@@ -16,16 +16,6 @@
         app:layout_constraintStart_toStartOf="@+id/RecipeNewIngredientDescriptionLabel"
         app:layout_constraintTop_toBottomOf="@+id/RecipeNewIngredientAmountLabel" />
 
-    <Spinner
-        android:id="@+id/RecipeNewIngredientCategorySpinner"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/RecipeNewIngredientCategoryLabel"
-        app:layout_constraintEnd_toEndOf="@+id/RecipeNewIngredientUnitSpinner"
-        app:layout_constraintStart_toEndOf="@+id/RecipeNewIngredientCategoryLabel"
-        app:layout_constraintTop_toTopOf="@+id/RecipeNewIngredientCategoryLabel" />
-
     <TextView
         android:id="@+id/RecipeNewIngredientDescriptionLabel"
         android:layout_width="80dp"
@@ -78,14 +68,31 @@
         app:layout_constraintStart_toEndOf="@+id/RecipeNewIngredientAmountLabel"
         app:layout_constraintTop_toTopOf="@+id/RecipeNewIngredientAmountLabel" />
 
-    <Spinner
-        android:id="@+id/RecipeNewIngredientUnitSpinner"
+    <EditText
+        android:id="@+id/RecipeNewIngredientUnitInput"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/RecipeNewIngredientAmountLabel"
+        android:ems="10"
+        android:hint="unit"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/RecipeNewIngredientAmountInput"
         app:layout_constraintEnd_toEndOf="@+id/RecipeNewIngredientDescriptionInput"
         app:layout_constraintStart_toEndOf="@+id/RecipeNewIngredientAmountInput"
-        app:layout_constraintTop_toTopOf="@+id/RecipeNewIngredientAmountLabel" />
+        app:layout_constraintTop_toTopOf="@+id/RecipeNewIngredientAmountInput"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/RecipeNewIngredientCategoryInput"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:ems="10"
+        android:hint="category"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/RecipeNewIngredientCategoryLabel"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeNewIngredientUnitInput"
+        app:layout_constraintStart_toEndOf="@+id/RecipeNewIngredientCategoryLabel"
+        app:layout_constraintTop_toTopOf="@+id/RecipeNewIngredientCategoryLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

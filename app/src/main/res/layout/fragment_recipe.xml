@@ -30,9 +30,10 @@
             android:paddingTop="10dp"
             android:text="minutes"
             app:layout_constraintBottom_toBottomOf="@+id/RecipeTimeLabel"
-            app:layout_constraintEnd_toStartOf="@+id/RecipeTimeInput"
-            app:layout_constraintStart_toEndOf="@+id/RecipeTimeLabel"
-            app:layout_constraintTop_toTopOf="@+id/RecipeTimeLabel" />
+            app:layout_constraintEnd_toEndOf="@+id/RecipeNumberInput"
+            app:layout_constraintStart_toEndOf="@+id/RecipeTimeInput"
+            app:layout_constraintTop_toTopOf="@+id/RecipeTimeLabel"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/RecipeNumberLabel"
@@ -56,16 +57,6 @@
             app:layout_constraintStart_toEndOf="@+id/RecipeNumberLabel"
             app:layout_constraintTop_toTopOf="@+id/RecipeNumberLabel" />
 
-        <Spinner
-            android:id="@+id/RecipeCategorySpinner"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/RecipeCategoryLabel"
-            app:layout_constraintEnd_toEndOf="@+id/RecipeTitleInput"
-            app:layout_constraintStart_toEndOf="@+id/RecipeCategoryLabel"
-            app:layout_constraintTop_toTopOf="@+id/RecipeCategoryLabel" />
-
         <EditText
             android:id="@+id/RecipeCommentsInput"
             android:layout_width="0dp"
@@ -73,7 +64,7 @@
             android:layout_marginStart="20dp"
             android:hint="enter your comment here"
             android:paddingTop="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/RecipeCategorySpinner"
+            app:layout_constraintEnd_toEndOf="@+id/RecipeCategoryInput"
             app:layout_constraintStart_toEndOf="@+id/RecipeCommentsLabel"
             app:layout_constraintTop_toTopOf="@+id/RecipeCommentsLabel" />
 
@@ -92,14 +83,15 @@
             android:id="@+id/RecipeTimeInput"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="75dp"
+            android:layout_marginEnd="100dp"
             android:hint="enter time"
             android:inputType="number"
             android:paddingTop="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/RecipeTimeLabel"
             app:layout_constraintEnd_toEndOf="@+id/RecipeNumberInput"
             app:layout_constraintStart_toEndOf="@+id/RecipeTimeLabel"
-            app:layout_constraintTop_toTopOf="@+id/RecipeTimeLabel" />
+            app:layout_constraintTop_toTopOf="@+id/RecipeTimeLabel"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/RecipeTimeLabel"
@@ -182,6 +174,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/RecipeAddNewIngredientButton"
             app:layout_constraintTop_toBottomOf="@+id/RecipeIngredientLabel" />
+
+        <EditText
+            android:id="@+id/RecipeCategoryInput"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:ems="10"
+            android:hint="enter your category"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="@+id/RecipeCategoryLabel"
+            app:layout_constraintEnd_toEndOf="@+id/RecipeTitleInput"
+            app:layout_constraintStart_toEndOf="@+id/RecipeCategoryLabel"
+            app:layout_constraintTop_toTopOf="@+id/RecipeCategoryLabel" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ListView
