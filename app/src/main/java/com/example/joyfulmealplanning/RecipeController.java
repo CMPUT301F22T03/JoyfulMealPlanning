@@ -60,12 +60,13 @@ public class RecipeController {
                     //System.out.println(String.valueOf(doc.getData().get("number of servings")));
                     String RecipeTitle = (String) doc.getData().get("title");
                     String RecipeCategory = (String) doc.getData().get("category");
-                    Long RecipePreparationTime = (Long)doc.getData().get("preparation time");
-                    Long RecipeNumberOfServings = (Long)doc.getData().get("number of servings");
+                    Long RecipePreparationTime = (Long) doc.getData().get("preparation time");
+                    Long RecipeNumberOfServings = (Long) doc.getData().get("number of servings");
+                    String RecipeComments = (String) doc.getData().get("comments");
                     ArrayList<Ingredients> retrievedIngredients = new ArrayList<>();
                     retrieveIngredientList(RecipeTitle, retrievedIngredients);
                     //recipeDataList.add(new Recipe(RecipeTitle, RecipeCategory,"",RecipeNumberOfServings,RecipePreparationTime, new ArrayList<>()));
-                    recipeList.add(new Recipe(RecipeTitle, RecipeCategory,"",
+                    recipeList.add(new Recipe(RecipeTitle, RecipeCategory,RecipeComments,
                             RecipePreparationTime.intValue(),RecipeNumberOfServings.intValue(),
                             retrievedIngredients));
                     recipeArrayAdapter.notifyDataSetChanged();
