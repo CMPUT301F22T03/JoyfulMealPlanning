@@ -68,17 +68,23 @@ public class MainActivityTest {
 
     @Test
     public void switchToMealPlanTest() {
-        //TODO: Checks if the app switches to the MealPlan Activity
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.MealPlan));
+        solo.assertCurrentActivity("Wrong activity", MealPlanActivity.class);
     }
 
     @Test
     public void switchToRecipeTest() {
-        //TODO: Checks if the app switches to the Recipe Activity
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.Recipe));
+        solo.assertCurrentActivity("Wrong activity", RecipeActivity.class);
     }
 
     @Test
     public void switchToShoppingListTest() {
-        //TODO: Checks if the app switches to the ShoppingList Activity
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.ShoppingList));
+        solo.assertCurrentActivity("Wrong activity", ShoppingListActivity.class);
     }
 
 
