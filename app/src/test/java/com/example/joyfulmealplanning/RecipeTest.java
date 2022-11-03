@@ -1,22 +1,17 @@
 package com.example.joyfulmealplanning;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 public class RecipeTest {
 
-    private ArrayList<Map<String, Integer>> mockIngredientsList() {
-        Ingredients ingredient1 = new Ingredients("banana", 3, "g", "fruit");
-        ArrayList<Map<String, Integer>> ingredientsList = new ArrayList<>();
-        ingredientsList.add((Map<String, Integer>) ingredient1);
-        return ingredientsList;
-    }
     private Recipe mockRecipe() {
-        ArrayList<Map<String, Integer>> ingredientsList = mockIngredientsList();
         return new Recipe("recipe1", "appetizer", "1234",
                 3, 11, null);
     }
@@ -86,7 +81,7 @@ public class RecipeTest {
     void testSetRecipePreparationTime() {
         Recipe recipe = mockRecipe();
         Integer time = 10;
-        recipe.setRecipePreparationTime(3);
+        recipe.setRecipePreparationTime(time);
         assertEquals(time, recipe.getRecipePreparationTime());
     }
 
@@ -99,7 +94,9 @@ public class RecipeTest {
     @Test
     void testSetRecipeIngredientsList() {
         Recipe recipe = mockRecipe();
-        ArrayList<Map<String, Integer>> ingredientsList = mockIngredientsList();
+        Ingredients ingredient1 = new Ingredients("banana", 3, "g", "fruit");
+        ArrayList<Ingredients> ingredientsList = new ArrayList<>();
+        ingredientsList.add(ingredient1);
         recipe.setRecipeIngredientsList(ingredientsList);
         assertEquals(ingredientsList, recipe.getRecipeIngredientsList());
     }
