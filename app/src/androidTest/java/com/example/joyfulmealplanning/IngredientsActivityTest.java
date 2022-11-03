@@ -52,11 +52,14 @@ public class IngredientsActivityTest {
         solo.clickOnView(solo.getView(R.id.IngredientAddButton));
 
         solo.enterText((EditText) solo.getView(R.id.IngredientDescriptionInput) , "Test_Ingredient1");
-        solo.enterText((EditText) solo.getView(R.id.IngredientAmountInput) , String.valueOf(10));
+        solo.clearEditText((EditText) solo.getView(R.id.IngredientAmountInput));
+        solo.enterText((EditText) solo.getView(R.id.IngredientAmountInput) ,"10");
         solo.enterText((EditText) solo.getView(R.id.IngredientUnitInput) , "kg");
         solo.clickOnView(solo.getView(R.id.IngredientBBDatePicker));
+        solo.clickOnButton("OK");
         solo.enterText((EditText) solo.getView(R.id.IngredientCategoryInput) , "fruit");
         solo.enterText((EditText) solo.getView(R.id.IngredientLocationInput) , "fridge");
+        solo.clickOnButton("OK");
     }
 
     /**
