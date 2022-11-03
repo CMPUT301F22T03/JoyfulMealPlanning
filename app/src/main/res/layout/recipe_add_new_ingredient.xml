@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/RecipeNewIngredientCategoryLabel"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
+        android:text="Category:"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeNewIngredientDescriptionLabel"
+        app:layout_constraintStart_toStartOf="@+id/RecipeNewIngredientDescriptionLabel"
+        app:layout_constraintTop_toBottomOf="@+id/RecipeNewIngredientAmountLabel" />
+
+    <Spinner
+        android:id="@+id/RecipeNewIngredientCategorySpinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/RecipeNewIngredientCategoryLabel"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeNewIngredientUnitSpinner"
+        app:layout_constraintStart_toEndOf="@+id/RecipeNewIngredientCategoryLabel"
+        app:layout_constraintTop_toTopOf="@+id/RecipeNewIngredientCategoryLabel" />
+
+    <TextView
+        android:id="@+id/RecipeNewIngredientDescriptionLabel"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:paddingTop="10dp"
+        android:text="Description:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/RecipeNewIngredientAmountLabel"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
+        android:text="Amount:"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeNewIngredientDescriptionLabel"
+        app:layout_constraintStart_toStartOf="@+id/RecipeNewIngredientDescriptionLabel"
+        app:layout_constraintTop_toBottomOf="@+id/RecipeNewIngredientDescriptionLabel" />
+
+    <EditText
+        android:id="@+id/RecipeNewIngredientDescriptionInput"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="(30 characters max)"
+        android:maxLength="30"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/RecipeNewIngredientDescriptionLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/RecipeNewIngredientDescriptionLabel"
+        app:layout_constraintTop_toTopOf="@+id/RecipeNewIngredientDescriptionLabel"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/RecipeNewIngredientAmountInput"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="150dp"
+        android:ems="10"
+        android:hint="amount"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/RecipeNewIngredientAmountLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/RecipeNewIngredientAmountLabel"
+        app:layout_constraintTop_toTopOf="@+id/RecipeNewIngredientAmountLabel" />
+
+    <Spinner
+        android:id="@+id/RecipeNewIngredientUnitSpinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/RecipeNewIngredientAmountLabel"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeNewIngredientDescriptionInput"
+        app:layout_constraintStart_toEndOf="@+id/RecipeNewIngredientAmountInput"
+        app:layout_constraintTop_toTopOf="@+id/RecipeNewIngredientAmountLabel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
