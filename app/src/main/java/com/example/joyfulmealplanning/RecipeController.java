@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The controller class of Recipe
+ * The controller class of Recipe, responsible for adding, deleting and updating recipes.
  * @author Zhaoqi, Qiaosong
  * @version 1.0
  */
