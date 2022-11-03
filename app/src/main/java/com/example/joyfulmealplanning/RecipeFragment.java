@@ -31,7 +31,7 @@ import java.util.Calendar;
 import java.util.Map;
 
 /**
- * The main activity of Recipe
+ * This class creates a DialogFragment that prompts users for information for recipes
  * @author Zhaoqi
  * @version 1.0
  */

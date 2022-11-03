@@ -15,7 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 /**
- * The main activity of Recipe
+ * The main activity of Recipe, allowing users to add, edit and delete recipe entries
  * @author Qiaosong, Zhaoqi
  * @version 2.0
  * @change Placed the FireStore manipulations and ArrayList/Adapter into the RecipeController class.
