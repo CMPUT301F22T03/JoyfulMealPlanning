@@ -1,11 +1,22 @@
 package com.example.joyfulmealplanning;
 
+/**
+ * The class creates a Meal Plan object
+ * @author Qiaosong Deng
+ */
 public class MealPLan {
     private String mealPlanID;
     private String ID;
     private Integer numberOfServings;
     private String type;
 
+    /**
+     * This is a constructor for a Meal Plan object.
+     * @param mealPlanID This is the ID for the meal plan {@link String}
+     * @param ID This is the ID for the ingredient or recipe the meal plan is based on {@link String}
+     * @param numberOfServings This is the number of servings for the meal plan {@link Integer}
+     * @param type 
+     */
     public MealPLan(String mealPlanID, String ID, Integer numberOfServings, String type) {
         this.mealPlanID = mealPlanID;
         this.ID = ID;
