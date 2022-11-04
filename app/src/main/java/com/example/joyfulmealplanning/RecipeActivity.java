@@ -12,8 +12,10 @@ import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 /**
- * The main activity of Recipe
+ * The main activity of Recipe, allowing users to add, edit and delete recipe entries
  * @author Qiaosong, Zhaoqi
  * @version 2.0
  * @change Placed the FireStore manipulations and ArrayList/Adapter into the RecipeController class.
@@ -31,7 +33,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
         recipeController = new RecipeController(RecipeActivity.this);
-        ingredientStorageController = new IngredientController(RecipeActivity.this, "ingredient");
+        ingredientStorageController = new IngredientController(RecipeActivity.this);
         //ingredientListController = new IngredientController(RecipeActivity.this, "");
         addRecipe = findViewById(R.id.RecipeAddButton);
         recipeList = findViewById(R.id.recipe_list);
@@ -87,8 +89,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
     @Override
     public void onOkPressed(@Nullable String oldRecipeTitle, Recipe newRecipe) {
         if (oldRecipeTitle != null){
-            recipeController.deleteRecipe(oldRecipeTitle);
-            recipeController.addRecipe(newRecipe);
+            recipeController.updateRecipe(oldRecipeTitle, newRecipe);
         } else {
             recipeController.addRecipe(newRecipe);
         }

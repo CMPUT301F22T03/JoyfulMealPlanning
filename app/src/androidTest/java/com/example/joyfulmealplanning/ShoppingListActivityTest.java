@@ -13,8 +13,9 @@ import org.junit.Rule;
 import org.junit.Test;
 
 public class ShoppingListActivityTest {
+    
+    /*Declaration of variables*/
     private Solo solo;
-
 
     /*Establishes test rules*/
     @Rule
