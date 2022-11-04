@@ -19,8 +19,8 @@ public class ShoppingListActivityTest {
 
     /*Establishes test rules*/
     @Rule
-    public ActivityTestRule<IngredientsActivity> rule =
-            new ActivityTestRule<>(IngredientsActivity.class, true, true);
+    public ActivityTestRule<ShoppingListActivity> rule =
+            new ActivityTestRule<>(ShoppingListActivity.class, true, true);
 
     /**
      * Runs before all tests and creates solo instance.
