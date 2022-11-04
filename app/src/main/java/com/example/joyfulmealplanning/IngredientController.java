@@ -24,8 +24,8 @@ import java.util.Map;
 /**
  * The Ingredients controller class, responsible for the modification of a list of
  * ingredients in FireStore database and the connection with a local list of ingredients.
- * @author Zhaoqi Ma & Fan Zhu
- * @version 1.0
+ * @author Zhaoqi Ma & Fan Zhu & Qiaosong Deng
+ * @version 1.1
  * @since 2022-10-28
  */
 public class IngredientController {
@@ -138,6 +138,38 @@ public class IngredientController {
             }
         }
         Map<String, Object> packedIngredients = packIngredientsToMap(ingredients);
+        this.ingredientsCollectionReference
+                .document((String) packedIngredients.get("description"))
+                .set(packedIngredients)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG,packedIngredients.get("description") +
+                                "ingredient has been added successfully!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, packedIngredients.get("title") +
+                                "ingredient could not be added!" + e.toString());
+                    }
+                });
+        return true;
+    }
+
+    /**
+     * Adds a given ingredient to the ingredientList as well as the DB collections From shopping list
+     * @param ingredient
+     * @return {@link Boolean}
+     */
+    public boolean addIngredientShoppingListVersion(Ingredients ingredient){
+        for (Ingredients ing : this.ingredientList){
+            if (ing.getDescription() == ingredient.getDescription()){
+                ingredient.setAmount(ing.getAmount()+ingredient.getAmount());
+            }
+        }
+        Map<String, Object> packedIngredients = packIngredientsToMap(ingredient);
         this.ingredientsCollectionReference
                 .document((String) packedIngredients.get("description"))
                 .set(packedIngredients)

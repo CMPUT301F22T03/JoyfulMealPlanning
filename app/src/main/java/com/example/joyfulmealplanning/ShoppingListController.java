@@ -105,7 +105,7 @@ public class ShoppingListController {
                     System.out.println(ingredient.getDescription()+ " " + ingredient.getAmount());
                 }
             }
-        }, 1000);
+        }, 1500);
         Log.d(TAG,"initialize finished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
@@ -292,4 +292,5 @@ public class ShoppingListController {
     public ArrayList<Ingredients> getShoppingIngredientDataList(){
         return ShoppingIngredientDataList;
     }
+
 }
