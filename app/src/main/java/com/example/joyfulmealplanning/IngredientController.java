@@ -191,10 +191,18 @@ public class IngredientController {
         deleteIngredient(desc);
     }
 
+    /**
+     * Adds an Ingredients object to the local ingredientList
+     * @param ingredients
+     */
     public void addToLocalList(Ingredients ingredients){
         this.ingredientList.add(ingredients);
     }
 
+    /**
+     * Removes an Ingredients object from the local ingredientList at the given index
+     * @param idx
+     */
     public void deleteFromLocalList(int idx){
         this.ingredientList.remove(idx);
     }

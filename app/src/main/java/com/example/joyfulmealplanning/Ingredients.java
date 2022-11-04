@@ -4,11 +4,12 @@ import java.io.Serializable;
 
 /**
  * The class creates an Ingredients object
- * @author Fan Zhu, Xiangxu Meng & Mashiad
+ * @author Fan Zhu, Xiangxu Meng & Mashiad Hasan
  * @since 2022-10-23
  */
 public class Ingredients implements Serializable{
 
+    /*Declaration of Variables*/
     private String Description;
     private Integer Best_before_date;
     private String Location;
@@ -52,6 +53,7 @@ public class Ingredients implements Serializable{
         this.Unit = unit;
     }
 
+    /*Getters & Setters*/
     /**
      * This method returns the Description for the ingredient
      * @return {@link String}

@@ -19,7 +19,6 @@ public class IngredientsActivityTest {
     /*Declaration of variables*/
     private Solo solo;
 
-
     /*Establishes test rules*/
     @Rule
     public ActivityTestRule<IngredientsActivity> rule =
@@ -42,6 +41,7 @@ public class IngredientsActivityTest {
     public void start() throws Exception{
         Activity activity = rule.getActivity();
     }
+
 
     /**
      * Close activity after each test

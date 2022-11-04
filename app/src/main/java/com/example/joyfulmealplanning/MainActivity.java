@@ -95,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Switches the app from MainActivity to IngredientsActivity
+     * @param view
+     */
     public void switchActivity(View view) {
         Intent intent = new Intent(this, IngredientsActivity.class);
         startActivity(intent);

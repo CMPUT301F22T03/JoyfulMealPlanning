@@ -39,7 +39,7 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
     }
 
     /**
-     * Inflates a view from content.xml to display data
+     * Inflates a view from ingredient_content.xml to display data
      * @param position
      * @param convertView
      * @param parent
