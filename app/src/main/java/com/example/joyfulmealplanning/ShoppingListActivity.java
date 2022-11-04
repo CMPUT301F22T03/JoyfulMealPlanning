@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -34,6 +36,16 @@ public class ShoppingListActivity extends AppCompatActivity {
                 ShoppingListAdaptor = ShoppingListController.getShoppingListAdaptor();
                 ShoppingList.setAdapter(ShoppingListAdaptor);
             }
-        }, 1000);
+        }, 1500);
+
+        ShoppingList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+                ShoppingListAddIngredientFragment fragment =
+                        new ShoppingListAddIngredientFragment().newInstance(ShoppingListAdaptor.getItem(position),getApplicationContext());
+                fragment.show(getSupportFragmentManager(), "Edit Ingredient");
+                return true;
+            }
+        });
     }
 }
