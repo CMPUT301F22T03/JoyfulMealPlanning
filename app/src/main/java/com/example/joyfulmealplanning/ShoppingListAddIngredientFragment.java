@@ -18,7 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collection;
 
 public class ShoppingListAddIngredientFragment extends DialogFragment {
     Context context;
@@ -31,13 +33,14 @@ public class ShoppingListAddIngredientFragment extends DialogFragment {
     Integer amount = 1;
 
     public interface OnFragmentInteractionListener {
-        void onOkPressed(String oldIngredientDesc, Ingredients newIngredients);
+        void onOkPressed(Ingredients ingredients);
     }
 
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        listener = (OnFragmentInteractionListener) context;
     }
 
     @NonNull
@@ -73,8 +76,10 @@ public class ShoppingListAddIngredientFragment extends DialogFragment {
             /*if the bundle is not empty, then this is an editing fragment*/
             //dialogTitle = "Edit Ingredient";
             addIngredient = false;
-            Ingredients ingredients = (Ingredients) bundle.getSerializable("ingredients"); //extract the food object stored in the bundle
+
             //set the widgets with the provided information from the extracted food object.
+            Ingredients ingredients = (Ingredients) bundle.getSerializable("ingredients") ; //extract the food object stored in the bundle
+
             descriptionInput.setText(ingredients.getDescription());
             oldIngredientDesc = ingredients.getDescription();
             amountInput.setText(ingredients.getAmount().toString());
@@ -102,10 +107,10 @@ public class ShoppingListAddIngredientFragment extends DialogFragment {
                         if (description!=null && amount!=null && BBDate != null && unit!=null && category!=null && location!=null){
                             Ingredients newIngredients = new Ingredients(description,Integer.parseInt(BBDate),
                                     location, category, amount, unit);
-                            //Toast.makeText(context,"You have added a new ingredient" ,Toast.LENGTH_LONG).show();
+
+                            listener.onOkPressed(newIngredients);
                             Toast.makeText(getContext(),"You have added a new ingredient" ,Toast.LENGTH_LONG).show();
-                            IngredientController IngredientController = new IngredientController(getContext());
-                            IngredientController.addIngredientShoppingListVersion(newIngredients);
+
                         }else {
                             Toast.makeText(getContext(),"Some fields are empty, pls retry" ,Toast.LENGTH_LONG).show();
                         }
@@ -134,7 +139,7 @@ public class ShoppingListAddIngredientFragment extends DialogFragment {
         timePicker =
                 new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
     }
-    public ShoppingListAddIngredientFragment newInstance(Ingredients ingredients,Context context){
+    public ShoppingListAddIngredientFragment newInstance(Ingredients ingredients){
         Bundle args = new Bundle();
         //context = getContext();
         args.putSerializable("ingredients", ingredients);
@@ -142,6 +147,7 @@ public class ShoppingListAddIngredientFragment extends DialogFragment {
         fragment.setArguments(args);
         return fragment;
     }
+
 }
 
 
