@@ -1,6 +1,7 @@
 package com.example.joyfulmealplanning;
 
 import android.app.Activity;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -69,7 +70,9 @@ public class MainActivityTest {
     @Test
     public void switchToMealPlanTest() {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.MealPlan));
+        MainActivity activity = (MainActivity) solo.getCurrentActivity();
+        final Button Meal_plan_button = activity.findViewById(R.id.MealPlan);
+        solo.clickOnView(solo.getView(Meal_plan_button));
         solo.assertCurrentActivity("Wrong activity", MealPlanActivity.class);
     }
 

@@ -106,6 +106,7 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
     /**
      * Adds Ingredients object to the adapter
      * @param newIngredients
+     * @param oldIngredientDesc {@link String}
      */
     @Override
     public void onOkPressed(String oldIngredientDesc, Ingredients newIngredients) {
