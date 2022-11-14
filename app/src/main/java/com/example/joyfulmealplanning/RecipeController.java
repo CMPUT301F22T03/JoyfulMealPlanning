@@ -24,6 +24,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -232,6 +234,46 @@ public class RecipeController {
                         }
                     });
         }
+    }
+
+    public void sortByTitle(){
+        Collections.sort(recipeList, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe recipe, Recipe t1) {
+                return recipe.getRecipeTitle().compareTo(t1.getRecipeTitle());
+            }
+        });
+        recipeArrayAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByPT(){
+        Collections.sort(recipeList, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe recipe, Recipe t1) {
+                return recipe.getRecipePreparationTime().compareTo(t1.getRecipePreparationTime());
+            }
+        });
+        recipeArrayAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByNOS(){
+        Collections.sort(recipeList, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe recipe, Recipe t1) {
+                return recipe.getRecipeNumberOfServings().compareTo(t1.getRecipeNumberOfServings());
+            }
+        });
+        recipeArrayAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByCategory(){
+        Collections.sort(recipeList, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe recipe, Recipe t1) {
+                return recipe.getRecipeCategory().compareTo(t1.getRecipeCategory());
+            }
+        });
+        recipeArrayAdapter.notifyDataSetChanged();
     }
 
 }

@@ -16,15 +16,29 @@
         android:textAlignment="center"
         android:textSize="30dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/IngredientAddButton"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_baseline_add_24"
-        app:elevation="10dp" />
+        android:orientation="horizontal">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/IngredientAddButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_baseline_add_24"
+            app:elevation="10dp" />
+
+        <Spinner
+            android:id="@+id/ingredients_sort_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/IngredientListView"

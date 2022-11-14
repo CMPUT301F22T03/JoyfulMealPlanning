@@ -24,6 +24,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class MealPlanController extends AppCompatActivity {
@@ -156,6 +158,35 @@ public class MealPlanController extends AppCompatActivity {
         return DeleteDialogBox;
     }
 
+    public void sortByID(){
+        Collections.sort(mealPLanDataList, new Comparator<MealPLan>() {
+            @Override
+            public int compare(MealPLan mealPLan1, MealPLan mealPLan2) {
+                return mealPLan1.getID().compareTo(mealPLan2.getID());
+            }
+        });
+        mealPLanAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByNOS(){
+        Collections.sort(mealPLanDataList, new Comparator<MealPLan>() {
+            @Override
+            public int compare(MealPLan mealPLan1, MealPLan mealPLan2) {
+                return mealPLan1.getNumberOfServings().compareTo(mealPLan2.getNumberOfServings());
+            }
+        });
+        mealPLanAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByType() {
+        Collections.sort(mealPLanDataList, new Comparator<MealPLan>() {
+            @Override
+            public int compare(MealPLan mealPLan1, MealPLan mealPLan2) {
+                return mealPLan1.getType().compareTo(mealPLan2.getType());
+            }
+        });
+        mealPLanAdapter.notifyDataSetChanged();
+    }
 }
 
 

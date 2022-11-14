@@ -12,7 +12,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -28,11 +30,12 @@ import java.util.ArrayList;
  * the IngredientController class.
  * @since 2022-10-23
  */
-public class IngredientsActivity extends AppCompatActivity implements IngredientFragment.OnFragmentInteractionListener{
+public class IngredientsActivity extends AppCompatActivity implements IngredientFragment.OnFragmentInteractionListener,AdapterView.OnItemSelectedListener {
     /*Declaration of variables*/
     ListView ingredientsList;
     FloatingActionButton addIngredientButton;
     IngredientController controller;
+    Spinner ingredientSortSpinner;
 
 
     @Override
@@ -87,6 +90,15 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
             }
         });
 
+        ingredientSortSpinner = (Spinner) findViewById(R.id.ingredients_sort_spinner);
+        ArrayAdapter<CharSequence> ingredientSortOption = ArrayAdapter.createFromResource(
+                this,
+                R.array.IngredientsSortOptionList,
+                android.R.layout.simple_spinner_item
+        );
+        ingredientSortOption.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ingredientSortSpinner.setAdapter(ingredientSortOption);
+        ingredientSortSpinner.setOnItemSelectedListener(this);
 
     }
 
@@ -115,5 +127,29 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
         } else {
             controller.addIngredient(newIngredients);
         }
+    }
+
+
+    //For IngredientSortSpinner
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+        if (position == 0){//description
+            Toast.makeText(this,"sorted by "+adapterView.getItemAtPosition(position).toString() ,Toast.LENGTH_LONG).show();
+            controller.sortByDescription();
+        }else if(position == 1){//best before date
+            Toast.makeText(this,"sorted by "+adapterView.getItemAtPosition(position).toString() ,Toast.LENGTH_LONG).show();
+            controller.sortByBBD();
+        }else if(position == 2) {//location
+            Toast.makeText(this,"sorted by "+adapterView.getItemAtPosition(position).toString() ,Toast.LENGTH_LONG).show();
+            controller.sortByLocation();
+        }else {//ingredient category
+            Toast.makeText(this,"sorted by "+adapterView.getItemAtPosition(position).toString() ,Toast.LENGTH_LONG).show();
+            controller.sortByCategory();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

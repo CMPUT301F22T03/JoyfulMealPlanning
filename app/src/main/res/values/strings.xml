@@ -4,4 +4,29 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string-array name="IngredientsSortOptionList">
+        <item>description</item>
+        <item>best before date</item>
+        <item>location</item>
+        <item>ingredient category</item>
+    </string-array>
+
+    <string-array name="RecipesSortOptionList">
+        <item>title</item>
+        <item>preparation time</item>
+        <item>number of servings</item>
+        <item>recipe category</item>
+    </string-array>
+
+    <string-array name="mealPlanSortOptionList">
+        <item>ID</item>
+        <item>Type</item>
+        <item>Number of Servings</item>
+    </string-array>
+
+    <string-array name="shoppingListSortOptionList">
+        <item>description</item>
+        <item>category</item>
+    </string-array>
 </resources>
