@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -15,13 +17,14 @@ import java.util.ArrayList;
 /**
  *
  */
-
-public class MealPlanActivity extends AppCompatActivity {
+public class MealPlanActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ListView mealPlanList;
     FloatingActionButton mealPlanAddFAB;
     ArrayAdapter<MealPLan> mealPLanAdapter;
     ArrayList<MealPLan> mealPLanDataList;
+    Spinner mealPlanSortSpinner;
+    MealPlanController MealPlanController;
 
 
     @Override
@@ -29,7 +32,7 @@ public class MealPlanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_plan);
         mealPlanList = findViewById(R.id.mealPlan_list);
-        MealPlanController MealPlanController = new MealPlanController(this);
+        MealPlanController = new MealPlanController(this);
         mealPLanAdapter = MealPlanController.getMealPLanAdapter();
         mealPLanDataList = MealPlanController.getMealPLanDataList();
         mealPlanList.setAdapter(mealPLanAdapter);
@@ -53,5 +56,41 @@ public class MealPlanActivity extends AppCompatActivity {
                 MealPlanController.AddMealPlanFragment(getSupportFragmentManager());
             }
         });
+
+        mealPlanSortSpinner = (Spinner)findViewById(R.id.mealPlan_list_sort_spinner);
+        ArrayAdapter<CharSequence> mealPlanSortOption = ArrayAdapter.createFromResource(
+                this,
+                R.array.mealPlanSortOptionList,
+                android.R.layout.simple_spinner_item);
+        mealPlanSortOption.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mealPlanSortSpinner.setAdapter(mealPlanSortOption);
+        mealPlanSortSpinner.setOnItemSelectedListener(this);
+    }
+
+
+    //For mealPlanSortSpinner
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+        if (position == 0){//ID
+            Toast.makeText(this,"sorted by "+adapterView.getItemAtPosition(position).toString() ,Toast.LENGTH_LONG).show();
+            MealPlanController.sortByID();
+            mealPLanAdapter.notifyDataSetChanged();
+            mealPLanDataList = MealPlanController.getMealPLanDataList();
+        }else if (position == 1){//type
+            Toast.makeText(this,"sorted by "+adapterView.getItemAtPosition(position).toString() ,Toast.LENGTH_LONG).show();
+            MealPlanController.sortByType();
+            mealPLanAdapter.notifyDataSetChanged();
+            mealPLanDataList = MealPlanController.getMealPLanDataList();
+        }else {//number of serving
+            Toast.makeText(this,"sorted by "+adapterView.getItemAtPosition(position).toString() ,Toast.LENGTH_LONG).show();
+            MealPlanController.sortByNOS();
+            mealPLanAdapter.notifyDataSetChanged();
+            mealPLanDataList = MealPlanController.getMealPLanDataList();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

@@ -1,5 +1,9 @@
 package com.example.joyfulmealplanning;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 /**
  * The class creates a Meal Plan object
  * @author Qiaosong Deng

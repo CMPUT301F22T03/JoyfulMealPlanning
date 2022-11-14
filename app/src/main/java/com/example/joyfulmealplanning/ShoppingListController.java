@@ -23,6 +23,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -348,4 +350,23 @@ public class ShoppingListController extends AppCompatActivity{
         return packedIngredients;
     }
 
+    public void sortByDescription(){
+        Collections.sort(ShoppingIngredientDataList, new Comparator<Ingredients>() {
+            @Override
+            public int compare(Ingredients ingredient1, Ingredients ingredient2) {
+                return ingredient1.getDescription().compareTo(ingredient2.getDescription());
+            }
+        });
+        ShoppingListAdaptor.notifyDataSetChanged();
+    }
+
+    public void sortByCategory(){
+        Collections.sort(ShoppingIngredientDataList, new Comparator<Ingredients>() {
+            @Override
+            public int compare(Ingredients ingredient1, Ingredients ingredient2) {
+                return ingredient1.getCategory().compareTo(ingredient2.getCategory());
+            }
+        });
+        ShoppingListAdaptor.notifyDataSetChanged();
+    }
 }

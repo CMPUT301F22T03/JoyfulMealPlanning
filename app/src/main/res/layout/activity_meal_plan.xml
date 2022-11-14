@@ -15,12 +15,26 @@
         android:textAlignment="center"
         android:textSize="30dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/mealPlanAddFAB"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        app:srcCompat="@drawable/ic_baseline_add_24" />
+        android:orientation="horizontal">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/mealPlanAddFAB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_baseline_add_24" />
+
+        <Spinner
+            android:id="@+id/mealPlan_list_sort_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
 
     <ListView
         android:id="@+id/mealPlan_list"
