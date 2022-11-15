@@ -81,9 +81,14 @@ public class MealPlanActivity extends AppCompatActivity implements AdapterView.O
             MealPlanController.sortByType();
             mealPLanAdapter.notifyDataSetChanged();
             mealPLanDataList = MealPlanController.getMealPLanDataList();
-        }else {//number of serving
+        }else if (position == 2){//number of serving
             Toast.makeText(this,"sorted by "+adapterView.getItemAtPosition(position).toString() ,Toast.LENGTH_LONG).show();
             MealPlanController.sortByNOS();
+            mealPLanAdapter.notifyDataSetChanged();
+            mealPLanDataList = MealPlanController.getMealPLanDataList();
+        }else{
+            Toast.makeText(this,"sorted by "+adapterView.getItemAtPosition(position).toString() ,Toast.LENGTH_LONG).show();
+            MealPlanController.sortByDate();;
             mealPLanAdapter.notifyDataSetChanged();
             mealPLanDataList = MealPlanController.getMealPLanDataList();
         }
