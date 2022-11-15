@@ -13,6 +13,7 @@ public class MealPLan {
     private String ID;
     private Integer numberOfServings;
     private String type;
+    private String Date;
 
     /**
      * This is a constructor for a Meal Plan object.
@@ -21,11 +22,20 @@ public class MealPLan {
      * @param numberOfServings The number of servings for the meal plan {@link Integer}
      * @param type Indicates whether the meal plan is based on recipe or ingredient {@link String}
      */
-    public MealPLan(String mealPlanID, String ID, Integer numberOfServings, String type) {
+    public MealPLan(String mealPlanID, String ID, Integer numberOfServings, String type, String Date) {
         this.mealPlanID = mealPlanID;
         this.ID = ID;
         this.numberOfServings = numberOfServings;
         this.type = type;
+        this.Date = Date;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
     }
 
     /**

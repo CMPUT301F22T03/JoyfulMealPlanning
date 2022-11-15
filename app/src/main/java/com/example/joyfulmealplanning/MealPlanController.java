@@ -59,9 +59,10 @@ public class MealPlanController extends AppCompatActivity {
                     String ID = (String) doc.getData().get("ID");
                     Long numberOfServings = (Long)doc.getData().get("number of servings");;
                     String type = (String) doc.getData().get("type");
+                    String Date = (String) doc.getData().get("Date");
 
                     mealPLanDataList.add(new MealPLan(mealPlanID, ID,
-                            numberOfServings.intValue(), type));
+                            numberOfServings.intValue(), type,Date));
                 }
                 mealPLanAdapter.notifyDataSetChanged();
             }
@@ -85,14 +86,15 @@ public class MealPlanController extends AppCompatActivity {
         new MealPlanAddFragment(context).show(fragmentManager, "Add_MealPLan");
     }
 
-    public void AddMealPlan(String ID, String type, Integer numberOfServings){
-        String mealPlanID = ID + "_"+ type;
+    public void AddMealPlan(String ID, String type, Integer numberOfServings, String Date){
+        String mealPlanID = ID + "_"+Date+"_"+type;
         HashMap<String, Object> data = new HashMap<>();
         if (ID.length()>0 && type.length()>0 && numberOfServings!=null){
             data.put("ID", ID);
             data.put("type",type);
             data.put("mealPlanID",mealPlanID);
             data.put("number of servings", numberOfServings);
+            data.put("Date",Date);
             recipeCollectionReference
                     .document(mealPlanID)
                     .set(data)
@@ -186,6 +188,15 @@ public class MealPlanController extends AppCompatActivity {
             }
         });
         mealPLanAdapter.notifyDataSetChanged();
+    }
+
+    public  void sortByDate(){
+        Collections.sort(mealPLanDataList, new Comparator<MealPLan>() {
+            @Override
+            public int compare(MealPLan mealPLan1, MealPLan mealPLan2) {
+                return mealPLan1.getDate().compareTo(mealPLan2.getDate());
+            }
+        });
     }
 }
 
