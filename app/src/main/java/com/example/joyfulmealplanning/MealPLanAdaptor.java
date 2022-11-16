@@ -38,10 +38,12 @@ public class MealPLanAdaptor extends ArrayAdapter<MealPLan> {
         TextView mealPlanActivityTitle = view.findViewById(R.id.mealPlanTitle);
         TextView mealPlanNumberOfServings = view.findViewById(R.id.mealPlanNumberOfServings);
         TextView mealPlanType = view.findViewById(R.id.mealPlanType);
+        TextView mealPlanDate = view.findViewById(R.id.mealPlanDate);
 
-        mealPlanActivityTitle.setText("Title: " + mealPlan.getID());
-        mealPlanNumberOfServings.setText("Number of Servings: " + mealPlan.getNumberOfServings());
+        mealPlanActivityTitle.setText("Title: " + mealPlan.getID()+"   ");
+        mealPlanNumberOfServings.setText("Number of Servings: " + mealPlan.getNumberOfServings()+"   ");
         mealPlanType.setText("Type: " + mealPlan.getType());
+        mealPlanDate.setText("Date: " + mealPlan.getDate());
 
         return view;
     }

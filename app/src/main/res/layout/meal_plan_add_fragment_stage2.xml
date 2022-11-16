@@ -14,6 +14,29 @@
         android:hint="Please Input Number of Servings"
         android:inputType="number" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/MealPlanAddStage2Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text=" Please Choose Date:   "/>
+
+        <Button
+            android:id="@+id/MealPlanAddStage2DatePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Choose Date"/>
+
+
+    </LinearLayout>
+
+
     <ListView
         android:id="@+id/MealPlanAddStage2StorageList"
         android:layout_width="match_parent"

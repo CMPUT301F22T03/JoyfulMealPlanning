@@ -19,13 +19,15 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 /**
  * The Ingredients controller class, responsible for the modification of a list of
  * ingredients in FireStore database and the connection with a local list of ingredients.
- * @author Zhaoqi Ma & Fan Zhu
- * @version 1.0
+ * @author Zhaoqi Ma & Fan Zhu & Qiaosong Deng
+ * @version 1.1
  * @since 2022-10-28
  */
 public class IngredientController {
@@ -159,6 +161,38 @@ public class IngredientController {
     }
 
     /**
+     * Adds a given ingredient to the ingredientList as well as the DB collections From shopping list
+     * @param ingredient
+     * @return {@link Boolean}
+     */
+    public boolean addIngredientShoppingListVersion(Ingredients ingredient){
+        for (Ingredients ing : this.ingredientList){
+            if (ing.getDescription() == ingredient.getDescription()){
+                ingredient.setAmount(ing.getAmount()+ingredient.getAmount());
+            }
+        }
+        Map<String, Object> packedIngredients = packIngredientsToMap(ingredient);
+        this.ingredientsCollectionReference
+                .document((String) packedIngredients.get("description"))
+                .set(packedIngredients)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG,packedIngredients.get("description") +
+                                "ingredient has been added successfully!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, packedIngredients.get("title") +
+                                "ingredient could not be added!" + e.toString());
+                    }
+                });
+        return true;
+    }
+
+    /**
      * Takes the description of ingredient as the parameter and delete the document from the DB
      * @param ingredientDesc
      */
@@ -191,12 +225,60 @@ public class IngredientController {
         deleteIngredient(desc);
     }
 
+    /**
+     * Adds an Ingredients object to the local ingredientList
+     * @param ingredients
+     */
     public void addToLocalList(Ingredients ingredients){
         this.ingredientList.add(ingredients);
     }
 
+    /**
+     * Removes an Ingredients object from the local ingredientList at the given index
+     * @param idx
+     */
     public void deleteFromLocalList(int idx){
         this.ingredientList.remove(idx);
+    }
+
+    public void sortByDescription(){
+        Collections.sort(ingredientList, new Comparator<Ingredients>() {
+            @Override
+            public int compare(Ingredients ingredients, Ingredients t1) {
+                return ingredients.getDescription().compareTo(t1.getDescription());
+            }
+        });
+        ingredientsArrayAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByBBD(){
+        Collections.sort(ingredientList, new Comparator<Ingredients>() {
+            @Override
+            public int compare(Ingredients ingredients, Ingredients t1) {
+                return ingredients.getBest_before_date().compareTo(t1.getBest_before_date());
+            }
+        });
+        ingredientsArrayAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByLocation(){
+        Collections.sort(ingredientList, new Comparator<Ingredients>() {
+            @Override
+            public int compare(Ingredients ingredients, Ingredients t1) {
+                return ingredients.getLocation().compareTo(t1.getLocation());
+            }
+        });
+        ingredientsArrayAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByCategory(){
+        Collections.sort(ingredientList, new Comparator<Ingredients>() {
+            @Override
+            public int compare(Ingredients ingredients, Ingredients t1) {
+                return ingredients.getCategory().compareTo(t1.getCategory());
+            }
+        });
+        ingredientsArrayAdapter.notifyDataSetChanged();
     }
 
 

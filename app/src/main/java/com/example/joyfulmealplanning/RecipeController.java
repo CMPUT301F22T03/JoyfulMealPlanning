@@ -24,11 +24,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The controller class of Recipe
+ * The controller class of Recipe, responsible for adding, deleting and updating recipes.
  * @author Zhaoqi, Qiaosong
  * @version 1.0
  */
@@ -60,12 +62,13 @@ public class RecipeController {
                     //System.out.println(String.valueOf(doc.getData().get("number of servings")));
                     String RecipeTitle = (String) doc.getData().get("title");
                     String RecipeCategory = (String) doc.getData().get("category");
-                    Long RecipePreparationTime = (Long)doc.getData().get("preparation time");
-                    Long RecipeNumberOfServings = (Long)doc.getData().get("number of servings");
+                    Long RecipePreparationTime = (Long) doc.getData().get("preparation time");
+                    Long RecipeNumberOfServings = (Long) doc.getData().get("number of servings");
+                    String RecipeComments = (String) doc.getData().get("comments");
                     ArrayList<Ingredients> retrievedIngredients = new ArrayList<>();
                     retrieveIngredientList(RecipeTitle, retrievedIngredients);
                     //recipeDataList.add(new Recipe(RecipeTitle, RecipeCategory,"",RecipeNumberOfServings,RecipePreparationTime, new ArrayList<>()));
-                    recipeList.add(new Recipe(RecipeTitle, RecipeCategory,"",
+                    recipeList.add(new Recipe(RecipeTitle, RecipeCategory,RecipeComments,
                             RecipePreparationTime.intValue(),RecipeNumberOfServings.intValue(),
                             retrievedIngredients));
                     recipeArrayAdapter.notifyDataSetChanged();
@@ -231,6 +234,46 @@ public class RecipeController {
                         }
                     });
         }
+    }
+
+    public void sortByTitle(){
+        Collections.sort(recipeList, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe recipe, Recipe t1) {
+                return recipe.getRecipeTitle().compareTo(t1.getRecipeTitle());
+            }
+        });
+        recipeArrayAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByPT(){
+        Collections.sort(recipeList, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe recipe, Recipe t1) {
+                return recipe.getRecipePreparationTime().compareTo(t1.getRecipePreparationTime());
+            }
+        });
+        recipeArrayAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByNOS(){
+        Collections.sort(recipeList, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe recipe, Recipe t1) {
+                return recipe.getRecipeNumberOfServings().compareTo(t1.getRecipeNumberOfServings());
+            }
+        });
+        recipeArrayAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByCategory(){
+        Collections.sort(recipeList, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe recipe, Recipe t1) {
+                return recipe.getRecipeCategory().compareTo(t1.getRecipeCategory());
+            }
+        });
+        recipeArrayAdapter.notifyDataSetChanged();
     }
 
 }

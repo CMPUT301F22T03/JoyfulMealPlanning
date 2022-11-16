@@ -31,7 +31,7 @@ import java.util.Calendar;
 import java.util.Map;
 
 /**
- * The main activity of Recipe
+ * This class creates a DialogFragment that prompts users for information for recipes
  * @author Zhaoqi
  * @version 1.0
  */
@@ -42,8 +42,7 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
     private OnFragmentInteractionListener listener; //the context (in the form of OnFragmentInteractionListener)
     private EditText titleInput;   //text box for user-input food description
     private EditText timeInput;  //text box used to display selected date
-    private Spinner categorySpinner; //choose a location spinner
-    private EditText commentsInput;
+    private EditText commentsInput, categoryInput;
 //    private DatePickerDialog timePicker;  //datePicker widget
 //    private Button timeButton;  //choose a date button
     private EditText numberInput; //text box for user-input food count
@@ -54,7 +53,7 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
     String title; //intermediate variable to hold the inputted food description
     String comments;
     String selectedTime; //intermediate variable to hold the selected BB date
-    String selectedCategory; //intermediate variable to hold the selected location
+    String category;
     int servingNumber = 1;  //intermediate variable to hold the inputted count. Initialized to 0
     Integer selectedIngredientPosition = null; //integer location of the selected ingredient from the ingredient list
     private IngredientController ingredientStorageController;
@@ -93,7 +92,7 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
 
         titleInput = view.findViewById(R.id.RecipeTitleInput);
         timeInput = view.findViewById(R.id.RecipeTimeInput);
-        categorySpinner = view.findViewById(id.RecipeCategorySpinner);
+        categoryInput = view.findViewById(id.RecipeCategoryInput);
         commentsInput =  view.findViewById(id.RecipeCommentsInput);
         numberInput = view.findViewById(id.RecipeNumberInput);
         recipeIngredientList = view.findViewById(id.RecipeIngredientList);
@@ -108,28 +107,6 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
 //        recipeIngredientList.setAdapter(new RecipeIngredientListAdaptor(getContext(), requiredIngredients));
         recipeIngredientList.setAdapter(recipeIngredientListAdaptor);
 
-        ArrayList<String> categories = new ArrayList<>();
-        categories.add("appetizer");
-        categories.add("main dish");
-        categories.add("side dish");
-        categories.add("dessert");
-        categories.add("soup");
-        ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<String>(getContext(),
-                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, categories);
-        categoriesAdapter.setDropDownViewResource(
-                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(categoriesAdapter);
-        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedCategory = adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         recipeIngredientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -197,11 +174,11 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                 requiredIngredients.add(ingredient);
             }
             recipeIngredientListAdaptor.notifyDataSetChanged();
-            titleInput.setText(recipe.getRecipeTitle());
             oldRecipeTitle = recipe.getRecipeTitle();
+            titleInput.setText(recipe.getRecipeTitle());
+            commentsInput.setText(recipe.getRecipeComments());
             timeInput.setText(recipe.getRecipePreparationTime().toString());
-            int spinnerPosition = categoriesAdapter.getPosition(recipe.getRecipeCategory());
-            categorySpinner.setSelection(spinnerPosition);
+            categoryInput.setText(recipe.getRecipeCategory());
             numberInput.setText(Integer.toString(recipe.getRecipeNumberOfServings()));
         }
 
@@ -219,8 +196,9 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                         title = titleInput.getText().toString();
                         comments = commentsInput.getText().toString();
                         selectedTime = timeInput.getText().toString();
+                        category = categoryInput.getText().toString();
                         servingNumber = Integer.parseInt(numberInput.getText().toString());
-                        Recipe newRecipe = new Recipe(title, selectedCategory, comments,
+                        Recipe newRecipe = new Recipe(title, category, comments,
                                 Integer.parseInt(selectedTime), servingNumber, requiredIngredients);
                         if (finalAddRecipe){
                             listener.onOkPressed(null, newRecipe);
@@ -303,56 +281,8 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.recipe_add_new_ingredient,null);
         EditText ingredientDescInput = view.findViewById(id.RecipeNewIngredientDescriptionInput);
         EditText ingredientAmountInput = view.findViewById(id.RecipeNewIngredientAmountInput);
-        Spinner ingredientUnitSpinner = view.findViewById(id.RecipeNewIngredientUnitSpinner);
-        Spinner ingredientCategorySpinner = view.findViewById(id.RecipeNewIngredientCategorySpinner);
-
-        ArrayList<String> units = new ArrayList<>();
-        units.add("pack");
-        units.add("bottle");
-        units.add("g");
-        units.add("kg");
-        units.add("lb");
-        units.add("oz");
-        units.add("mL");
-        units.add("L");
-        units.add("tsp");
-        units.add("tbsp");
-
-        ArrayList<String > categories = new ArrayList<>();
-        categories.add("meat");
-        categories.add("vegetable");
-        categories.add("fruit");
-        categories.add("spices");
-        categories.add("seasoning");
-        categories.add("drink");
-        categories.add("alcohol");
-
-        initializeSpinner(ingredientUnitSpinner, units);
-        initializeSpinner(ingredientCategorySpinner, categories);
-
-        ingredientUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedIngredientUnit = adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        ingredientCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedIngredientCategory = adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+        EditText ingredientUnitInput = view.findViewById(id.RecipeNewIngredientUnitInput);
+        EditText ingredientCategoryInput = view.findViewById(id.RecipeNewIngredientCategoryInput);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder
@@ -362,14 +292,10 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Integer ingredientAmount = Integer.valueOf(ingredientAmountInput.getText().toString());
-//                        recipeIngredientListAdaptor.add(new Ingredients(
-//                                ingredientDescInput.getText().toString(),
-//                                ingredientAmount, selectedIngredientUnit,
-//                                selectedIngredientCategory));
                         requiredIngredients.add(new Ingredients(
                                 ingredientDescInput.getText().toString(),
-                                ingredientAmount, selectedIngredientUnit,
-                                selectedIngredientCategory));
+                                ingredientAmount, ingredientUnitInput.getText().toString(),
+                                ingredientCategoryInput.getText().toString()));
                         recipeIngredientListAdaptor.notifyDataSetChanged();
                     }
                 })

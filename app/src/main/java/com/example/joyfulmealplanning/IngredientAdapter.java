@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 
 import java.util.ArrayList;
 
@@ -16,15 +17,17 @@ import java.util.ArrayList;
 /**
  * The IngredientAdapter class
  * Creating an AdapterView for the dataset
- * @author Fan Zhu
+ * @author Fan Zhu, Yuxuan Yang
+ * @version 2.0
  * @since 2022-10-23
  */
 public class IngredientAdapter extends ArrayAdapter<Ingredients> {
 
     /*Declaration of variables*/
     private ArrayList<Ingredients> ingredients;
-
+    //IngredientController controller = IngredientsActivity.class.controller;
     private Context context;
+
 
     /**
      * Constructor of the IngredientAdapter
@@ -39,7 +42,7 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
     }
 
     /**
-     * Inflates a view from content.xml to display data
+     * Inflates a view from ingredient_content.xml to display data
      * @param position
      * @param convertView
      * @param parent
@@ -54,8 +57,10 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
         }
 
         Ingredients ingredient = ingredients.get(position);
+        CardView cardView;
         TextView desText, locationText, CategoryText, AmountText, UnitText, DateText;
 
+        cardView = view.findViewById(R.id.cardView);
         desText = view.findViewById(R.id.description_text);
         locationText = view.findViewById(R.id.location_text);
         CategoryText = view.findViewById(R.id.category_text);
@@ -63,7 +68,14 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
         UnitText = view.findViewById(R.id.unit_text);
         DateText = view.findViewById(R.id.date_text);
 
-
+        /*cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IngredientFragment fragment =
+                        new IngredientFragment().newInstance(ingredient);
+                fragment.
+            }
+        });*/
 
         desText.setText(ingredient.getDescription());
         locationText.setText(ingredient.getLocation());

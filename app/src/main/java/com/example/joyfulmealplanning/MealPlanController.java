@@ -24,6 +24,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class MealPlanController extends AppCompatActivity {
@@ -57,9 +59,10 @@ public class MealPlanController extends AppCompatActivity {
                     String ID = (String) doc.getData().get("ID");
                     Long numberOfServings = (Long)doc.getData().get("number of servings");;
                     String type = (String) doc.getData().get("type");
+                    String Date = (String) doc.getData().get("Date");
 
                     mealPLanDataList.add(new MealPLan(mealPlanID, ID,
-                            numberOfServings.intValue(), type));
+                            numberOfServings.intValue(), type,Date));
                 }
                 mealPLanAdapter.notifyDataSetChanged();
             }
@@ -83,14 +86,15 @@ public class MealPlanController extends AppCompatActivity {
         new MealPlanAddFragment(context).show(fragmentManager, "Add_MealPLan");
     }
 
-    public void AddMealPlan(String ID, String type, Integer numberOfServings){
-        String mealPlanID = ID + "_"+ type;
+    public void AddMealPlan(String ID, String type, Integer numberOfServings, String Date){
+        String mealPlanID = ID + "_"+Date+"_"+type;
         HashMap<String, Object> data = new HashMap<>();
         if (ID.length()>0 && type.length()>0 && numberOfServings!=null){
             data.put("ID", ID);
             data.put("type",type);
             data.put("mealPlanID",mealPlanID);
             data.put("number of servings", numberOfServings);
+            data.put("Date",Date);
             recipeCollectionReference
                     .document(mealPlanID)
                     .set(data)
@@ -156,6 +160,44 @@ public class MealPlanController extends AppCompatActivity {
         return DeleteDialogBox;
     }
 
+    public void sortByID(){
+        Collections.sort(mealPLanDataList, new Comparator<MealPLan>() {
+            @Override
+            public int compare(MealPLan mealPLan1, MealPLan mealPLan2) {
+                return mealPLan1.getID().compareTo(mealPLan2.getID());
+            }
+        });
+        mealPLanAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByNOS(){
+        Collections.sort(mealPLanDataList, new Comparator<MealPLan>() {
+            @Override
+            public int compare(MealPLan mealPLan1, MealPLan mealPLan2) {
+                return mealPLan1.getNumberOfServings().compareTo(mealPLan2.getNumberOfServings());
+            }
+        });
+        mealPLanAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByType() {
+        Collections.sort(mealPLanDataList, new Comparator<MealPLan>() {
+            @Override
+            public int compare(MealPLan mealPLan1, MealPLan mealPLan2) {
+                return mealPLan1.getType().compareTo(mealPLan2.getType());
+            }
+        });
+        mealPLanAdapter.notifyDataSetChanged();
+    }
+
+    public  void sortByDate(){
+        Collections.sort(mealPLanDataList, new Comparator<MealPLan>() {
+            @Override
+            public int compare(MealPLan mealPLan1, MealPLan mealPLan2) {
+                return mealPLan1.getDate().compareTo(mealPLan2.getDate());
+            }
+        });
+    }
 }
 
 

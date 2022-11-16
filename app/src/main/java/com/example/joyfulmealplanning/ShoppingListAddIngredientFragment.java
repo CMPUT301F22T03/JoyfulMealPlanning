@@ -8,57 +8,39 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import org.checkerframework.checker.units.qual.A;
-
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collection;
 
-
-/**
- * The IngredientFragment class
- * Creating a DialogFragment that prompts users for information of ingredients
- * @author Xiangxu Meng, Zhaoqi Ma, Mashiad
- * @version 2.0
- * @change Modified the fragment so that it can properly handle both editing and addition
- * of ingredients
- * @since 2022-10-23
- */
-public class IngredientFragment extends DialogFragment {
-
-    /*Declaration of variables*/
-    private IngredientFragment.OnFragmentInteractionListener listener;
+public class ShoppingListAddIngredientFragment extends DialogFragment {
+    Context context;
     private EditText descriptionInput, amountInput, unitInput, categoryInput, locationInput;
+    private String description, unit, category, location, BBDate;
     private TextView BBDateDisplay;
     private Button BBDatePicker;
     private DatePickerDialog timePicker;
-    private String description, unit, category, location, BBDate;
+    private ShoppingListAddIngredientFragment.OnFragmentInteractionListener listener;
     Integer amount = 1;
 
     public interface OnFragmentInteractionListener {
-        void onOkPressed(String oldIngredientDesc, Ingredients newIngredients);
+        void onOkPressed(Ingredients ingredients);
     }
+
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener){
-            listener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    +"must implement OnFragmentInteractionListener");
-        }
+        listener = (OnFragmentInteractionListener) context;
     }
 
     @NonNull
@@ -84,7 +66,7 @@ public class IngredientFragment extends DialogFragment {
             }
         });
 
-        String dialogTitle = "Add Ingredient";
+        String dialogTitle = "Add a Ingredient";
         String oldIngredientDesc = null;
         boolean addIngredient = true;
         amountInput.setText(Integer.toString(amount));
@@ -92,10 +74,12 @@ public class IngredientFragment extends DialogFragment {
 
         if (bundle != null) {
             /*if the bundle is not empty, then this is an editing fragment*/
-            dialogTitle = "Edit Ingredient";
+            //dialogTitle = "Edit Ingredient";
             addIngredient = false;
-            Ingredients ingredients = (Ingredients) bundle.getSerializable("ingredients"); //extract the food object stored in the bundle
+
             //set the widgets with the provided information from the extracted food object.
+            Ingredients ingredients = (Ingredients) bundle.getSerializable("ingredients") ; //extract the food object stored in the bundle
+
             descriptionInput.setText(ingredients.getDescription());
             oldIngredientDesc = ingredients.getDescription();
             amountInput.setText(ingredients.getAmount().toString());
@@ -120,34 +104,22 @@ public class IngredientFragment extends DialogFragment {
                         unit = unitInput.getText().toString();
                         category = categoryInput.getText().toString();
                         location = locationInput.getText().toString();
-                        Ingredients newIngredients = new Ingredients(description,Integer.parseInt(BBDate),
-                                location, category, amount, unit);
-                        if (finalAddIngredient){
-                            listener.onOkPressed(null, newIngredients);
-                        } else {
-                            listener.onOkPressed(finalOldIngredientDesc, newIngredients);
+                        if (description!=null && amount!=null && BBDate != null && unit!=null && category!=null && location!=null){
+                            Ingredients newIngredients = new Ingredients(description,Integer.parseInt(BBDate),
+                                    location, category, amount, unit);
+
+                            listener.onOkPressed(newIngredients);
+                            Toast.makeText(getContext(),"You have added a new ingredient" ,Toast.LENGTH_LONG).show();
+
+                        }else {
+                            Toast.makeText(getContext(),"Some fields are empty, pls retry" ,Toast.LENGTH_LONG).show();
                         }
                     }
                 }).create();
-
     }
 
-    /**
-     *
-     * @param spinner
-     * @param selectionList
-     */
-    private void initializeSpinner(Spinner spinner, ArrayList<String> selectionList){
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, selectionList);
-        adapter.setDropDownViewResource(
-                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-    }
 
-    /**
-     * defines how the the datePicker should be initialized and what to do when a date is selected
-     */
+    /*defines how the the datePicker should be initialized and what to do when a date is selected*/
     private void initDatePicker(){
         DatePickerDialog.OnDateSetListener dateSetListener =
                 new DatePickerDialog.OnDateSetListener() {
@@ -167,17 +139,16 @@ public class IngredientFragment extends DialogFragment {
         timePicker =
                 new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
     }
-
-    /**
-     *
-     * @param ingredients
-     * @return fragment {@link IngredientFragment}
-     */
-    public static IngredientFragment newInstance(Ingredients ingredients){
+    public ShoppingListAddIngredientFragment newInstance(Ingredients ingredients){
         Bundle args = new Bundle();
+        //context = getContext();
         args.putSerializable("ingredients", ingredients);
-        IngredientFragment fragment = new IngredientFragment();
+        ShoppingListAddIngredientFragment fragment = new ShoppingListAddIngredientFragment();
         fragment.setArguments(args);
         return fragment;
     }
+
 }
+
+
+

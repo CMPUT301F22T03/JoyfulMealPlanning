@@ -36,6 +36,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Type"/>
+
+        <TextView
+            android:id="@+id/mealPlanDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Date"/>
         
     </LinearLayout>
 </LinearLayout>
