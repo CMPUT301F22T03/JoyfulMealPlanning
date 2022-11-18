@@ -4,14 +4,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.content.DialogInterface;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -78,7 +73,7 @@ public class IngredientsActivityTest {
         solo.assertCurrentActivity("Wrong Activity",IngredientsActivity.class);
 
         // check if an item named Ingredient UI Test1 is in the list(should be false):
-        assertFalse( solo.waitForText("Ingredient UI Test1", 1, 2000));
+        assertFalse( solo.waitForText("Ingredient UI Test1", 1, 5000));
 
         solo.clickOnView(solo.getView(R.id.IngredientAddButton));  // click FA button
 
@@ -88,6 +83,7 @@ public class IngredientsActivityTest {
         String sample_Category = "fruit";
         String sample_Location = "fridge";
 
+        //get a reference to editTexts
         EditText EditText_name = (EditText) solo.getView(R.id.IngredientDescriptionInput);
         EditText EditText_amount = (EditText) solo.getView(R.id.IngredientAmountInput);
         EditText EditText_unit = (EditText) solo.getView(R.id.IngredientUnitInput);
@@ -99,6 +95,8 @@ public class IngredientsActivityTest {
 
         // Clear the data in the IngredientAmountInput, since initially it sets to 1, we need to remove the initial data
         solo.clearEditText(EditText_amount);
+
+        // Set text for both editTexts
         solo.enterText(EditText_amount,sample_Amount);
         solo.enterText(EditText_unit ,sample_Unit);
 
@@ -111,19 +109,12 @@ public class IngredientsActivityTest {
         // Below we want to select in the date picker to have year 2023,October 31st, and use index 9
         solo.setDatePicker(datePicker, 2023,9,31);
         solo.clickOnButton("OK");
-//        Fragment outerFragment = rule.getActivity().getSupportFragmentManager().findFragmentByTag("outerFragmentTAG");
-//        DialogFragment dialogFrag;
-//        if (outerFragment == null) {
-//            dialogFrag = (DialogFragment)rule.getActivity().getSupportFragmentManager().findFragmentByTag("datePicker");
-//        } else {
-//            dialogFrag = (DialogFragment)outerFragment.getChildFragmentManager().findFragmentByTag("datePicker");
-//        }
-//        Button okButton = ((DatePickerDialog)dialogFrag.getDialog()).getButton(DialogInterface.BUTTON_POSITIVE);
-//        solo.clickOnView(okButton);
 
+        // Set text for both editTexts
         solo.enterText(EditText_category, sample_Category);
         solo.enterText(EditText_location, sample_Location);
 
+        // Assert the result
         Assert.assertEquals(sample_Name, EditText_name.getText().toString());
         Assert.assertEquals(sample_Amount, EditText_amount.getText().toString());
         Assert.assertEquals(sample_Unit, EditText_unit.getText().toString());
@@ -138,9 +129,7 @@ public class IngredientsActivityTest {
         solo.clickOnButton("ADD");
 
         // check if an item named Ingredient UI Test1 is in the list(should be true):
-        // temporarily assertFalse for now, data has been updated to the firebase
-        // assertFalse because activity_ingredients.xml have bugs need to be fixed
-        assertFalse( solo.waitForText("Ingredient UI Test1", 1, 2000));
+        assertTrue( solo.waitForText("Ingredient UI Test1", 1, 5000, solo.scrollListToTop(0)));
     }
 
     /**
