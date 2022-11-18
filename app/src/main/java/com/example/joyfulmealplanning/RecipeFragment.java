@@ -1,12 +1,19 @@
 package com.example.joyfulmealplanning;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,21 +21,26 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.joyfulmealplanning.R.id;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Map;
 
 /**
  * This class creates a DialogFragment that prompts users for information for recipes
@@ -37,26 +49,19 @@ import java.util.Map;
  */
 
 public class RecipeFragment extends DialogFragment implements IngredientFragment.OnFragmentInteractionListener {
-
-    private Context activityContext;
     private OnFragmentInteractionListener listener; //the context (in the form of OnFragmentInteractionListener)
-    private EditText titleInput;   //text box for user-input food description
-    private EditText timeInput;  //text box used to display selected date
-    private EditText commentsInput, categoryInput;
-//    private DatePickerDialog timePicker;  //datePicker widget
-//    private Button timeButton;  //choose a date button
-    private EditText numberInput; //text box for user-input food count
+    private EditText titleInput, timeInput, commentsInput, categoryInput, numberInput;   //text box for user inputs
     private ListView recipeIngredientList;
-    private Button addStorageIngredientButton;
-    private Button addNewIngredientButton;
-    private Button deleteIngredientButton;
-    String title; //intermediate variable to hold the inputted food description
-    String comments;
-    String selectedTime; //intermediate variable to hold the selected BB date
-    String category;
+    private Button addStorageIngredientButton, addNewIngredientButton, deleteIngredientButton, chooseImageButton, deleteImageButton;
+    private ImageView imageInput;
+    private static final int storagePermissionCode = 0;
+    private Uri imagePath;
+    private Bitmap selectedImage;
+    String title, comments, selectedTime, category; //intermediate variable to hold the user inputs
     int servingNumber = 1;  //intermediate variable to hold the inputted count. Initialized to 0
     Integer selectedIngredientPosition = null; //integer location of the selected ingredient from the ingredient list
     private IngredientController ingredientStorageController;
+    private RecipeController recipeController;
     ArrayList<Ingredients> requiredIngredients;
     ArrayAdapter<Ingredients> recipeIngredientListAdaptor;
 
@@ -73,7 +78,6 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activityContext = context;
         if (context instanceof OnFragmentInteractionListener) {
             listener = (OnFragmentInteractionListener) context;
 
@@ -89,7 +93,7 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_recipe, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         ingredientStorageController = new IngredientController(view.getContext());
-
+        recipeController = new RecipeController(view.getContext());
         titleInput = view.findViewById(R.id.RecipeTitleInput);
         timeInput = view.findViewById(R.id.RecipeTimeInput);
         categoryInput = view.findViewById(id.RecipeCategoryInput);
@@ -99,14 +103,14 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
         addStorageIngredientButton = view.findViewById(id.RecipeAddIngredientFromStorageButton);
         addNewIngredientButton = view.findViewById(id.RecipeAddNewIngredientButton);
         deleteIngredientButton = view.findViewById(id.RecipeDeleteIngredientButton);
+        imageInput = view.findViewById(id.RecipeImageInput);
+        chooseImageButton = view.findViewById(id.RecipeChooseImageButton);
+        deleteImageButton = view.findViewById(id.RecipeDeleteImageButton);
         requiredIngredients = new ArrayList<>();
-//        requiredIngredients.add(new Ingredients("test ingredient1", 1, "kg", "meat"));
-//        requiredIngredients.add(new Ingredients("test ingredient2", 2, "pack", "fruit"));
         recipeIngredientListAdaptor = new RecipeIngredientListAdapter(getContext(), requiredIngredients);
-//        recipeIngredientList.setLayoutManager(new LinearLayoutManager(getContext()));
-//        recipeIngredientList.setAdapter(new RecipeIngredientListAdaptor(getContext(), requiredIngredients));
         recipeIngredientList.setAdapter(recipeIngredientListAdaptor);
 
+        selectedImage = null;
 
         recipeIngredientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -155,6 +159,21 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
             }
         });
 
+        chooseImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requestStoragePermission();
+                chooseImage();
+            }
+        });
+
+        deleteImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedImage = null;
+                imageInput.setImageDrawable(null);
+            }
+        });
 
 
         String dialogTitle = "Add Recipe"; //title of the alert dialog
@@ -180,6 +199,7 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
             timeInput.setText(recipe.getRecipePreparationTime().toString());
             categoryInput.setText(recipe.getRecipeCategory());
             numberInput.setText(Integer.toString(recipe.getRecipeNumberOfServings()));
+            recipeController.retrieveImage(oldRecipeTitle, imageInput);
         }
 
         boolean finalAddRecipe = addRecipe;
@@ -199,7 +219,8 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                         category = categoryInput.getText().toString();
                         servingNumber = Integer.parseInt(numberInput.getText().toString());
                         Recipe newRecipe = new Recipe(title, category, comments,
-                                Integer.parseInt(selectedTime), servingNumber, requiredIngredients);
+                                Integer.parseInt(selectedTime), servingNumber, requiredIngredients,
+                                selectedImage);
                         if (finalAddRecipe){
                             listener.onOkPressed(null, newRecipe);
                         } else {
@@ -211,6 +232,41 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
     }
 
 
+    private void requestStoragePermission(){
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+            == PackageManager.PERMISSION_GRANTED){
+            return;
+        }
+        else {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, storagePermissionCode);
+        }
+    }
+
+    private void chooseImage(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        chooseActivityResultLauncher.launch(intent);
+    }
+
+    ActivityResultLauncher<Intent> chooseActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        //do some operations
+                        imagePath = data.getData();
+                        try {
+                            selectedImage = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imagePath);
+                            imageInput.setImageBitmap(selectedImage);
+                        } catch (IOException e) {
+                        }
+                    }
+                }
+            });
 
 
     Integer selectedItemPosition = null;
@@ -254,10 +310,6 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Ingredients selectedIngredient = ingredientStorageController.getIngredientAtIndex(selectedItemPosition);
                         Integer ingredientAmount = Integer.valueOf(ingredientAmountInput.getText().toString());
-//                        recipeIngredientListAdaptor.add(new Ingredients(
-//                                selectedIngredient.getDescription(),
-//                                ingredientAmount, selectedIngredient.getUnit(),
-//                                selectedIngredient.getCategory()));
                         requiredIngredients.add(new Ingredients(
                                 selectedIngredient.getDescription(),
                                 ingredientAmount, selectedIngredient.getUnit(),
@@ -275,8 +327,7 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
         return builder;
     }
 
-    String selectedIngredientUnit;
-    String selectedIngredientCategory;
+
     private AlertDialog.Builder RecipeAddNewIngredientDialog(){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.recipe_add_new_ingredient,null);
         EditText ingredientDescInput = view.findViewById(id.RecipeNewIngredientDescriptionInput);
