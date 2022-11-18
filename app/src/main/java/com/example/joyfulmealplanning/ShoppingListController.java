@@ -6,16 +6,13 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -26,19 +23,21 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShoppingListController {
+public class ShoppingListController extends AppCompatActivity{
 
     ArrayAdapter<Ingredients> ShoppingListAdaptor;
-    private HashMap<String,Ingredients> IngredientFromIngredientList;
+    private static HashMap<String,Ingredients> IngredientFromIngredientList;
     private HashMap<String,Ingredients> IngredientFromMealPLanList;
     private ArrayList<Ingredients> ShoppingIngredientDataList;
     private Context context;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    static FirebaseFirestore db = FirebaseFirestore.getInstance();
     final CollectionReference recipeCollectionReference = db.collection("recipe");
-    final CollectionReference ingredientsCollectionReference = db.collection("ingredient");
+    static final CollectionReference ingredientsCollectionReference = db.collection("ingredient");
     final CollectionReference mealPlanCollectionReference = db.collection("mealPlan");
 
 
@@ -50,6 +49,7 @@ public class ShoppingListController {
         ShoppingListAdaptor = new ShoppingListAdaptor(context,ShoppingIngredientDataList);
         realTimeReaction();
     }
+
 
     public interface FirebaseCallback{
         void onCallback(HashMap<String,Ingredients> IngredientMap);
@@ -293,4 +293,80 @@ public class ShoppingListController {
         return ShoppingIngredientDataList;
     }
 
+    /**
+     * Adds a given ingredient to the ingredientList as well as the DB collections From shopping list
+     * @param ingredient
+     * @return {@link Boolean}
+     */
+    public static boolean addIngredientIntoDBShoppingListVersion(Ingredients ingredient){
+        Log.d(TAG, "IngredientFromIngredientList's size: "+IngredientFromIngredientList.size());
+        for (Ingredients ing : IngredientFromIngredientList.values()){
+            Log.d(TAG, "Compare "+ing.getDescription()+"---"+ingredient.getDescription());
+            if (ing.getDescription().equals( ingredient.getDescription())){
+                Log.d(TAG, ing.getDescription()+ "'s old amount: " + ing.getAmount());
+                Log.d(TAG, ing.getDescription()+ "'s add amount: " + ingredient.getAmount());
+                Log.d(TAG, ing.getDescription()+ "'s new amount: " + ing.getAmount()+ingredient.getAmount());
+                ingredient.setAmount(ing.getAmount()+ingredient.getAmount());
+            }
+        }
+        Map<String, Object> packedIngredients = packIngredientsToMap(ingredient);
+        ingredientsCollectionReference
+                .document((String) packedIngredients.get("description"))
+                .set(packedIngredients)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG,packedIngredients.get("description") +
+                                "ingredient has been added successfully!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, packedIngredients.get("title") +
+                                "ingredient could not be added!" + e.toString());
+                    }
+                });
+        return true;
+    }
+
+    public static HashMap<String, Ingredients> getIngredientFromIngredientList() {
+        return IngredientFromIngredientList;
+    }
+
+    /**
+     * Packs the ingredients into a HashMap
+     * @param ingredients
+     * @return {@link Map}
+     */
+    private static Map<String, Object> packIngredientsToMap(Ingredients ingredients){
+        Map<String, Object> packedIngredients = new HashMap<>();
+        packedIngredients.put("description", ingredients.getDescription());
+        packedIngredients.put("amount", ingredients.getAmount());
+        packedIngredients.put("category", ingredients.getCategory());
+        packedIngredients.put("best before date", ingredients.getBest_before_date());
+        packedIngredients.put("location", ingredients.getLocation());
+        packedIngredients.put("unit", ingredients.getUnit());
+        return packedIngredients;
+    }
+
+    public void sortByDescription(){
+        Collections.sort(ShoppingIngredientDataList, new Comparator<Ingredients>() {
+            @Override
+            public int compare(Ingredients ingredient1, Ingredients ingredient2) {
+                return ingredient1.getDescription().compareTo(ingredient2.getDescription());
+            }
+        });
+        ShoppingListAdaptor.notifyDataSetChanged();
+    }
+
+    public void sortByCategory(){
+        Collections.sort(ShoppingIngredientDataList, new Comparator<Ingredients>() {
+            @Override
+            public int compare(Ingredients ingredient1, Ingredients ingredient2) {
+                return ingredient1.getCategory().compareTo(ingredient2.getCategory());
+            }
+        });
+        ShoppingListAdaptor.notifyDataSetChanged();
+    }
 }

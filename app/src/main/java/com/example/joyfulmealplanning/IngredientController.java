@@ -19,6 +19,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -223,12 +225,60 @@ public class IngredientController {
         deleteIngredient(desc);
     }
 
+    /**
+     * Adds an Ingredients object to the local ingredientList
+     * @param ingredients
+     */
     public void addToLocalList(Ingredients ingredients){
         this.ingredientList.add(ingredients);
     }
 
+    /**
+     * Removes an Ingredients object from the local ingredientList at the given index
+     * @param idx
+     */
     public void deleteFromLocalList(int idx){
         this.ingredientList.remove(idx);
+    }
+
+    public void sortByDescription(){
+        Collections.sort(ingredientList, new Comparator<Ingredients>() {
+            @Override
+            public int compare(Ingredients ingredients, Ingredients t1) {
+                return ingredients.getDescription().compareTo(t1.getDescription());
+            }
+        });
+        ingredientsArrayAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByBBD(){
+        Collections.sort(ingredientList, new Comparator<Ingredients>() {
+            @Override
+            public int compare(Ingredients ingredients, Ingredients t1) {
+                return ingredients.getBest_before_date().compareTo(t1.getBest_before_date());
+            }
+        });
+        ingredientsArrayAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByLocation(){
+        Collections.sort(ingredientList, new Comparator<Ingredients>() {
+            @Override
+            public int compare(Ingredients ingredients, Ingredients t1) {
+                return ingredients.getLocation().compareTo(t1.getLocation());
+            }
+        });
+        ingredientsArrayAdapter.notifyDataSetChanged();
+    }
+
+    public void sortByCategory(){
+        Collections.sort(ingredientList, new Comparator<Ingredients>() {
+            @Override
+            public int compare(Ingredients ingredients, Ingredients t1) {
+                return ingredients.getCategory().compareTo(t1.getCategory());
+            }
+        });
+        ingredientsArrayAdapter.notifyDataSetChanged();
     }
 
 

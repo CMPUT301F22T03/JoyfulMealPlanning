@@ -24,7 +24,6 @@ public class IngredientsActivityTest {
     /*Declaration of variables*/
     private Solo solo;
 
-
     /*Establishes test rules*/
     @Rule
     public ActivityTestRule<IngredientsActivity> rule =
@@ -47,6 +46,7 @@ public class IngredientsActivityTest {
     public void a_start() throws Exception{
         Activity activity = rule.getActivity();
     }
+
 
     /**
      * Check if Ingredient floating action button could open and close properly

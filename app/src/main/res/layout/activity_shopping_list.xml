@@ -4,19 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#76D3DF"
     android:orientation="vertical"
     tools:context=".ShoppingListActivity">
 
     <TextView
         android:id="@+id/shoppingListActivityTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:fontFamily="cursive"
         android:text="Shopping List"
-        android:textAlignment="center"
-        android:textSize="30dp"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="48sp" />
 
-    <ListView
-        android:id="@+id/ShoppingList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <Spinner
+        android:layout_gravity="end"
+        android:id="@+id/shoppingList_sort_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#C1E8FF"
+        app:cardCornerRadius="25dp">
+
+        <ListView
+            android:id="@+id/ShoppingList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10.0sp" />
+    </androidx.cardview.widget.CardView>
 </LinearLayout>
