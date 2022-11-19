@@ -55,12 +55,6 @@ public class IngredientController {
                 ingredientList.clear();
 
                 for(QueryDocumentSnapshot doc: value){
-                    Log.d(TAG, String.valueOf(doc.getData().get("description")));
-                    Log.d(TAG, String.valueOf(doc.getData().get("amount")));
-                    Log.d(TAG, String.valueOf(doc.getData().get("best before date")));
-                    Log.d(TAG, String.valueOf(doc.getData().get("category")));
-                    Log.d(TAG, String.valueOf(doc.getData().get("location")));
-                    Log.d(TAG, String.valueOf(doc.getData().get("unit")));
                     String desc = (String) doc.getData().get("description");
                     Integer amount = Integer.valueOf(doc.getData().get("amount").toString());
                     Integer bbdate = Integer.valueOf(doc.getData().get("best before date").toString());
@@ -147,14 +141,14 @@ public class IngredientController {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d(TAG,packedIngredients.get("description") +
-                                "ingredient has been added successfully!");
+                                " ingredient has been added successfully!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d(TAG, packedIngredients.get("title") +
-                                "ingredient could not be added!" + e.toString());
+                                " ingredient could not be added!" + e.toString());
                     }
                 });
         return true;
@@ -179,14 +173,14 @@ public class IngredientController {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d(TAG,packedIngredients.get("description") +
-                                "ingredient has been added successfully!");
+                                " ingredient has been added successfully!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d(TAG, packedIngredients.get("title") +
-                                "ingredient could not be added!" + e.toString());
+                                " ingredient could not be added!" + e.toString());
                     }
                 });
         return true;
@@ -203,14 +197,14 @@ public class IngredientController {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d(TAG, ingredientDesc +
-                                "ingredient successfully deleted!");
+                                " ingredient successfully deleted!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error deleting document"
-                                + ingredientDesc + "ingredient", e);
+                                + ingredientDesc + " ingredient", e);
                     }
                 });
     }
@@ -225,10 +219,18 @@ public class IngredientController {
         deleteIngredient(desc);
     }
 
+    /**
+     * Adds an Ingredients object to the local ingredientList
+     * @param ingredients
+     */
     public void addToLocalList(Ingredients ingredients){
         this.ingredientList.add(ingredients);
     }
 
+    /**
+     * Removes an Ingredients object from the local ingredientList at the given index
+     * @param idx
+     */
     public void deleteFromLocalList(int idx){
         this.ingredientList.remove(idx);
     }

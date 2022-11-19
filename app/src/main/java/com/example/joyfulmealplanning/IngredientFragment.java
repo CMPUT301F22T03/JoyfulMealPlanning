@@ -37,6 +37,7 @@ import java.util.Calendar;
  */
 public class IngredientFragment extends DialogFragment {
 
+    /*Declaration of variables*/
     private IngredientFragment.OnFragmentInteractionListener listener;
     private EditText descriptionInput, amountInput, unitInput, categoryInput, locationInput;
     private TextView BBDateDisplay;
@@ -110,7 +111,7 @@ public class IngredientFragment extends DialogFragment {
                 .setView(view)
                 .setTitle(dialogTitle)
                 .setNegativeButton("cancel", null)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         description = descriptionInput.getText().toString();
@@ -131,6 +132,11 @@ public class IngredientFragment extends DialogFragment {
 
     }
 
+    /**
+     *
+     * @param spinner
+     * @param selectionList
+     */
     private void initializeSpinner(Spinner spinner, ArrayList<String> selectionList){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                 androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, selectionList);
@@ -139,7 +145,9 @@ public class IngredientFragment extends DialogFragment {
         spinner.setAdapter(adapter);
     }
 
-    /*defines how the the datePicker should be initialized and what to do when a date is selected*/
+    /**
+     * defines how the the datePicker should be initialized and what to do when a date is selected
+     */
     private void initDatePicker(){
         DatePickerDialog.OnDateSetListener dateSetListener =
                 new DatePickerDialog.OnDateSetListener() {
@@ -160,6 +168,11 @@ public class IngredientFragment extends DialogFragment {
                 new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
     }
 
+    /**
+     *
+     * @param ingredients
+     * @return fragment {@link IngredientFragment}
+     */
     public static IngredientFragment newInstance(Ingredients ingredients){
         Bundle args = new Bundle();
         args.putSerializable("ingredients", ingredients);
