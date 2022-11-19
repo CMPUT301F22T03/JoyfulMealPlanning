@@ -42,7 +42,6 @@ import java.util.Map;
  * @since 2022-10-18
  */
 public class MainActivity extends AppCompatActivity {
-
     /*Declaration of variables*/
     Button Recipe;
     Button MealPlan;
@@ -95,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Switches the app from MainActivity to IngredientsActivity
+     * @param view
+     */
     public void switchActivity(View view) {
         Intent intent = new Intent(this, IngredientsActivity.class);
         startActivity(intent);

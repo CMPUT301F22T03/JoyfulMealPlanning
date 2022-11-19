@@ -27,12 +27,14 @@
             android:id="@+id/RecipeTimeUnit"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginEnd="20dp"
             android:paddingTop="10dp"
             android:text="minutes"
             app:layout_constraintBottom_toBottomOf="@+id/RecipeTimeLabel"
-            app:layout_constraintEnd_toStartOf="@+id/RecipeTimeInput"
-            app:layout_constraintStart_toEndOf="@+id/RecipeTimeLabel"
-            app:layout_constraintTop_toTopOf="@+id/RecipeTimeLabel" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/RecipeTimeInput"
+            app:layout_constraintTop_toTopOf="@+id/RecipeTimeLabel"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/RecipeNumberLabel"
@@ -48,23 +50,14 @@
             android:id="@+id/RecipeNumberInput"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:hint="enter your number of serving"
+            android:hint="enter your number"
             android:inputType="number"
             android:paddingTop="10dp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/RecipeNumberLabel"
             app:layout_constraintEnd_toEndOf="@+id/RecipeCommentsInput"
             app:layout_constraintStart_toEndOf="@+id/RecipeNumberLabel"
             app:layout_constraintTop_toTopOf="@+id/RecipeNumberLabel" />
-
-        <Spinner
-            android:id="@+id/RecipeCategorySpinner"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/RecipeCategoryLabel"
-            app:layout_constraintEnd_toEndOf="@+id/RecipeTitleInput"
-            app:layout_constraintStart_toEndOf="@+id/RecipeCategoryLabel"
-            app:layout_constraintTop_toTopOf="@+id/RecipeCategoryLabel" />
 
         <EditText
             android:id="@+id/RecipeCommentsInput"
@@ -73,7 +66,8 @@
             android:layout_marginStart="20dp"
             android:hint="enter your comment here"
             android:paddingTop="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/RecipeCategorySpinner"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/RecipeCategoryInput"
             app:layout_constraintStart_toEndOf="@+id/RecipeCommentsLabel"
             app:layout_constraintTop_toTopOf="@+id/RecipeCommentsLabel" />
 
@@ -92,14 +86,15 @@
             android:id="@+id/RecipeTimeInput"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="75dp"
             android:hint="enter time"
             android:inputType="number"
             android:paddingTop="10dp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/RecipeTimeLabel"
             app:layout_constraintEnd_toEndOf="@+id/RecipeNumberInput"
             app:layout_constraintStart_toEndOf="@+id/RecipeTimeLabel"
-            app:layout_constraintTop_toTopOf="@+id/RecipeTimeLabel" />
+            app:layout_constraintTop_toTopOf="@+id/RecipeTimeLabel"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/RecipeTimeLabel"
@@ -118,10 +113,11 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="140dp"
             android:hint="(30characters max)"
             android:maxLength="30"
             android:paddingTop="10dp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/RecipeTitleLabel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/RecipeTitleLabel"
@@ -182,6 +178,55 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/RecipeAddNewIngredientButton"
             app:layout_constraintTop_toBottomOf="@+id/RecipeIngredientLabel" />
+
+        <EditText
+            android:id="@+id/RecipeCategoryInput"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:ems="10"
+            android:hint="enter your category"
+            android:inputType="textPersonName"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/RecipeCategoryLabel"
+            app:layout_constraintEnd_toEndOf="@+id/RecipeTitleInput"
+            app:layout_constraintStart_toEndOf="@+id/RecipeCategoryLabel"
+            app:layout_constraintTop_toTopOf="@+id/RecipeCategoryLabel" />
+
+        <ImageView
+            android:id="@+id/RecipeImageInput"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/RecipeTitleInput"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <Button
+            android:id="@+id/RecipeChooseImageButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Choose Image"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/RecipeImageInput"
+            app:layout_constraintStart_toStartOf="@+id/RecipeImageInput"
+            app:layout_constraintTop_toBottomOf="@+id/RecipeImageInput" />
+
+        <Button
+            android:id="@+id/RecipeDeleteImageButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Delete Image"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/RecipeChooseImageButton"
+            app:layout_constraintStart_toStartOf="@+id/RecipeChooseImageButton"
+            app:layout_constraintTop_toBottomOf="@+id/RecipeChooseImageButton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ListView
