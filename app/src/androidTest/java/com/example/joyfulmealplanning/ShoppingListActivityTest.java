@@ -4,8 +4,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -13,9 +18,12 @@ import androidx.test.rule.ActivityTestRule;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 public class ShoppingListActivityTest {
     
@@ -63,6 +71,7 @@ public class ShoppingListActivityTest {
     public void checkShoppingList() {
         add_ingredient(solo);
         add_MealPlan(solo);
+        test_ShoppingList(solo);
 
     }
 
@@ -77,7 +86,7 @@ public class ShoppingListActivityTest {
         solo.clickOnView(solo.getView(R.id.IngredientAddButton));  // click FA button
 
         String sample_Name = "Ingredient for Shopping";
-        String sample_Amount = "10";
+        String sample_Amount = "1";
         String sample_Unit = "kg";
         String sample_Category = "fruit";
         String sample_Location = "fridge";
@@ -133,7 +142,7 @@ public class ShoppingListActivityTest {
         // add meal plan based on ingredient
         solo.clickOnView(solo.getView(R.id.mealPlanAddFAB));  // click FA button
         solo.clickOnView(solo.getView(R.id.MealPlanAddStage1Choice1)); // click button INGREDIENT
-        solo.enterText((EditText) solo.getView(R.id.MealPlanAddStage2InputNum), "8"); // enter number of servings
+        solo.enterText((EditText) solo.getView(R.id.MealPlanAddStage2InputNum), "10"); // enter number of servings
 
         solo.clickOnView(solo.getView(R.id.MealPlanAddStage2DatePicker));
         DatePicker datePicker = solo.getView(DatePicker.class, 0);
@@ -148,18 +157,32 @@ public class ShoppingListActivityTest {
         solo.clickOnText("Ingredient for Shopping");
         solo.clickOnButton("Add");
         solo.clickOnButton("Cancel");
-        // check if item named MealPlan for Shopping is in the list(should be false):
+        // check if item named Ingredient for Shopping is in the list:
         assertTrue( solo.waitForText("Ingredient for Shopping", 1, 2000, solo.scrollListToTop(0)));
 
         solo.goBack();
     }
+
+    public void test_ShoppingList (Solo solo) {
+        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.ShoppingList));
+        solo.assertCurrentActivity("Wrong Activity",ShoppingListActivity.class);
+
+        assertTrue(solo.waitForText("Ingredient for Shopping", 1, 2000));
+        assertTrue(solo.waitForText("Amount Needed: "+ (10 - 1), 1, 2000));
+        assertTrue(solo.waitForText("Category: fruit", 1, 2000));
+        assertTrue(solo.waitForText("Unit: kg", 1, 2000));
+
+        solo.goBack();
+    }
+
+
     /**
      * Close activity after each test
      * @throws Exception
      */
     @After
     public void knockDown() throws Exception{
-
 
         solo.finishOpenedActivities();
     }
