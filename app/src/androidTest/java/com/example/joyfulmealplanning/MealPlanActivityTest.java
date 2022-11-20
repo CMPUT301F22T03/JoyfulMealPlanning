@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 
@@ -73,6 +74,16 @@ public class MealPlanActivityTest {
         solo.clickOnView(solo.getView(R.id.mealPlanAddFAB));  // click FA button
         solo.clickOnView(solo.getView(R.id.MealPlanAddStage1Choice1)); // click button INGREDIENT
         solo.enterText((EditText) solo.getView(R.id.MealPlanAddStage2InputNum), "8"); // enter number of servings
+
+        solo.clickOnView(solo.getView(R.id.MealPlanAddStage2DatePicker));
+        DatePicker datePicker = solo.getView(DatePicker.class, 0);
+
+        // Important Notice:as described in the Android SDK, months are indexed starting at 0.
+        // This means October is month 10, or index 9, thus giving you the correct result.
+        // Below we want to select in the date picker to have year 2023,October 31st, and use index 9
+        solo.setDatePicker(datePicker, 2023,9,31);
+        solo.clickOnButton("OK");
+
         assertTrue( solo.waitForText("test ingredient for meal plan", 1, 4000));
         solo.clickOnText("test ingredient for meal plan");
         solo.clickOnButton("Add");

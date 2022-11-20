@@ -20,29 +20,31 @@ import org.junit.Test;
 public class ShoppingListActivityTest {
     
     /*Declaration of variables*/
-    private Solo soloIngredient, soloShopping, soloMealPlan;
+    private Solo solo;
 
     /*Establishes test rules*/
     @Rule
 
-    public ActivityTestRule<IngredientsActivity> ruleIngredient =
-            new ActivityTestRule<>(IngredientsActivity.class, true, true);
+    public ActivityTestRule<MainActivity> rule =
+            new ActivityTestRule<>(MainActivity.class, true, true);
 
-    public ActivityTestRule<ShoppingListActivity> ruleShopping =
-            new ActivityTestRule<>(ShoppingListActivity.class, true, true);
+//    public ActivityTestRule<MealPlanActivity> ruleMealPlan =
+//            new ActivityTestRule<>(MealPlanActivity.class, true, true);
+//
+//    public ActivityTestRule<ShoppingListActivity> ruleShopping =
+//            new ActivityTestRule<>(ShoppingListActivity.class, true, true);
 
-    public ActivityTestRule<MealPlanActivity> ruleMealPlan =
-            new ActivityTestRule<>(MealPlanActivity.class, true, true);
+
     /**
      * Runs before all tests and creates solo instance.
      * @throws Exception
      */
     @Before
     public void setUp() throws Exception{
-
+        solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
         //soloShopping = new Solo(InstrumentationRegistry.getInstrumentation(),ruleShopping.getActivity());
 
-        //soloMealPlan = new Solo(InstrumentationRegistry.getInstrumentation(),ruleMealPlan.getActivity());
+        //solo = new Solo(InstrumentationRegistry.getInstrumentation(),ruleMealPlan.getActivity());
     }
     /**
      * Gets the Activity
@@ -50,6 +52,7 @@ public class ShoppingListActivityTest {
      */
     @Test
     public void start() throws Exception{
+        Activity activity = rule.getActivity();
         //Activity activityShopping = ruleShopping.getActivity();
         //Activity activityMealPlan = ruleMealPlan.getActivity();
         //Activity activityIngredient = ruleIngredient.getActivity();
@@ -58,18 +61,20 @@ public class ShoppingListActivityTest {
 
     @Test
     public void checkShoppingList() {
-        add_ingredient();
-        add_MeanPlan();
+        add_ingredient(solo);
+        add_MealPlan(solo);
 
     }
 
-    public void add_ingredient() {
-        soloIngredient = new Solo(InstrumentationRegistry.getInstrumentation(),ruleIngredient.getActivity());
-        this.soloIngredient.assertCurrentActivity("Wrong Activity",IngredientsActivity.class);
+    public void add_ingredient(Solo solo) {
+        
+        this.solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.imageView));
 
-        assertFalse( soloIngredient.waitForText("Ingredient for Shopping", 1, 5000));
+        this.solo.assertCurrentActivity("Wrong Activity",IngredientsActivity.class);
+        assertFalse( solo.waitForText("Ingredient for Shopping", 1, 5000));
 
-        soloIngredient.clickOnView(soloIngredient.getView(R.id.IngredientAddButton));  // click FA button
+        solo.clickOnView(solo.getView(R.id.IngredientAddButton));  // click FA button
 
         String sample_Name = "Ingredient for Shopping";
         String sample_Amount = "10";
@@ -78,45 +83,75 @@ public class ShoppingListActivityTest {
         String sample_Location = "fridge";
 
         //get a reference to editTexts
-        EditText EditText_name = (EditText) soloIngredient.getView(R.id.IngredientDescriptionInput);
-        EditText EditText_amount = (EditText) soloIngredient.getView(R.id.IngredientAmountInput);
-        EditText EditText_unit = (EditText) soloIngredient.getView(R.id.IngredientUnitInput);
-        EditText EditText_category = (EditText) soloIngredient.getView(R.id.IngredientCategoryInput);
-        EditText EditText_location = (EditText) soloIngredient.getView(R.id.IngredientLocationInput);
+        EditText EditText_name = (EditText) solo.getView(R.id.IngredientDescriptionInput);
+        EditText EditText_amount = (EditText) solo.getView(R.id.IngredientAmountInput);
+        EditText EditText_unit = (EditText) solo.getView(R.id.IngredientUnitInput);
+        EditText EditText_category = (EditText) solo.getView(R.id.IngredientCategoryInput);
+        EditText EditText_location = (EditText) solo.getView(R.id.IngredientLocationInput);
 
         // Enter sample data named "Ingredient UI Test1"
-        soloIngredient.enterText(EditText_name , sample_Name);
+        solo.enterText(EditText_name , sample_Name);
 
         // Clear the data in the IngredientAmountInput, since initially it sets to 1, we need to remove the initial data
-        soloIngredient.clearEditText(EditText_amount);
+        solo.clearEditText(EditText_amount);
 
         // Set text for both editTexts
-        soloIngredient.enterText(EditText_amount,sample_Amount);
-        soloIngredient.enterText(EditText_unit ,sample_Unit);
+        solo.enterText(EditText_amount,sample_Amount);
+        solo.enterText(EditText_unit ,sample_Unit);
 
+        solo.clickOnView(solo.getView(R.id.IngredientBBDatePicker));
 
-        soloIngredient.clickOnView(soloIngredient.getView(R.id.IngredientBBDatePicker));
-        DatePicker datePicker = soloIngredient.getView(DatePicker.class, 0);
+        DatePicker datePicker = solo.getView(DatePicker.class, 0);
 
         // Important Notice:as described in the Android SDK, months are indexed starting at 0.
         // This means October is month 10, or index 9, thus giving you the correct result.
         // Below we want to select in the date picker to have year 2023,October 31st, and use index 9
-        soloIngredient.setDatePicker(datePicker, 2023,9,31);
-        soloIngredient.clickOnButton("OK");
+        solo.setDatePicker(datePicker, 2023,9,31);
+        solo.clickOnButton("OK");
 
         // Set text for both editTexts
-        soloIngredient.enterText(EditText_category, sample_Category);
-        soloIngredient.enterText(EditText_location, sample_Location);
+        solo.enterText(EditText_category, sample_Category);
+        solo.enterText(EditText_location, sample_Location);
 
-        soloIngredient.clickOnButton("ADD");
+        solo.clickOnButton("ADD");
 
         // check if an item named Ingredient UI Test1 is in the list(should be true):
-        assertTrue( soloIngredient.waitForText("Ingredient for Shopping", 1, 5000, soloIngredient.scrollListToTop(0)));
-        soloIngredient.finishOpenedActivities();
+        assertTrue( solo.waitForText("Ingredient for Shopping", 1, 5000, solo.scrollListToTop(0)));
+        solo.goBack();
     }
 
-    public void add_MeanPlan() {
-        
+    public void add_MealPlan(Solo solo) {
+
+        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+
+        //solo.clickOnButton(R.id.MealPlan);
+        solo.clickOnView(solo.getView(R.id.MealPlan));
+        solo.assertCurrentActivity("Wrong Activity",MealPlanActivity.class);
+        // check if an item named "MealPlan for Shopping" is in the list(should be false):
+        assertFalse( solo.waitForText("Ingredient for Shopping", 1, 2000));
+
+        // add meal plan based on ingredient
+        solo.clickOnView(solo.getView(R.id.mealPlanAddFAB));  // click FA button
+        solo.clickOnView(solo.getView(R.id.MealPlanAddStage1Choice1)); // click button INGREDIENT
+        solo.enterText((EditText) solo.getView(R.id.MealPlanAddStage2InputNum), "8"); // enter number of servings
+
+        solo.clickOnView(solo.getView(R.id.MealPlanAddStage2DatePicker));
+        DatePicker datePicker = solo.getView(DatePicker.class, 0);
+
+        // Important Notice:as described in the Android SDK, months are indexed starting at 0.
+        // This means October is month 10, or index 9, thus giving you the correct result.
+        // Below we want to select in the date picker to have year 2023,October 31st, and use index 9
+        solo.setDatePicker(datePicker, 2023,9,31);
+        solo.clickOnButton("OK");
+
+        assertTrue( solo.waitForText("Ingredient for Shopping", 1, 4000));
+        solo.clickOnText("Ingredient for Shopping");
+        solo.clickOnButton("Add");
+        solo.clickOnButton("Cancel");
+        // check if item named MealPlan for Shopping is in the list(should be false):
+        assertTrue( solo.waitForText("Ingredient for Shopping", 1, 2000, solo.scrollListToTop(0)));
+
+        solo.goBack();
     }
     /**
      * Close activity after each test
@@ -124,8 +159,8 @@ public class ShoppingListActivityTest {
      */
     @After
     public void knockDown() throws Exception{
-        //soloShopping.finishOpenedActivities();
 
-        //soloMealPlan.finishOpenedActivities();
+
+        solo.finishOpenedActivities();
     }
 }
