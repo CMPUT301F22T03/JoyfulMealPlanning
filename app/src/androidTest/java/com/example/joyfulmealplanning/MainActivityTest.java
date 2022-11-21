@@ -19,8 +19,8 @@ import org.junit.runner.RunWith;
 
 /**
  * Instrumented Test class for MainActivity. All the UI tests are written here. Robotium test framework is used
- * @version 1.0
- * @author Fan Zhu
+ * @version 2.0
+ * @author Fan Zhu & Xiangxu Meng
  * @see <a href = "https://github.com/RobotiumTech/">Robotium Test Framework</a>
  * @see <a href = "https://developer.android.com/training/testing/instrumented-tests">Instrumented Tests</a>
  */
@@ -71,15 +71,15 @@ public class MainActivityTest {
     public void switchToMealPlanTest() {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
         MainActivity activity = (MainActivity) solo.getCurrentActivity();
-        final Button Meal_plan_button = activity.findViewById(R.id.MealPlan);
-        solo.clickOnView(solo.getView(Meal_plan_button));
+        final ImageView Meal_plan_image = activity.findViewById(R.id.imageView4);
+        solo.clickOnView(solo.getView(Meal_plan_image));
         solo.assertCurrentActivity("Wrong activity", MealPlanActivity.class);
     }
 
     @Test
     public void switchToRecipeTest() {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.Recipe));
+        solo.clickOnView(solo.getView(R.id.imageView3));
         solo.assertCurrentActivity("Wrong activity", RecipeActivity.class);
     }
 
