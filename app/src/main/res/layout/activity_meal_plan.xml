@@ -4,26 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F4EB95"
     android:orientation="vertical"
     tools:context=".MealPlanActivity">
 
     <TextView
         android:id="@+id/mealPlanActivityTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:text="Meal Plan"
         android:textAlignment="center"
-        android:textSize="30dp" />
+        android:gravity="center"
+        android:fontFamily="cursive"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="48sp"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/mealPlanAddFAB"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:srcCompat="@drawable/ic_baseline_add_24" />
+        android:layout_height="wrap_content">
 
-    <ListView
-        android:id="@+id/mealPlan_list"
+        <Spinner
+            android:id="@+id/mealPlan_list_sort_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/mealPlanAddFAB"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/mealPlanAddFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:src="@drawable/ic_baseline_add_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mealPlan_list_sort_spinner"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#C1E8FF"
+        app:cardCornerRadius="25dp">
+
+        <ListView
+            android:id="@+id/mealPlan_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10.0sp"/>
+
+    </androidx.cardview.widget.CardView>
+
+
 </LinearLayout>

@@ -40,7 +40,8 @@ android {
 }
 
 dependencies {
-    implementation files('C:\\Users\\Owner\\AppData\\Local\\Android\\Sdk\\platforms\\android-30\\android.jar')
+
+    implementation 'com.google.firebase:firebase-storage:20.1.0'
     androidTestImplementation 'androidx.test:rules:1.1.1'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'

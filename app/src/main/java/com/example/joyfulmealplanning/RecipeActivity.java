@@ -5,10 +5,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -20,13 +24,14 @@ import java.util.ArrayList;
  * @version 2.0
  * @change Placed the FireStore manipulations and ArrayList/Adapter into the RecipeController class.
  */
-public class RecipeActivity extends AppCompatActivity implements RecipeFragment.OnFragmentInteractionListener{
+public class RecipeActivity extends AppCompatActivity implements RecipeFragment.OnFragmentInteractionListener,AdapterView.OnItemSelectedListener{
     final String TAG = "Sample";
     FloatingActionButton addRecipe;
     ListView recipeList;
     RecipeController recipeController;
     IngredientController ingredientStorageController;
     IngredientController ingredientListController;
+    Spinner recipeSortSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +89,16 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
                 new RecipeFragment().show(getSupportFragmentManager(), "Add Recipe");
             }
         });
+
+        recipeSortSpinner = (Spinner) findViewById(R.id.recipe_list_sort_spinner);
+        ArrayAdapter<CharSequence> recipeSortOption = ArrayAdapter.createFromResource(
+                this,
+                R.array.RecipesSortOptionList,
+                android.R.layout.simple_spinner_item
+        );
+        recipeSortOption.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        recipeSortSpinner.setAdapter(recipeSortOption);
+        recipeSortSpinner.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -94,4 +109,28 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
             recipeController.addRecipe(newRecipe);
         }
     }
+
+    //For recipeSortSpinner
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+        if (position == 0){//title
+            Toast.makeText(this,"sorted by "+adapterView.getItemAtPosition(position).toString() ,Toast.LENGTH_LONG).show();
+            recipeController.sortByTitle();
+        }else if (position == 1){//preparation time
+            Toast.makeText(this,"sorted by "+adapterView.getItemAtPosition(position).toString() ,Toast.LENGTH_LONG).show();
+            recipeController.sortByPT();
+        }else if(position == 2){//number of servings
+            Toast.makeText(this,"sorted by "+adapterView.getItemAtPosition(position).toString() ,Toast.LENGTH_LONG).show();
+            recipeController.sortByNOS();
+        }else {//category
+            Toast.makeText(this,"sorted by "+adapterView.getItemAtPosition(position).toString() ,Toast.LENGTH_LONG).show();
+            recipeController.sortByCategory();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
 }

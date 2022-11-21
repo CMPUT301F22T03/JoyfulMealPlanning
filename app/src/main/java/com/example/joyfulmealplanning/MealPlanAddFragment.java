@@ -1,6 +1,7 @@
 package com.example.joyfulmealplanning;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -29,11 +31,13 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class MealPlanAddFragment extends DialogFragment {
     Button IngredientChoice;
     Button RecipeChoice;
+    Button MealPlanAddStage2DatePicker;
     Context context;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     final CollectionReference ingredientReference = db.collection("ingredient");
@@ -45,6 +49,7 @@ public class MealPlanAddFragment extends DialogFragment {
     final String TAG = "Sample";
     Integer selectedItemPosition;
     View oldSelection = null;
+    private DatePickerDialog timePicker;
 
     public MealPlanAddFragment(Context context){
         this.context = context;
@@ -99,6 +104,14 @@ public class MealPlanAddFragment extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.meal_plan_add_fragment_stage2,null);
         ListView StorageList = view.findViewById(R.id.MealPlanAddStage2StorageList);
         EditText NumberOfServings = view.findViewById(R.id.MealPlanAddStage2InputNum);
+        MealPlanAddStage2DatePicker = view.findViewById(R.id.MealPlanAddStage2DatePicker);
+        initDatePicker();
+        MealPlanAddStage2DatePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timePicker.show();
+            }
+        });
 
         if (StorageName.equals("ingredient")){
             ingredientDataList = new ArrayList<>();
@@ -157,7 +170,7 @@ public class MealPlanAddFragment extends DialogFragment {
 
                         recipeDataList.add(new Recipe(RecipeTitle, RecipeCategory,"",
                                 RecipePreparationTime.intValue(),RecipeNumberOfServings.intValue(),
-                                new ArrayList<>()));
+                                new ArrayList<>(), null));
                         //System.out.println(RecipeTitle);
                     }
                     recipeAdaptor.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud
@@ -195,17 +208,18 @@ public class MealPlanAddFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String NOS = NumberOfServings.getText().toString();
-                        if ((!NOS.equals("")) && selectedItemPosition!=null){
+                        String Date = MealPlanAddStage2DatePicker.getText().toString();
+                        if ((!NOS.equals("")) && selectedItemPosition!=null && !Date.equals("Choose Date")){
                             String title;
                             Integer NumOfServing = Integer.parseInt(NOS);
                             if (StorageName.equals("ingredient")){
                                 title = ingredientDataList.get(selectedItemPosition).getDescription();
-                                new MealPlanController(context).AddMealPlan(title,"ingredient",NumOfServing);
+                                new MealPlanController(context).AddMealPlan(title,"ingredient",NumOfServing,Date);
                                 Toast.makeText(context,"You have added a new Meal Plan" ,Toast.LENGTH_LONG).show();
 
                             }else{
                                 title = recipeDataList.get(selectedItemPosition).getRecipeTitle();
-                                new MealPlanController(context).AddMealPlan(title,"recipe",NumOfServing);
+                                new MealPlanController(context).AddMealPlan(title,"recipe",NumOfServing,Date);
                                 Toast.makeText(context,"You have added a new Meal Plan" ,Toast.LENGTH_LONG).show();
 
                             }
@@ -223,5 +237,27 @@ public class MealPlanAddFragment extends DialogFragment {
                 })
                 .create();
         return MealPlanAddFragmentStage2;
+    }
+
+    /*defines how the the datePicker should be initialized and what to do when a date is selected*/
+    private void initDatePicker(){
+        DatePickerDialog.OnDateSetListener dateSetListener =
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        month = month+1;
+                        String BBDate;
+                        BBDate = year + "-" + month + "-" + dayOfMonth;
+                        MealPlanAddStage2DatePicker.setText(BBDate);
+                    }
+                };
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int style = AlertDialog.THEME_HOLO_DARK;
+        timePicker =
+                new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
     }
 }

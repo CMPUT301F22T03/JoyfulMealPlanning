@@ -43,7 +43,6 @@ import java.util.Map;
  * @since 2022-10-18
  */
 public class MainActivity extends AppCompatActivity {
-
     /*Declaration of variables*/
     ImageView Recipe;
     ImageView MealPlan;

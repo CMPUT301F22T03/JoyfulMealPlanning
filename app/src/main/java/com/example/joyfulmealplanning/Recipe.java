@@ -1,5 +1,10 @@
 package com.example.joyfulmealplanning;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
@@ -23,6 +28,7 @@ public class Recipe implements Serializable {
     private Integer RecipeNumberOfServings;
     private Integer RecipePreparationTime;
     private ArrayList<Ingredients> RecipeIngredientsList;
+    private Bitmap Image;
 
     /**
      *This is a constructor to create a Recipe object.
@@ -35,14 +41,15 @@ public class Recipe implements Serializable {
      * @param recipeIngredientsList The Ingredient List of the Recipe {@link ArrayList<Ingredients>}
      */
     public Recipe(String recipeTitle, String recipeCategory, String recipeComments,
-                  Integer recipePreparationTime,Integer recipeNumberOfServings,
-                  ArrayList<Ingredients> recipeIngredientsList) {
+                  Integer recipePreparationTime, Integer recipeNumberOfServings,
+                  ArrayList<Ingredients> recipeIngredientsList, @Nullable Bitmap image) {
         RecipeTitle = recipeTitle;
         RecipeCategory = recipeCategory;
         RecipeComments = recipeComments;
         RecipeNumberOfServings = recipeNumberOfServings;
         RecipePreparationTime = recipePreparationTime;
         RecipeIngredientsList = recipeIngredientsList;
+        Image = image;
     }
 
     /**
@@ -139,5 +146,13 @@ public class Recipe implements Serializable {
      */
     public void setRecipeIngredientsList(ArrayList<Ingredients> recipeIngredientsList) {
         RecipeIngredientsList = recipeIngredientsList;
+    }
+
+    public @Nullable Bitmap getImage() {
+        return Image;
+    }
+
+    public void setImage(@Nullable Bitmap image) {
+        Image = image;
     }
 }
