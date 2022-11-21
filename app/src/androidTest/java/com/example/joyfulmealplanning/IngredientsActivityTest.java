@@ -21,6 +21,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * Instrumented Test class for MainActivity. All the UI tests are written here. Robotium test framework is employed
+ * @version 2.0
+ * @author Fan Zhu & Xiangxu Meng
+ * @see <a href = "https://github.com/RobotiumTech/">Robotium Test Framework</a>
+ * @see <a href = "https://developer.android.com/training/testing/instrumented-tests">Instrumented Tests</a>
+ */
+
 @RunWith(AndroidJUnit4.class)
 public class IngredientsActivityTest {
     /*Declaration of variables*/
@@ -62,7 +70,7 @@ public class IngredientsActivityTest {
         solo.assertCurrentActivity("Wrong Activity",IngredientsActivity.class);
 
         solo.clickOnView(solo.getView(R.id.IngredientAddButton));  // click FA button
-        solo.clickOnButton("cancel");  // cancel FA button
+        solo.clickOnButton("cancel");  // Shut down the dialog box
     }
 
     /**
@@ -296,6 +304,14 @@ public class IngredientsActivityTest {
 
         // check if an item named Ingredient UI Test1 is in the list(should be false):
         assertFalse( solo.waitForText("Ingredient UI Test2", 1, 5000));
+    }
+
+    @Test
+    public void test_Spinner() {
+        //TODO: Checks if the spinner is viable
+        solo.assertCurrentActivity("Wrong Activity", IngredientsActivity.class);
+
+        //solo.clickOnView(R.id.);
     }
 
     /**
