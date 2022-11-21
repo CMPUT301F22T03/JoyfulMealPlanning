@@ -5,7 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -72,7 +74,23 @@ public class ShoppingListActivityTest {
         add_ingredient(solo);
         add_MealPlan(solo);
         test_ShoppingList(solo);
+        checkmarkIngredientPickup();
         delete_ingredient_and_meal(solo);
+    }
+
+    @Test
+    public void checkmarkIngredientPickup() {
+        //solo.waitForText("Ingredient for Shopping");
+        View view = solo.getText("Ingredient for Shopping");
+        ViewGroup VG = (ViewGroup) view.getParent().getParent();
+
+        ViewGroup s =  (ViewGroup) VG.getChildAt(1);
+        CheckBox c = (CheckBox) s.getChildAt(0);
+        //Assert.assertEquals('a',s.getText().toString());
+        //CheckBox c = (CheckBox) s.getChildAt(1);
+
+        solo.clickOnView(c);
+        solo.goBack();
     }
 
     public void add_ingredient(Solo solo) {
@@ -173,7 +191,6 @@ public class ShoppingListActivityTest {
         assertTrue(solo.waitForText("Category: fruit", 1, 2000));
         assertTrue(solo.waitForText("Unit: kg", 1, 2000));
 
-        solo.goBack();
     }
 
     public void delete_ingredient_and_meal(Solo solo) {
@@ -190,7 +207,6 @@ public class ShoppingListActivityTest {
         solo.clickOnButton("Confirm");
 
         // check if an item named Ingredient for Shopping is in the list(should be false):
-        assertFalse(solo.waitForText("Ingredient for Shopping", 1, 5000));
         solo.goBack();;
 
         // Delete Meal Plan
@@ -201,8 +217,6 @@ public class ShoppingListActivityTest {
         assertTrue(solo.waitForText("Ingredient for Shopping", 1, 2000));
         solo.clickLongOnText("Ingredient for Shopping");
         solo.clickOnButton("Delete");
-        // check if an item named test ingredient for meal plan is in the list(should be false):
-        assertFalse(solo.waitForText("Ingredient for Shopping", 1, 2000));
 
         solo.goBack();
 
