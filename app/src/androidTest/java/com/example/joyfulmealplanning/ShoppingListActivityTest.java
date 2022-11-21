@@ -195,7 +195,7 @@ public class ShoppingListActivityTest {
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
 
         //solo.clickOnButton(R.id.MealPlan);
-        solo.clickOnView(solo.getView(R.id.MealPlan));
+        solo.clickOnView(solo.getView(R.id.imageView4));
         solo.assertCurrentActivity("Wrong Activity",MealPlanActivity.class);
         // check if an item named "MealPlan for Shopping" is in the list(should be false):
         assertFalse( solo.waitForText("Ingredient for Shopping", 1, 2000));
@@ -226,7 +226,7 @@ public class ShoppingListActivityTest {
 
     public void test_ShoppingList (Solo solo) {
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.ShoppingList));
+        solo.clickOnView(solo.getView(R.id.imageView2));
         solo.assertCurrentActivity("Wrong Activity",ShoppingListActivity.class);
 
 //        assertTrue(solo.waitForText("Ingredient for Shopping", 1, 2000));
@@ -268,7 +268,7 @@ public class ShoppingListActivityTest {
 
         // Delete Meal Plan
         solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.MealPlan));
+        solo.clickOnView(solo.getView(R.id.imageView4));
         solo.assertCurrentActivity("Wrong Activity",MealPlanActivity.class);
 
         assertTrue(solo.waitForText("Ingredient for Shopping", 1, 2000));
