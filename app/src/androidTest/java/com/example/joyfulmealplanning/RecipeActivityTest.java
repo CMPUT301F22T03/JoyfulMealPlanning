@@ -65,6 +65,27 @@ public class RecipeActivityTest {
         // Asserts that the current activity is the IngredientsActivity.Otherwise, show "Wrong Activity"
         solo.assertCurrentActivity("Wrong Activity",RecipeActivity.class);
 
+        test_add(solo);
+
+//        // check if user could edit recipe from name Recipe UI Test1 to Ingredient UI Test2:
+//        assertTrue( solo.waitForText("Recipe UI Test1", 1, 2000));
+//        assertFalse( solo.waitForText("Recipe UI Test2", 1, 2000));
+//        solo.clickOnText("Recipe UI Test1");
+//        solo.clearEditText((EditText) solo.getView(R.id.RecipeTitleInput));
+//        solo.enterText((EditText) solo.getView(R.id.RecipeTitleInput) , "Recipe UI Test2");
+//        solo.clickOnButton("OK");
+//
+//        assertFalse( solo.waitForText("Recipe UI Test1", 1, 2000));
+//        assertTrue( solo.waitForText("Recipe UI Test2", 1, 2000));
+
+        test_delete(solo);
+
+    }
+
+    /**
+     * check if Recipe could be added properly
+     */
+    public void test_add(Solo solo){
         // check if an item named Recipe UI Test1 is in the list(should be false):
         assertFalse( solo.waitForText("Recipe UI Test1", 1, 5000));
 
@@ -166,20 +187,6 @@ public class RecipeActivityTest {
         // check if an item named cabbage is in the ingredient list(should be true):
         assertTrue( solo.waitForText(exist_ingredient_sample, 1, 2000));
         solo.clickOnButton("OK");
-
-//        // check if user could edit recipe from name Recipe UI Test1 to Ingredient UI Test2:
-//        assertTrue( solo.waitForText("Recipe UI Test1", 1, 2000));
-//        assertFalse( solo.waitForText("Recipe UI Test2", 1, 2000));
-//        solo.clickOnText("Recipe UI Test1");
-//        solo.clearEditText((EditText) solo.getView(R.id.RecipeTitleInput));
-//        solo.enterText((EditText) solo.getView(R.id.RecipeTitleInput) , "Recipe UI Test2");
-//        solo.clickOnButton("OK");
-//
-//        assertFalse( solo.waitForText("Recipe UI Test1", 1, 2000));
-//        assertTrue( solo.waitForText("Recipe UI Test2", 1, 2000));
-
-        test_delete(solo);
-
     }
 
     /**
