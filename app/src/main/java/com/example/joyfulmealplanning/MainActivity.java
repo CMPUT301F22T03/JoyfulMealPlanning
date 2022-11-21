@@ -39,7 +39,7 @@ import java.util.Map;
  * This activity class implements the start page of the app, as well as functionalities to switch to different activities.
  *
  * @author Fan Zhu, Mashiad Hasan, Yuxuan Yang, Xiangxu Meng, Qiaosong Deng & Zhaoqi Ma
- * @version 1.0
+ * @version 2.0
  * @since 2022-10-18
  */
 public class MainActivity extends AppCompatActivity {
