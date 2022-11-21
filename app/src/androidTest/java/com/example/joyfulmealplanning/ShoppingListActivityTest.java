@@ -80,12 +80,15 @@ public class ShoppingListActivityTest {
 
     @Test
     public void checkmarkIngredientPickup() {
+
+        solo.assertCurrentActivity("Wrong Activity",ShoppingListActivity.class);
+
         //solo.waitForText("Ingredient for Shopping");
         View view = solo.getText("Ingredient for Shopping");
         ViewGroup VG = (ViewGroup) view.getParent().getParent();
 
-        ViewGroup s =  (ViewGroup) VG.getChildAt(1);
-        CheckBox c = (CheckBox) s.getChildAt(0);
+        ViewGroup ll =  (ViewGroup) VG.getChildAt(1);
+        CheckBox c = (CheckBox) ll.getChildAt(0);
         //Assert.assertEquals('a',s.getText().toString());
         //CheckBox c = (CheckBox) s.getChildAt(1);
 
@@ -186,10 +189,24 @@ public class ShoppingListActivityTest {
         solo.clickOnView(solo.getView(R.id.ShoppingList));
         solo.assertCurrentActivity("Wrong Activity",ShoppingListActivity.class);
 
+//        assertTrue(solo.waitForText("Ingredient for Shopping", 1, 2000));
+//        assertTrue(solo.waitForText("Amount Needed: "+ (10 - 1), 1, 2000));
+//        assertTrue(solo.waitForText("Category: fruit", 1, 2000));
+//        assertTrue(solo.waitForText("Unit: kg", 1, 2000));
+
         assertTrue(solo.waitForText("Ingredient for Shopping", 1, 2000));
-        assertTrue(solo.waitForText("Amount Needed: "+ (10 - 1), 1, 2000));
-        assertTrue(solo.waitForText("Category: fruit", 1, 2000));
-        assertTrue(solo.waitForText("Unit: kg", 1, 2000));
+        View view = solo.getText("Ingredient for Shopping");
+        ViewGroup VG = (ViewGroup) view.getParent();
+
+        TextView desc = (TextView) VG.getChildAt(0);
+        TextView category = (TextView) VG.getChildAt(1);
+        TextView amount = (TextView) VG.getChildAt(2);
+        TextView unit = (TextView) VG.getChildAt(3);
+
+        Assert.assertEquals("Description: Ingredient for Shopping",desc.getText().toString());
+        Assert.assertEquals("Category: fruit",category.getText().toString());
+        Assert.assertEquals("Amount Needed: "+ (10 - 1),amount.getText().toString());
+        Assert.assertEquals("Unit: kg",unit.getText().toString());
 
     }
 
