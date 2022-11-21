@@ -50,7 +50,7 @@ public class MainActivityTest {
      * @throws Exception
      */
     @Test
-    public void start() throws Exception{
+    public void a_start() throws Exception{
         Activity activity = rule.getActivity();
     }
 
@@ -66,28 +66,32 @@ public class MainActivityTest {
           solo.assertCurrentActivity("Wrong activity", IngredientsActivity.class);
     }
 
+    @Test
+    public void switchToShoppingListTest() {
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        MainActivity activity = (MainActivity) solo.getCurrentActivity();
+        final ImageView S_List_image = activity.findViewById(R.id.imageView2);
+        solo.clickOnView(S_List_image);
+        solo.assertCurrentActivity("Wrong activity", ShoppingListActivity.class);
+    }
+
+
+    @Test
+    public void switchToRecipeTest() {
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        MainActivity activity = (MainActivity) solo.getCurrentActivity();
+        final ImageView RecipeImage = activity.findViewById(R.id.imageView3);
+        solo.clickOnView(RecipeImage);
+        solo.assertCurrentActivity("Wrong activity", RecipeActivity.class);
+    }
 
     @Test
     public void switchToMealPlanTest() {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
         MainActivity activity = (MainActivity) solo.getCurrentActivity();
         final ImageView Meal_plan_image = activity.findViewById(R.id.imageView4);
-        solo.clickOnView(solo.getView(Meal_plan_image));
+        solo.clickOnView(Meal_plan_image);
         solo.assertCurrentActivity("Wrong activity", MealPlanActivity.class);
-    }
-
-    @Test
-    public void switchToRecipeTest() {
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.imageView3));
-        solo.assertCurrentActivity("Wrong activity", RecipeActivity.class);
-    }
-
-    @Test
-    public void switchToShoppingListTest() {
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.ShoppingList));
-        solo.assertCurrentActivity("Wrong activity", ShoppingListActivity.class);
     }
 
 
