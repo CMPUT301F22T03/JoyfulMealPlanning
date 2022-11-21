@@ -73,17 +73,8 @@ public class RecipeActivityTest {
         // check if an item named Recipe UI Test 1 is edited from the list
         test_edit(solo);
 
-//        // check if user could edit recipe from name Recipe UI Test1 to Ingredient UI Test2:
-//        assertTrue( solo.waitForText("Recipe UI Test1", 1, 2000));
-//        assertFalse( solo.waitForText("Recipe UI Test2", 1, 2000));
-//        solo.clickOnText("Recipe UI Test1");
-//        solo.clearEditText((EditText) solo.getView(R.id.RecipeTitleInput));
-//        solo.enterText((EditText) solo.getView(R.id.RecipeTitleInput) , "Recipe UI Test2");
-//        solo.clickOnButton("OK");
-//
-//        assertFalse( solo.waitForText("Recipe UI Test1", 1, 2000));
-//        assertTrue( solo.waitForText("Recipe UI Test2", 1, 2000));
-
+        // check if an item named Recipe UI Test 2 is deleted from the list
+        // check if ingredients in the ingredient list of Recipe UI Test 2 is deleted
         test_delete(solo);
 
     }
@@ -340,6 +331,112 @@ public class RecipeActivityTest {
         // check if an item named Recipe UI Test2 is in the list(should be false):
         assertFalse( solo.waitForText(sample_Title, 1, 5000, solo.scrollUpList(0)));
 
+    }
+
+    /**
+     * check if Recipe sort spinner could work as expected
+     */
+    @Test
+    public void test_Recipe_Spinner() {
+        // check if the sort spinner could work with the sort by title
+        test_sort_by_title(solo);
+
+        // check if the sort spinner could work with the sort by preparation time
+        test_sort_by_time(solo);
+
+        // check if the sort spinner could work with the sort by number of servings
+        test_sort_by_number(solo);
+
+        // check if the sort spinner could work with the sort by recipe category
+        test_sort_by_category(solo);
+    }
+
+    /**
+     * check if Recipe sort spinner could work as sorted by title
+     */
+    public void test_sort_by_title(Solo solo){
+        // Asserts that the current activity is the RecipeActivity.Otherwise, show "Wrong Activity"
+        solo.assertCurrentActivity("Wrong Activity", RecipeActivity.class);
+
+        // it is sorted by title by default, so change the sort to another one first
+        solo.clickOnView(solo.getView(R.id.recipe_list_sort_spinner));
+        solo.clickOnText("recipe category");
+
+        solo.sleep(4000);
+        // click on spinner and click on the title on spinner
+        solo.clickOnView(solo.getView(R.id.recipe_list_sort_spinner));
+        solo.clickOnText("title");
+        solo.sleep(4000);
+
+        //assertTrue(solo.waitForText("sorted by title",0, 2000, solo.scrollListToBottom(0)));
+        solo.scrollDown();
+        solo.sleep(3000);
+        solo.scrollListToBottom(0);
+        solo.sleep(3000);
+
+    }
+
+    /**
+     * check if Ingredient sort spinner could work as sorted by preparation time
+     */
+    public void test_sort_by_time(Solo solo){
+        // Asserts that the current activity is the RecipeActivity.Otherwise, show "Wrong Activity"
+        solo.assertCurrentActivity("Wrong Activity", RecipeActivity.class);
+
+        solo.scrollListToTop(0);
+
+        // click on the spinner and click preparation time on spinner
+        solo.clickOnView(solo.getView(R.id.recipe_list_sort_spinner));
+        solo.clickOnText("preparation time");
+        solo.sleep(4000);
+
+        //assertTrue(solo.waitForText("sorted by preparation time",0, 2000, solo.scrollListToBottom(0)));
+        solo.scrollDown();
+        solo.sleep(3000);
+        solo.scrollListToBottom(0);
+        solo.sleep(3000);
+    }
+
+    /**
+     * check if Ingredient sort spinner could work as sorted by number of servings
+     */
+    public void test_sort_by_number(Solo solo){
+        // Asserts that the current activity is the RecipeActivity.Otherwise, show "Wrong Activity"
+        solo.assertCurrentActivity("Wrong Activity", RecipeActivity.class);
+
+        solo.scrollListToTop(0);
+
+        // click on the spinner and click number of servings on spinner
+        solo.clickOnView(solo.getView(R.id.recipe_list_sort_spinner));
+        solo.clickOnText("number of servings");
+        solo.sleep(4000);
+
+        //assertTrue(solo.waitForText("sorted by number of servings",0, 2000, solo.scrollListToBottom(0)));
+        solo.scrollDown();
+        solo.sleep(3000);
+        solo.scrollListToBottom(0);
+        solo.sleep(3000);
+    }
+
+    /**
+     * check if Ingredient sort spinner could work as sorted by preparation time
+     */
+    public void test_sort_by_category(Solo solo){
+        // Asserts that the current activity is the RecipeActivity.Otherwise, show "Wrong Activity"
+        solo.assertCurrentActivity("Wrong Activity", RecipeActivity.class);
+
+        solo.scrollListToTop(0);
+
+        // click on the spinner and click recipe category on spinner
+        solo.clickOnView(solo.getView(R.id.recipe_list_sort_spinner));
+        solo.clickOnText("recipe category");
+        solo.sleep(4000);
+
+        //assertTrue(solo.waitForText("sorted by recipe category",0, 2000, solo.scrollListToBottom(0)));
+        solo.scrollDown();
+        solo.sleep(3000);
+        solo.scrollListToBottom(0);
+        solo.sleep(3000);
     }
 
     /**
