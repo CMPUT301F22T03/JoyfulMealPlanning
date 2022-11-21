@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ShoppingListActivityTest {
@@ -74,12 +75,52 @@ public class ShoppingListActivityTest {
         add_ingredient(solo);
         add_MealPlan(solo);
         test_ShoppingList(solo);
-        checkmarkIngredientPickup();
+        test_checkmarkIngredientPickup();
+        test_addToIngredientStorage();
         delete_ingredient_and_meal(solo);
     }
 
-    @Test
-    public void checkmarkIngredientPickup() {
+    public void test_addToIngredientStorage() {
+        solo.assertCurrentActivity("Wrong Activity",ShoppingListActivity.class);
+
+        assertTrue(solo.waitForText("Ingredient for Shopping", 1, 5000));
+        solo.clickLongOnText("Ingredient for Shopping");
+
+        solo.clickOnView(solo.getView(R.id.IngredientBBDatePicker));
+        DatePicker datePicker1 = solo.getView(DatePicker.class, 0);
+        solo.setDatePicker(datePicker1, 2023,9,31);
+
+        TextView dateText = (TextView) solo.getView(R.id.IngredientBBDateDisplay);
+        dateText.setText("2023-10-31");
+        solo.clickOnButton("OK");
+
+        EditText location = (EditText) solo.getView(R.id.IngredientLocationInput);
+        solo.enterText(location, "fridge");
+
+        Assert.assertEquals("fridge", location.getText().toString());
+        Assert.assertEquals(2023, datePicker1.getYear());
+        Assert.assertEquals(9, datePicker1.getMonth());
+        Assert.assertEquals(31, datePicker1.getDayOfMonth());
+
+        solo.clickOnButton("OK");
+        solo.goBack();
+
+        this.solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.imageView));
+        this.solo.assertCurrentActivity("Wrong Activity",IngredientsActivity.class);
+
+        solo.waitForText("Ingredient for Shopping",1,3000);
+        View view = solo.getText("Ingredient for Shopping");
+        ViewGroup VG = (ViewGroup) view.getParent();
+        TextView amount = (TextView) VG.getChildAt(4);
+        TextView ilocation = (TextView) VG.getChildAt(2);
+        TextView iDate = (TextView) VG.getChildAt(1);
+        Assert.assertEquals("Amount: 10", amount.getText().toString());
+        Assert.assertEquals("Location: fridge", ilocation.getText().toString());
+        Assert.assertEquals("Best Before Date: 20231031", iDate.getText().toString());
+
+    }
+    public void test_checkmarkIngredientPickup() {
 
         solo.assertCurrentActivity("Wrong Activity",ShoppingListActivity.class);
 
@@ -93,7 +134,6 @@ public class ShoppingListActivityTest {
         //CheckBox c = (CheckBox) s.getChildAt(1);
 
         solo.clickOnView(c);
-        solo.goBack();
     }
 
     public void add_ingredient(Solo solo) {
@@ -213,8 +253,8 @@ public class ShoppingListActivityTest {
     public void delete_ingredient_and_meal(Solo solo) {
 
         // Delete ingredient
-        this.solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.imageView));
+//        this.solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+//        solo.clickOnView(solo.getView(R.id.imageView));
 
         this.solo.assertCurrentActivity("Wrong Activity",IngredientsActivity.class);
         assertTrue(solo.waitForText("Ingredient for Shopping", 1, 5000));
