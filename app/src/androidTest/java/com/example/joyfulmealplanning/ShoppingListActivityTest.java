@@ -72,7 +72,7 @@ public class ShoppingListActivityTest {
         add_ingredient(solo);
         add_MealPlan(solo);
         test_ShoppingList(solo);
-
+        delete_ingredient_and_meal(solo);
     }
 
     public void add_ingredient(Solo solo) {
@@ -176,6 +176,37 @@ public class ShoppingListActivityTest {
         solo.goBack();
     }
 
+    public void delete_ingredient_and_meal(Solo solo) {
+
+        // Delete ingredient
+        this.solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.imageView));
+
+        this.solo.assertCurrentActivity("Wrong Activity",IngredientsActivity.class);
+        assertTrue(solo.waitForText("Ingredient for Shopping", 1, 5000));
+
+        // delete the item named Ingredient for Shopping in the list:
+        solo.clickLongOnText("Ingredient for Shopping");
+        solo.clickOnButton("Confirm");
+
+        // check if an item named Ingredient for Shopping is in the list(should be false):
+        assertFalse(solo.waitForText("Ingredient for Shopping", 1, 5000));
+        solo.goBack();;
+
+        // Delete Meal Plan
+        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.MealPlan));
+        solo.assertCurrentActivity("Wrong Activity",MealPlanActivity.class);
+
+        assertTrue(solo.waitForText("Ingredient for Shopping", 1, 2000));
+        solo.clickLongOnText("Ingredient for Shopping");
+        solo.clickOnButton("Delete");
+        // check if an item named test ingredient for meal plan is in the list(should be false):
+        assertFalse(solo.waitForText("Ingredient for Shopping", 1, 2000));
+
+        solo.goBack();
+
+    }
 
     /**
      * Close activity after each test
