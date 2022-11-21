@@ -71,7 +71,7 @@ public class MainActivityTest {
     public void switchToMealPlanTest() {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
         MainActivity activity = (MainActivity) solo.getCurrentActivity();
-        final ImageView Meal_plan_image = activity.findViewById(R.id.MealPlan);
+        final ImageView Meal_plan_image = activity.findViewById(R.id.imageView4);
         solo.clickOnView(solo.getView(Meal_plan_image));
         solo.assertCurrentActivity("Wrong activity", MealPlanActivity.class);
     }
