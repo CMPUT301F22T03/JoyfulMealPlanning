@@ -139,6 +139,12 @@ public class MealPlanActivityTest {
         assertFalse( solo.waitForText("test recipe for meal plan", 1, 2000));
     }
 
+    @Test
+    public void test_Spinner() {
+        //TODO: Check if the spinner is viable
+        solo.assertCurrentActivity("Wrong activity", MealPlanActivity.class);
+    }
+
     /**
      * Close activity after each test
      * @throws Exception
