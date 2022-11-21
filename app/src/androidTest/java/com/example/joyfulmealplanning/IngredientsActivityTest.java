@@ -92,8 +92,9 @@ public class IngredientsActivityTest {
     }
 
     /**
-     * check if Recipe could be added properly
+     * check if Ingredient could be added properly
      */
+
     public void test_add(Solo solo){
         // check if an item named Ingredient UI Test1 is in the list(should be false):
         assertFalse( solo.waitForText("Ingredient UI Test1", 1, 5000));
@@ -156,7 +157,7 @@ public class IngredientsActivityTest {
     }
 
     /**
-     * check if Recipe could be edited properly
+     * check if Ingredient could be edited properly
      */
     public void test_edit(Solo solo){
         String sample_Name1 = "Ingredient UI Test1";
@@ -292,7 +293,7 @@ public class IngredientsActivityTest {
     }
 
     /**
-     * check if Recipe could be added properly
+     * check if Ingredient could be deleted properly
      */
     public void test_delete(Solo solo){
         // check if an item named Ingredient UI Test1 is in the list(should be true):
