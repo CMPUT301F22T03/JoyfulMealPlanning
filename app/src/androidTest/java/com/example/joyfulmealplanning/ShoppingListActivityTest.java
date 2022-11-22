@@ -75,9 +75,28 @@ public class ShoppingListActivityTest {
         add_ingredient(solo);
         add_MealPlan(solo);
         test_ShoppingList(solo);
+        test_Spinner();
         test_checkmarkIngredientPickup();
         test_addToIngredientStorage();
         delete_ingredient_and_meal(solo);
+    }
+
+    public void test_Spinner() {
+
+        solo.assertCurrentActivity("Wrong Activity",ShoppingListActivity.class);
+        solo.clickOnView(solo.getView(R.id.shoppingList_sort_spinner));
+        solo.clickOnText("description");
+        assertTrue("Spinner Text unselected error", solo.isSpinnerTextSelected("description"));
+
+        solo.scrollListToBottom(0);
+        solo.scrollListToTop(0);
+
+        solo.clickOnView(solo.getView(R.id.shoppingList_sort_spinner));
+        solo.clickOnText("category");
+
+        solo.scrollListToBottom(0);
+        solo.scrollListToTop(0);
+        assertTrue("Spinner Text unselected error", solo.isSpinnerTextSelected("category"));
     }
 
     public void test_addToIngredientStorage() {
@@ -234,7 +253,7 @@ public class ShoppingListActivityTest {
 //        assertTrue(solo.waitForText("Category: fruit", 1, 2000));
 //        assertTrue(solo.waitForText("Unit: kg", 1, 2000));
 
-        assertTrue(solo.waitForText("Ingredient for Shopping", 1, 2000));
+        assertTrue(solo.waitForText("Ingredient for Shopping", 1, 4000));
         View view = solo.getText("Ingredient for Shopping");
         ViewGroup VG = (ViewGroup) view.getParent();
 
