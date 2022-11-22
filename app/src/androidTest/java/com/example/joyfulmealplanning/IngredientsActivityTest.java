@@ -4,8 +4,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -92,8 +94,9 @@ public class IngredientsActivityTest {
     }
 
     /**
-     * check if Recipe could be added properly
+     * check if Ingredient could be added properly
      */
+
     public void test_add(Solo solo){
         // check if an item named Ingredient UI Test1 is in the list(should be false):
         assertFalse( solo.waitForText("Ingredient UI Test1", 1, 5000));
@@ -156,7 +159,7 @@ public class IngredientsActivityTest {
     }
 
     /**
-     * check if Recipe could be edited properly
+     * check if Ingredient could be edited properly
      */
     public void test_edit(Solo solo){
         String sample_Name1 = "Ingredient UI Test1";
@@ -292,7 +295,7 @@ public class IngredientsActivityTest {
     }
 
     /**
-     * check if Recipe could be added properly
+     * check if Ingredient could be deleted properly
      */
     public void test_delete(Solo solo){
         // check if an item named Ingredient UI Test1 is in the list(should be true):
@@ -306,13 +309,112 @@ public class IngredientsActivityTest {
         assertFalse( solo.waitForText("Ingredient UI Test2", 1, 5000));
     }
 
+    /**
+     * check if Ingredient sort spinner could work as expected
+     */
     @Test
-    public void test_Spinner() {
-        //TODO: Checks if the spinner is viable
+    public void test_Ingredient_Spinner() {
+        // check if the sort spinner could work with the sort by description
+        test_sort_by_description(solo);
+
+        // check if the sort spinner could work with the sort by best before date
+        test_sort_by_BB_date(solo);
+
+        // check if the sort spinner could work with the sort by location
+        test_sort_by_location(solo);
+
+        // check if the sort spinner could work with the sort by ingredient category
+        test_sort_by_category(solo);
+    }
+
+    /**
+     * check if Ingredient sort spinner could work as sorted by description
+     */
+    public void test_sort_by_description(Solo solo){
+        // Asserts that the current activity is the IngredientsActivity.Otherwise, show "Wrong Activity"
         solo.assertCurrentActivity("Wrong Activity", IngredientsActivity.class);
 
-        //solo.clickOnView(R.id.);
+        // it is sorted by description by default, so change the sort to another one first
+        solo.clickOnView(solo.getView(R.id.ingredients_sort_spinner));
+        solo.clickOnText("location");
+
+        solo.sleep(4000);
+        // click on spinner and click on the description on spinner
+        solo.clickOnView(solo.getView(R.id.ingredients_sort_spinner));
+        solo.clickOnText("description");
+        solo.sleep(4000);
+
+        //assertTrue(solo.waitForText("sorted by description",0, 2000, solo.scrollListToBottom(0)));
+        solo.scrollDown();
+        solo.sleep(3000);
+        solo.scrollListToBottom(0);
+        solo.sleep(3000);
+
     }
+
+    /**
+     * check if Ingredient sort spinner could work as sorted by best before date
+     */
+    public void test_sort_by_BB_date(Solo solo){
+        // Asserts that the current activity is the IngredientsActivity.Otherwise, show "Wrong Activity"
+        solo.assertCurrentActivity("Wrong Activity", IngredientsActivity.class);
+
+        solo.scrollListToTop(0);
+
+        // click on the spinner and click best before date on spinner
+        solo.clickOnView(solo.getView(R.id.ingredients_sort_spinner));
+        solo.clickOnText("best before date");
+        solo.sleep(4000);
+
+        //assertTrue(solo.waitForText("sorted by best before date",0, 2000, solo.scrollListToBottom(0)));
+        solo.scrollDown();
+        solo.sleep(3000);
+        solo.scrollListToBottom(0);
+        solo.sleep(3000);
+    }
+
+    /**
+     * check if Ingredient sort spinner could work as sorted by location
+     */
+    public void test_sort_by_location(Solo solo){
+        // Asserts that the current activity is the IngredientsActivity.Otherwise, show "Wrong Activity"
+        solo.assertCurrentActivity("Wrong Activity", IngredientsActivity.class);
+
+        solo.scrollListToTop(0);
+
+        // click on the spinner and click location on spinner
+        solo.clickOnView(solo.getView(R.id.ingredients_sort_spinner));
+        solo.clickOnText("location");
+        solo.sleep(4000);
+
+        //assertTrue(solo.waitForText("sorted by location",0, 2000, solo.scrollListToBottom(0)));
+        solo.scrollDown();
+        solo.sleep(3000);
+        solo.scrollListToBottom(0);
+        solo.sleep(3000);
+    }
+
+    /**
+     * check if Ingredient sort spinner could work as sorted by category
+     */
+    public void test_sort_by_category(Solo solo){
+        // Asserts that the current activity is the IngredientsActivity.Otherwise, show "Wrong Activity"
+        solo.assertCurrentActivity("Wrong Activity", IngredientsActivity.class);
+
+        solo.scrollListToTop(0);
+
+        // click on the spinner and click category on spinner
+        solo.clickOnView(solo.getView(R.id.ingredients_sort_spinner));
+        solo.clickOnText("category");
+        solo.sleep(4000);
+
+        //assertTrue(solo.waitForText("sorted by category",0, 2000, solo.scrollListToBottom(0)));
+        solo.scrollDown();
+        solo.sleep(3000);
+        solo.scrollListToBottom(0);
+        solo.sleep(3000);
+    }
+
 
     /**
      * Close activity after each test
