@@ -235,6 +235,9 @@ public class IngredientController {
         this.ingredientList.remove(idx);
     }
 
+    /**
+     * Public method that sort the ingredientList by the descriptions
+     */
     public void sortByDescription(){
         Collections.sort(ingredientList, new Comparator<Ingredients>() {
             @Override
@@ -245,6 +248,9 @@ public class IngredientController {
         ingredientsArrayAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Public method that sort the ingredientList according the Best Before Date
+     */
     public void sortByBBD(){
         Collections.sort(ingredientList, new Comparator<Ingredients>() {
             @Override
@@ -255,6 +261,9 @@ public class IngredientController {
         ingredientsArrayAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Public method that sort the ingredientList by Location
+     */
     public void sortByLocation(){
         Collections.sort(ingredientList, new Comparator<Ingredients>() {
             @Override
@@ -265,6 +274,9 @@ public class IngredientController {
         ingredientsArrayAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Public method that sort the ingredientList by Category
+     */
     public void sortByCategory(){
         Collections.sort(ingredientList, new Comparator<Ingredients>() {
             @Override
