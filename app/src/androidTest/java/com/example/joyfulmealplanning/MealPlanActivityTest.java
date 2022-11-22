@@ -4,8 +4,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
+
+import android.view.View;
 import android.widget.DatePicker;
+
 import android.widget.EditText;
+import android.widget.Spinner;
 
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -148,6 +152,27 @@ public class MealPlanActivityTest {
         solo.clickOnButton("Delete");
         // check if an item named test ingredient for meal plan is in the list(should be false):
         assertFalse( solo.waitForText("test recipe for meal plan", 1, 2000));
+    }
+
+    /**
+     * Checks if the spinner is viable
+     */
+    @Test
+    public void test_Spinner() {
+        //Asserts the current activity is MealPlan Activity
+        solo.assertCurrentActivity("Wrong activity", MealPlanActivity.class);
+
+        //Checks if the SpinnerTexts are clickable
+        final View sortSpinner = solo.getView(R.id.mealPlan_list_sort_spinner);
+        solo.clickOnView(sortSpinner);
+        solo.clickOnText("Date");
+        assertTrue("Spinner Text unselected", solo.isSpinnerTextSelected("Date"));
+        solo.clickOnText("ID");
+        assertTrue("Spinner text unselected",solo.isSpinnerTextSelected("ID"));
+        solo.clickOnText("Type");
+        assertTrue("Spinner text unselected", solo.isSpinnerTextSelected("Type"));
+        solo.clickOnText("Number of Servings");
+        assertTrue("Spinner text unselected", solo.isSpinnerTextSelected("Number of Servings"));
     }
 
     /**
