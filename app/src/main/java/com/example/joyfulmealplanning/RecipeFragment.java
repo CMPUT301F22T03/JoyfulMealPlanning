@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -136,26 +137,24 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
         deleteIngredientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requiredIngredients.remove(Integer.parseInt(selectedIngredientPosition.toString()));
-                recipeIngredientListAdaptor.notifyDataSetChanged();
+                if (selectedIngredientPosition != null){
+                    requiredIngredients.remove(Integer.parseInt(selectedIngredientPosition.toString()));
+                    recipeIngredientListAdaptor.notifyDataSetChanged();
+                }
             }
         });
 
         addStorageIngredientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder addStorageIngredientDialog = RecipeSelectIngredientDialog();
-                addStorageIngredientDialog.show();
-                //recipeIngredientListAdaptor.notifyDataSetChanged();
+                AlertDialog addStorageIngredientDialog = RecipeSelectIngredientDialog();
             }
         });
 
         addNewIngredientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder addNewIngredientDialog = RecipeAddNewIngredientDialog();
-                addNewIngredientDialog.show();
-                //recipeIngredientListAdaptor.notifyDataSetChanged();
+                AlertDialog addNewIngredientDialog = RecipeAddNewIngredientDialog();
             }
         });
 
@@ -206,29 +205,41 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
         String finalOldRecipeTitle = oldRecipeTitle;
 
 
-        return builder
+        builder
                 .setView(view)
                 .setTitle(dialogTitle)
                 .setNegativeButton("cancel", null)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        title = titleInput.getText().toString();
-                        comments = commentsInput.getText().toString();
-                        selectedTime = timeInput.getText().toString();
-                        category = categoryInput.getText().toString();
-                        servingNumber = Integer.parseInt(numberInput.getText().toString());
-                        Recipe newRecipe = new Recipe(title, category, comments,
-                                Integer.parseInt(selectedTime), servingNumber, requiredIngredients,
-                                selectedImage);
-                        if (finalAddRecipe){
-                            listener.onOkPressed(null, newRecipe);
-                        } else {
-                            listener.onOkPressed(finalOldRecipeTitle, newRecipe);
-                        }
-                    }
-                }).create();
+                .setPositiveButton("OK", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                title = titleInput.getText().toString();
+                comments = commentsInput.getText().toString();
+                selectedTime = timeInput.getText().toString();
+                category = categoryInput.getText().toString();
 
+                if (title.isEmpty() || selectedTime.isEmpty() ||
+                        category.isEmpty() || numberInput.getText().toString().isEmpty()){
+                    Toast toast=Toast.makeText(getContext(),
+                            "Please make sure all fields are filled",Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    servingNumber = Integer.parseInt(numberInput.getText().toString());
+                    Recipe newRecipe = new Recipe(title, category, comments,
+                            Integer.parseInt(selectedTime), servingNumber, requiredIngredients,
+                            selectedImage);
+                    if (finalAddRecipe){
+                        listener.onOkPressed(null, newRecipe);
+                    } else {
+                        listener.onOkPressed(finalOldRecipeTitle, newRecipe);
+                    }
+                    dialog.dismiss();
+                }
+            }
+        });
+        return dialog;
     }
 
 
@@ -268,11 +279,10 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                 }
             });
 
-
     Integer selectedItemPosition = null;
     View oldSelection = null;
 
-    private AlertDialog.Builder RecipeSelectIngredientDialog(){
+    private AlertDialog RecipeSelectIngredientDialog(){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.recipe_add_ingredient_from_storage,null);
         ListView ingredientList = view.findViewById(id.RecipeAddIngredientListView);
         EditText ingredientAmountInput = view.findViewById(id.RecipeAddStorageIngredientAmountInput);
@@ -305,9 +315,23 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
         builder
                 .setView(view)
                 .setTitle("Select a stored ingredient")
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                .setPositiveButton("Confirm", null)
+                .setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (selectedItemPosition == null){
+                        Toast toast = Toast.makeText(getContext(),
+                                "Please select an ingredient", Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else if (ingredientAmountInput.getText().toString().isEmpty()) {
+                        Toast toast = Toast.makeText(getContext(),
+                                "Please enter an amount", Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else {
                         Ingredients selectedIngredient = ingredientStorageController.getIngredientAtIndex(selectedItemPosition);
                         Integer ingredientAmount = Integer.valueOf(ingredientAmountInput.getText().toString());
                         requiredIngredients.add(new Ingredients(
@@ -315,20 +339,17 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                                 ingredientAmount, selectedIngredient.getUnit(),
                                 selectedIngredient.getCategory()));
                         recipeIngredientListAdaptor.notifyDataSetChanged();
+                        dialog.dismiss();
                     }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                })
-                .create();
-        return builder;
+                }
+            });
+
+
+        return dialog;
     }
 
 
-    private AlertDialog.Builder RecipeAddNewIngredientDialog(){
+    private AlertDialog RecipeAddNewIngredientDialog(){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.recipe_add_new_ingredient,null);
         EditText ingredientDescInput = view.findViewById(id.RecipeNewIngredientDescriptionInput);
         EditText ingredientAmountInput = view.findViewById(id.RecipeNewIngredientAmountInput);
@@ -339,27 +360,37 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
         builder
                 .setView(view)
                 .setTitle("Add a new ingredient")
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Integer ingredientAmount = Integer.valueOf(ingredientAmountInput.getText().toString());
-                        requiredIngredients.add(new Ingredients(
-                                ingredientDescInput.getText().toString(),
-                                ingredientAmount, ingredientUnitInput.getText().toString(),
-                                ingredientCategoryInput.getText().toString()));
-                        recipeIngredientListAdaptor.notifyDataSetChanged();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                })
-                .create();
-        return builder;
-    }
+                .setPositiveButton("Confirm", null)
+                .setNegativeButton("Cancel", null);
 
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String ingredientDesc = ingredientDescInput.getText().toString();
+                String ingredientAmount = ingredientAmountInput.getText().toString();
+                String ingredientUnit = ingredientUnitInput.getText().toString();
+                String ingredientCategory = ingredientCategoryInput.getText().toString();
+                if (ingredientDesc.isEmpty() || ingredientAmount.isEmpty() ||
+                        ingredientUnit.isEmpty() || ingredientCategory.isEmpty()){
+                    Toast toast=Toast.makeText(getContext(),
+                            "Please make sure all fields are filled",Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    Integer ingredientAmountInt = Integer.valueOf(ingredientAmount);
+                    requiredIngredients.add(new Ingredients(
+                            ingredientDesc,
+                            ingredientAmountInt, ingredientUnit,
+                            ingredientCategory));
+                    recipeIngredientListAdaptor.notifyDataSetChanged();
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        return dialog;
+    }
 
 
     /*defines how the the datePicker should be initialized and what to do when a date is selected*/

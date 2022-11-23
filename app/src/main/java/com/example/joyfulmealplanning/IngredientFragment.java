@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -67,7 +68,6 @@ public class IngredientFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_ingredient, null);
         initDatePicker();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         descriptionInput = view.findViewById(R.id.IngredientDescriptionInput);
         amountInput = view.findViewById(R.id.IngredientAmountInput);
@@ -107,28 +107,45 @@ public class IngredientFragment extends DialogFragment {
 
         boolean finalAddIngredient = addIngredient;
         String finalOldIngredientDesc = oldIngredientDesc;
-        return builder
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder
                 .setView(view)
                 .setTitle(dialogTitle)
                 .setNegativeButton("cancel", null)
-                .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
+                .setPositiveButton("ADD", null);
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    public void onClick(View view) {
                         description = descriptionInput.getText().toString();
-                        amount = Integer.valueOf(amountInput.getText().toString());
                         BBDate = BBDateDisplay.getText().toString().replace("-", "");
                         unit = unitInput.getText().toString();
                         category = categoryInput.getText().toString();
                         location = locationInput.getText().toString();
-                        Ingredients newIngredients = new Ingredients(description,Integer.parseInt(BBDate),
-                                location, category, amount, unit);
-                        if (finalAddIngredient){
-                            listener.onOkPressed(null, newIngredients);
+                        if (description.isEmpty() || amountInput.getText().toString().isEmpty() ||
+                                BBDate.isEmpty() || category.isEmpty() || location.isEmpty()) {
+                            Toast toast = Toast.makeText(getContext(),
+                                    "Please make sure all fields are filled", Toast.LENGTH_SHORT);
+                            toast.show();
                         } else {
-                            listener.onOkPressed(finalOldIngredientDesc, newIngredients);
+                            amount = Integer.valueOf(amountInput.getText().toString());
+                            Ingredients newIngredients = new Ingredients(description,Integer.parseInt(BBDate),
+                                    location, category, amount, unit);
+                            if (finalAddIngredient){
+                                listener.onOkPressed(null, newIngredients);
+                            } else {
+                                listener.onOkPressed(finalOldIngredientDesc, newIngredients);
+                            }
+                            dialog.dismiss();
                         }
                     }
-                }).create();
+                });
+
+                return dialog;
+
 
     }
 
