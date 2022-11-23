@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -133,7 +134,7 @@ public class RecipeController {
     //public method for adding a recipe
     public boolean addRecipe(Recipe recipe){
         for (Recipe rec : this.recipeList){
-            if (rec.getRecipeTitle() == recipe.getRecipeTitle()){
+            if (rec.getRecipeTitle().toLowerCase(Locale.ROOT).equals(recipe.getRecipeTitle().toLowerCase(Locale.ROOT))){
                 return false;
             }
         }
