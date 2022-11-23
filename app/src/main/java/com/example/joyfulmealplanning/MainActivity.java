@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 
@@ -38,16 +39,15 @@ import java.util.Map;
  * This activity class implements the start page of the app, as well as functionalities to switch to different activities.
  *
  * @author Fan Zhu, Mashiad Hasan, Yuxuan Yang, Xiangxu Meng, Qiaosong Deng & Zhaoqi Ma
- * @version 1.0
+ * @version 2.0
  * @since 2022-10-18
  */
 public class MainActivity extends AppCompatActivity {
-
     /*Declaration of variables*/
-    Button Recipe;
-    Button MealPlan;
+    ImageView Recipe;
+    ImageView MealPlan;
     ImageView imageView;
-    Button ShoppingList;
+    ImageView ShoppingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        Recipe = findViewById(R.id.Recipe);
+        Recipe = findViewById(R.id.imageView3);
         Recipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        MealPlan = findViewById(R.id.MealPlan);
+        MealPlan = findViewById(R.id.imageView4);
         MealPlan.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ShoppingList = findViewById(R.id.ShoppingList);
+        ShoppingList = findViewById(R.id.imageView2);
         ShoppingList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

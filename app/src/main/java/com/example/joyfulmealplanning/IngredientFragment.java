@@ -111,7 +111,7 @@ public class IngredientFragment extends DialogFragment {
                 .setView(view)
                 .setTitle(dialogTitle)
                 .setNegativeButton("cancel", null)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         description = descriptionInput.getText().toString();

@@ -102,18 +102,6 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
 
     }
 
-    /**
-     * Creates a dropdown menu on the top app bar with a list of sorting methods as items
-     * @param menu
-     * @return {@link Boolean}
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
 
     /**
      * Adds Ingredients object to the adapter

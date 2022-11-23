@@ -170,7 +170,7 @@ public class MealPlanAddFragment extends DialogFragment {
 
                         recipeDataList.add(new Recipe(RecipeTitle, RecipeCategory,"",
                                 RecipePreparationTime.intValue(),RecipeNumberOfServings.intValue(),
-                                new ArrayList<>()));
+                                new ArrayList<>(), null));
                         //System.out.println(RecipeTitle);
                     }
                     recipeAdaptor.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud

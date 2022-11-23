@@ -30,6 +30,7 @@ import java.util.Map;
 
 public class ShoppingListController extends AppCompatActivity{
 
+    /*Declaration of variables*/
     ArrayAdapter<Ingredients> ShoppingListAdaptor;
     private static HashMap<String,Ingredients> IngredientFromIngredientList;
     private HashMap<String,Ingredients> IngredientFromMealPLanList;

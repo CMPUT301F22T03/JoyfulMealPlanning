@@ -53,7 +53,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardBackgroundColor="#C1E8FF"
         app:cardCornerRadius="25dp">

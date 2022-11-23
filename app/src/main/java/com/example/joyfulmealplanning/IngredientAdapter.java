@@ -77,12 +77,12 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
             }
         });*/
 
-        desText.setText(ingredient.getDescription());
-        locationText.setText(ingredient.getLocation());
-        CategoryText.setText(ingredient.getCategory());
-        AmountText.setText(ingredient.getAmount().toString());
-        UnitText.setText(ingredient.getUnit());
-        DateText.setText(ingredient.getBest_before_date().toString());
+        desText.setText("Description: "+ ingredient.getDescription());
+        locationText.setText("Location: "+ingredient.getLocation());
+        CategoryText.setText("Category: "+ingredient.getCategory());
+        AmountText.setText("Amount: "+ingredient.getAmount().toString());
+        UnitText.setText("Unit: "+ingredient.getUnit());
+        DateText.setText("Best Before Date: "+ ingredient.getBest_before_date().toString());
 
         return view;
     }
