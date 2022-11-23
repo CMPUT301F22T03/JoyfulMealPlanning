@@ -39,7 +39,7 @@
     </androidx.cardview.widget.CardView>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ingredientButton"
         android:layout_width="111dp"
         android:layout_height="98dp"
         android:layout_marginStart="50dp"
@@ -53,36 +53,34 @@
         app:srcCompat="@drawable/ic_baseline_fastfood_24" />
 
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:elevation="10dp"
         android:text="INGREDIENT"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/ingredientButton"
+        app:layout_constraintStart_toStartOf="@+id/ingredientButton"
+        app:layout_constraintTop_toBottomOf="@+id/ingredientButton" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/shoppingListButton"
         android:layout_width="111dp"
         android:layout_height="98dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/ingredientButton"
+        app:layout_constraintTop_toBottomOf="@id/ingredientButton"
         app:srcCompat="@drawable/ic_baseline_local_grocery_store_24" />
 
     <TextView
-        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:text="SHOPPING LIST"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintEnd_toEndOf="@+id/shoppingListButton"
+        app:layout_constraintStart_toStartOf="@+id/shoppingListButton"
+        app:layout_constraintTop_toBottomOf="@+id/shoppingListButton" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/recipeButton"
         android:layout_width="111dp"
         android:layout_height="98dp"
         android:layout_marginTop="60dp"
@@ -94,35 +92,33 @@
         app:srcCompat="@drawable/ic_baseline_local_dining_24" />
 
     <TextView
-        android:id="@+id/des_Recipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:text="RECIPE"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintEnd_toEndOf="@+id/recipeButton"
+        app:layout_constraintStart_toStartOf="@id/recipeButton"
+        app:layout_constraintTop_toBottomOf="@+id/recipeButton" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/mealPlanButton"
         android:layout_width="111dp"
         android:layout_height="98dp"
         android:clickable="true"
         android:elevation="10dp"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="@+id/recipeButton"
+        app:layout_constraintTop_toBottomOf="@+id/recipeButton"
         app:srcCompat="@drawable/ic_baseline_local_bar_24" />
 
     <TextView
-        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:text="MEALPLAN"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintEnd_toEndOf="@+id/mealPlanButton"
+        app:layout_constraintStart_toStartOf="@+id/mealPlanButton"
+        app:layout_constraintTop_toBottomOf="@+id/mealPlanButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
