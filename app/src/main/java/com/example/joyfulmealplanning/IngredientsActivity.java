@@ -123,9 +123,6 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
                     .setTitle("Add Issue")
                     .setMessage(newIngredients.getDescription() + " already exist! \n " +
                             "Please edit the existing ingredient.")
-
-                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         }
