@@ -261,7 +261,7 @@ public class ShoppingListController extends AppCompatActivity{
     /**
      * Public method to initialize the ShoppingIngredientDataList
      */
-    //TODO: Code smell - excessive comments,  request refactoring
+    //TODO: Wipe out Code smell - excessive comments,  request refactoring
     public void ShoppingIngredientDataInit(){
 
 //        IngredientFromMealPLanListInit(new FirebaseCallback() {
