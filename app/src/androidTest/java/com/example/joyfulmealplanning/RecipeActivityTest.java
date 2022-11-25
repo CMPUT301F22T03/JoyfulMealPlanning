@@ -121,8 +121,9 @@ public class RecipeActivityTest {
 
         solo.clickOnButton("OK");
 
+        solo.scrollListToTop(0);
         // check if an item named Recipe UI Test1 is in the list(should be true):
-        assertTrue( solo.waitForText(sample_Title, 1, 5000,solo.scrollUpList(0)));
+        assertTrue( solo.waitForText(sample_Title, 1, 5000));
 
         // check if could add item of the ingredient list to a recipe, recipe example: Recipe UI Test1
         solo.clickOnText(sample_Title);
@@ -205,10 +206,12 @@ public class RecipeActivityTest {
 
         // check if Recipe UI Test2 is in the recipe list(should be false):
         // hint: there is no item named Recipe UI Test2 in the recipe list, we need to edit the Test1 to Test2
+        solo.scrollListToTop(0);
         assertFalse( solo.waitForText(sample_Title2, 1, 5000));
 
+        solo.scrollListToTop(0);
         // check if Recipe UI Test1 is in the recipe list(should be true):
-        assertTrue( solo.waitForText(sample_Title1, 1, 5000,solo.scrollUpList(0)));
+        assertTrue( solo.waitForText(sample_Title1, 1, 5000));
 
 
         // click on the specific recipe to edit:
@@ -258,11 +261,13 @@ public class RecipeActivityTest {
 
         solo.clickOnButton("OK");
 
+        solo.scrollUpList(0);
         // check if an item named Recipe UI Test1 is in the list(should be false):
         assertFalse( solo.waitForText(sample_Title1, 1, 5000));
 
+        solo.scrollUpList(0);
         // check if an item named Recipe UI Test2 is in the list(should be true):
-        assertTrue( solo.waitForText(sample_Title2, 1, 5000, solo.scrollUpList(0)));
+        assertTrue( solo.waitForText(sample_Title2, 1, 5000));
 
         // check if items in Recipe UI Test2 is edited as well
         solo.clickOnText(sample_Title2);
@@ -320,16 +325,18 @@ public class RecipeActivityTest {
 
         solo.clickOnButton("OK");
 
+        solo.scrollUpList(0);
         // check if an item named Recipe UI Test2 is in the list(should be true):
-        assertTrue( solo.waitForText(sample_Title, 1, 5000, solo.scrollUpList(0)));
+        assertTrue( solo.waitForText(sample_Title, 1, 5000));
 
         // delete the item named Recipe UI Test 2 in the list:
         solo.clickLongOnText(sample_Title);
 
         solo.clickOnButton("Confirm");
 
+        solo.scrollUpList(0);
         // check if an item named Recipe UI Test2 is in the list(should be false):
-        assertFalse( solo.waitForText(sample_Title, 1, 5000, solo.scrollUpList(0)));
+        assertFalse( solo.waitForText(sample_Title, 1, 5000));
 
     }
 
