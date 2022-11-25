@@ -17,6 +17,8 @@ import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView MealPlan;
     ImageView imageView;
     ImageView ShoppingList;
+    FirebaseAuth joyfulMealPlanningAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +95,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser firebaseUser = joyfulMealPlanningAuth.getCurrentUser();
 
     }
 
