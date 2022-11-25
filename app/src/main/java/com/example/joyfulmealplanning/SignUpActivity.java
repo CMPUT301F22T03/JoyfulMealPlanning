@@ -41,6 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 createUser();
+                System.out.println(1);
             }
         });
 
@@ -66,6 +67,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         }
         else {
+            System.out.println("Dude please!");
             joyfulMealPlanningAuth.createUserWithEmailAndPassword(email, psw).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {

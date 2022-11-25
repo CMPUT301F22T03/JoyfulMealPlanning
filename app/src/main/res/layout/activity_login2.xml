@@ -26,15 +26,15 @@
         android:text="Joyful Meal Planning"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textSize="45sp"
+        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewLogin"
-        android:layout_width="406dp"
-        android:layout_height="468dp"
+        android:layout_width="422dp"
+        android:layout_height="302dp"
         app:cardBackgroundColor="#F3ACAC"
         app:cardCornerRadius="50dp"
         app:cardElevation="20dp"
