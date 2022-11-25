@@ -260,7 +260,6 @@ public class RecipeController {
         deleteOrUpdateRecipe(title, false, null);
     }
 
-
     /**
      * public method to update a recipe that was originally tiled by oldRecipeTitle
      * @param oldRecipeTitle
@@ -270,7 +269,6 @@ public class RecipeController {
         //calls internal method and set the method to update mode
         deleteOrUpdateRecipe(oldRecipeTitle, true, updatedRecipe);
     }
-
 
     /**
      * private method that either deletes or updates an existing recipe

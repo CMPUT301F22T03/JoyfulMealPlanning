@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -219,6 +220,11 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                 comments = commentsInput.getText().toString();
                 selectedTime = timeInput.getText().toString();
                 category = categoryInput.getText().toString();
+                if (imageInput.getDrawable() != null){
+                    selectedImage = ((BitmapDrawable)imageInput.getDrawable()).getBitmap();
+                } else {
+                    selectedImage = null;
+                }
 
                 if (title.isEmpty() || selectedTime.isEmpty() ||
                         category.isEmpty() || numberInput.getText().toString().isEmpty()){
