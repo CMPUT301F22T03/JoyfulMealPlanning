@@ -33,7 +33,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewLogin"
-        android:layout_width="422dp"
+        android:layout_width="400dp"
         android:layout_height="302dp"
         app:cardBackgroundColor="#F3ACAC"
         app:cardCornerRadius="50dp"
