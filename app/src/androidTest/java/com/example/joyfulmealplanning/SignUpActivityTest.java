@@ -18,15 +18,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-public class LoginActivityTest {
+public class SignUpActivityTest{
     /*Declaration of variables*/
     private Solo solo;
 
 
     /*Establishes test rules*/
     @Rule
-    public ActivityTestRule<LoginActivity> rule =
-            new ActivityTestRule<>(LoginActivity.class, true, true);
+    public ActivityTestRule<SignUpActivity> rule =
+            new ActivityTestRule<>(SignUpActivity.class, true, true);
 
     /**
      * Runs before all tests and creates solo instance.
@@ -48,62 +48,31 @@ public class LoginActivityTest {
     }
 
     /**
-     * Test if can switch login activity to signup activity
+     * Test if the sign up activity could work
      */
     @Test
-    public void test_switch_to_signup(){
-        // Asserts that the current activity is the LoginActivity.Otherwise, show "Wrong Activity"
-        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
-
-        // click SIGN UP HERE
-        solo.clickOnView(solo.getView(R.id.registration));
-
+    public void test_signup(){
         // Asserts that the current activity is the SignUpActivity.Otherwise, show "Wrong Activity"
-        solo.assertCurrentActivity("Wrong Activity",SignUpActivity.class);
-
-        solo.sleep(3000);
-
-        // go back to LoginActivity
-        solo.goBack();
-
-        solo.sleep(3000);
-    }
-
-    /**
-     * Test if can log in to the main menu with administration user and password
-     */
-    @Test
-    public void test_login(){
-        // Asserts that the current activity is the LoginActivity.Otherwise, show "Wrong Activity"
-        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", SignUpActivity.class);
 
         // sample username and password:
-        String sample_UserName = "admin@gmail.com";
-        String sample_PassWord = "administration";
+        String sample_UserName = "test@gmail.com";
+        String sample_PassWord = "administrationTEST";
 
         //get a reference to editTexts
-        EditText EditText_UserName = (EditText) solo.getView(R.id.userEmailInput);
-        EditText EditText_PassWord = (EditText) solo.getView(R.id.userPasswordInput);
+        EditText EditText_UserName = (EditText) solo.getView(R.id.user_email_registration);
+        EditText EditText_PassWord = (EditText) solo.getView(R.id.psw_registration);
 
-        // Enter sample UserName named "admin@gmail.com"
+        // Enter sample UserName named "test@gmail.com"
         solo.enterText(EditText_UserName , sample_UserName);
 
-        // Enter sample PassWord named "administration"
+        // Enter sample PassWord named "administrationTEST"
         solo.enterText(EditText_PassWord , sample_PassWord);
 
         // Assert the result
         Assert.assertEquals(sample_UserName, EditText_UserName.getText().toString());
         Assert.assertEquals(sample_PassWord, EditText_PassWord.getText().toString());
-
-        // click on log in button
-        solo.clickOnView(solo.getView(R.id.login_button));
-
-        solo.sleep(8000);
-
-        // Asserts that the current activity is the MainActivity.Otherwise, show "Wrong Activity"
-        solo.assertCurrentActivity("Wrong Activity",MainActivity.class);
     }
-
 
     /**
      * Close activity after each test
