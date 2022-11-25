@@ -24,108 +24,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.205" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="111dp"
-        android:layout_height="98dp"
-        android:layout_marginTop="100dp"
-        android:clickable="true"
-        android:elevation="10dp"
-        android:focusable="true"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cardView2"
-        app:srcCompat="@drawable/ic_baseline_fastfood_24" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="111dp"
-        android:layout_height="98dp"
-        android:layout_marginTop="10dp"
-        android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:srcCompat="@drawable/ic_baseline_local_grocery_store_24" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:elevation="10dp"
-        android:text="INGREDIENT"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <TextView
-        android:id="@+id/des_Recipe"
-        android:layout_width="64dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="100dp"
-        android:elevation="10dp"
-        android:text="RECIPE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="111dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="250dp"
-        android:layout_marginTop="100dp"
-        android:clickable="true"
-        android:elevation="10dp"
-        android:focusable="true"
-        app:layout_constraintBottom_toTopOf="@+id/des_Recipe"
-        app:layout_constraintEnd_toEndOf="@+id/des_Recipe"
-        app:layout_constraintHorizontal_bias="0.856"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/cardView2"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_baseline_local_dining_24" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="10dp"
-        android:text="MEALPLAN"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="111dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="140dp"
-        android:clickable="true"
-        android:elevation="10dp"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:srcCompat="@drawable/ic_baseline_local_bar_24" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="10dp"
-        android:text="SHOPPING LIST"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="479dp"
+        android:id="@+id/cardView3"
+        android:layout_width="0dp"
         android:layout_height="566dp"
         android:layout_marginTop="228dp"
         app:cardBackgroundColor="#BBF3E9"
@@ -136,5 +37,88 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/ingredientButton"
+        android:layout_width="111dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="60dp"
+        android:clickable="true"
+        android:elevation="10dp"
+        android:focusable="true"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cardView3"
+        app:srcCompat="@drawable/ic_baseline_fastfood_24" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:elevation="10dp"
+        android:text="INGREDIENT"
+        app:layout_constraintEnd_toEndOf="@+id/ingredientButton"
+        app:layout_constraintStart_toStartOf="@+id/ingredientButton"
+        app:layout_constraintTop_toBottomOf="@+id/ingredientButton" />
+
+    <ImageView
+        android:id="@+id/shoppingListButton"
+        android:layout_width="111dp"
+        android:layout_height="98dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ingredientButton"
+        app:layout_constraintTop_toBottomOf="@id/ingredientButton"
+        app:srcCompat="@drawable/ic_baseline_local_grocery_store_24" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:text="SHOPPING LIST"
+        app:layout_constraintEnd_toEndOf="@+id/shoppingListButton"
+        app:layout_constraintStart_toStartOf="@+id/shoppingListButton"
+        app:layout_constraintTop_toBottomOf="@+id/shoppingListButton" />
+
+    <ImageView
+        android:id="@+id/recipeButton"
+        android:layout_width="111dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="50dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cardView3"
+        app:srcCompat="@drawable/ic_baseline_local_dining_24" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:text="RECIPE"
+        app:layout_constraintEnd_toEndOf="@+id/recipeButton"
+        app:layout_constraintStart_toStartOf="@id/recipeButton"
+        app:layout_constraintTop_toBottomOf="@+id/recipeButton" />
+
+    <ImageView
+        android:id="@+id/mealPlanButton"
+        android:layout_width="111dp"
+        android:layout_height="98dp"
+        android:clickable="true"
+        android:elevation="10dp"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/recipeButton"
+        app:layout_constraintTop_toBottomOf="@+id/recipeButton"
+        app:srcCompat="@drawable/ic_baseline_local_bar_24" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:text="MEALPLAN"
+        app:layout_constraintEnd_toEndOf="@+id/mealPlanButton"
+        app:layout_constraintStart_toStartOf="@+id/mealPlanButton"
+        app:layout_constraintTop_toBottomOf="@+id/mealPlanButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

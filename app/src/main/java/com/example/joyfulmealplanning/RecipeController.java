@@ -36,15 +36,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
  * The controller class of Recipe, responsible for adding, deleting and updating recipes.
- * @author Zhaoqi, Qiaosong
- * @version 1.0
+ * @author Zhaoqi, Qiaosong, Fan Zhu
+ * @version 1.1
  */
 
 public class RecipeController {
+    /*Declaration of variables*/
     private boolean DBActionComplete = false;
     private ArrayList<Recipe> recipeList;
     private ArrayAdapter<Recipe> recipeArrayAdapter;
@@ -53,15 +55,15 @@ public class RecipeController {
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
 
-    //Constructor
+    /*Constructor*/
     public RecipeController(Context parentActivity){
         this.recipeList = new ArrayList<>();
         this.recipeArrayAdapter = new RecipeAdaptor(parentActivity, recipeList);
         initDBListener();
     }
 
-    //Private method to initialize the local list by filling with data from the Recipe Collection in Firestore.
-    //At the same time set a listener on the Recipe collection to automatically synchronize local list with cloud data
+    /**Private method to initialize the local list by filling with data from the Recipe Collection in Firestore.
+    At the same time set a listener on the Recipe collection to automatically synchronize local list with cloud data*/
     private void initDBListener(){
         recipeCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -85,8 +87,8 @@ public class RecipeController {
         });
     }
 
-    //Private method to retrieve the ingredient list of a recipe (keyed by its title) and store it into
-    //ingredientList
+    /**Private method to retrieve the ingredient list of a recipe (keyed by its title) and store it into
+    ingredientList*/
     private void retrieveIngredientList(String recipeTitle, ArrayList<Ingredients> ingredientList){
         recipeCollectionReference.document(recipeTitle).collection("ingredient")
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -103,23 +105,32 @@ public class RecipeController {
                 });
     }
 
-    //Public method to return the recipe at index idx
+    /**
+     * Public method to return the recipe at index idx
+     * @param idx
+     * @return an index idx {@link Integer}
+     */
     public Recipe getRecipeAtIndex(int idx){
         return this.recipeList.get(idx);
     }
 
-    //Public method to return the whole local Recipe list
+    /**Public method to return the whole local Recipe list*/
     public ArrayList<Recipe> getRecipeList(){
         return this.recipeList;
     }
 
-    //Public method to return the array adapter for the Recipe list
+    /**Public method to return the array adapter for the Recipe list*/
     public ArrayAdapter<Recipe> getArrayAdapter(){
         return this.recipeArrayAdapter;
     }
 
-    //Private method to map all attributes (except ingredient list and image) of a Recipe object to
-    // a HashMap
+
+    /**
+     * Private method to map all attributes (except ingredient list and image) of a Recipe object to
+     * a HashMap
+     * @param recipe
+     * @return packedRecipe {@link Map}
+     */
     private Map<String, Object> packRecipeToMap(Recipe recipe){
         Map<String, Object> packedRecipe = new HashMap<>();
         packedRecipe.put("title", recipe.getRecipeTitle());
@@ -130,10 +141,16 @@ public class RecipeController {
         return packedRecipe;
     }
 
-    //public method for adding a recipe
+
+
+    /**
+     * public boolean method for adding a recipe
+     * @param recipe
+     * @return {@link Boolean}
+     */
     public boolean addRecipe(Recipe recipe){
         for (Recipe rec : this.recipeList){
-            if (rec.getRecipeTitle() == recipe.getRecipeTitle()){
+            if (rec.getRecipeTitle().toLowerCase(Locale.ROOT).equals(recipe.getRecipeTitle().toLowerCase(Locale.ROOT))){
                 return false;
             }
         }
@@ -166,7 +183,11 @@ public class RecipeController {
         return true;
     }
 
-    //private method that aids the public addRecipe method, this method adds all recipe ingredients
+
+    /**
+     * private method that aids the public addRecipe method, this method adds all recipe ingredients
+     * @param recipe
+     */
     private void addIngredientList(Recipe recipe){
         //if there is a list of ingredients
         if (recipe.getRecipeIngredientsList().size() != 0){
@@ -203,7 +224,10 @@ public class RecipeController {
         }
     }
 
-    //private method that aids the public addRecipe method, this method adds all attributes of recipe
+    /**
+     * private method that aids the public addRecipe method, this method adds all attributes of recipe
+     * @param recipe
+     */
     private void addRecipeAttributes(Recipe recipe){
         Map<String, Object> packedRecipe = packRecipeToMap(recipe);
         this.recipeCollectionReference
@@ -225,7 +249,10 @@ public class RecipeController {
                 });
     }
 
-    //public method for deleting a recipe at index idx
+    /**
+     * public method for deleting a recipe at index idx
+     * @param idx
+     */
     public void deleteRecipe(int idx){
         Recipe selectedRecipe = this.recipeList.get(idx);
         String title = selectedRecipe.getRecipeTitle();
@@ -233,13 +260,24 @@ public class RecipeController {
         deleteOrUpdateRecipe(title, false, null);
     }
 
-    //public method to update a recipe that was originally tiled by oldRecipeTitle
+
+    /**
+     * public method to update a recipe that was originally tiled by oldRecipeTitle
+     * @param oldRecipeTitle
+     * @param updatedRecipe
+     */
     public void updateRecipe(String oldRecipeTitle, Recipe updatedRecipe){
         //calls internal method and set the method to update mode
         deleteOrUpdateRecipe(oldRecipeTitle, true, updatedRecipe);
     }
 
-    //private method that either deletes or updates an existing recipe
+
+    /**
+     * private method that either deletes or updates an existing recipe
+     * @param oldRecipeTitle
+     * @param updateRecipe
+     * @param updatedRecipe
+     */
     private void deleteOrUpdateRecipe(String oldRecipeTitle, boolean updateRecipe, @Nullable Recipe updatedRecipe){
         //obtain the ingredient list of this recipe
         this.recipeCollectionReference.document(oldRecipeTitle).collection("ingredient").get()
@@ -310,8 +348,13 @@ public class RecipeController {
                 });
     }
 
-    //Public method that retrieves the image of an ingredient and update the ImageView widget (inside
-    // RecipeFragment) with the retrieved image
+
+    /**
+     * Public method that retrieves the image of an ingredient and update the ImageView widget (inside
+     * RecipeFragment) with the retrieved image
+     * @param RecipeTitle
+     * @param imageInput
+     */
     public void retrieveImage(String RecipeTitle, ImageView imageInput){
         StorageReference imageReference = storageReference.child(RecipeTitle + ".jpg");
         final Bitmap[] image = new Bitmap[1];
@@ -333,7 +376,7 @@ public class RecipeController {
         });
     }
 
-    //Public method to sort the local list by title
+    /**Public method to sort the local list by title*/
     public void sortByTitle(){
         Collections.sort(recipeList, new Comparator<Recipe>() {
             @Override
@@ -344,7 +387,7 @@ public class RecipeController {
         recipeArrayAdapter.notifyDataSetChanged();
     }
 
-    //Public method to sort the local list by preparation time
+    /**Public method to sort the local list by preparation time*/
     public void sortByPT(){
         Collections.sort(recipeList, new Comparator<Recipe>() {
             @Override
@@ -355,7 +398,7 @@ public class RecipeController {
         recipeArrayAdapter.notifyDataSetChanged();
     }
 
-    //Public method to sort the local list by number of servings
+    /**Public method to sort the local list by number of servings*/
     public void sortByNOS(){
         Collections.sort(recipeList, new Comparator<Recipe>() {
             @Override
@@ -366,7 +409,7 @@ public class RecipeController {
         recipeArrayAdapter.notifyDataSetChanged();
     }
 
-    //Public method to sort the local list by category
+    /**Public method to sort the local list by category*/
     public void sortByCategory(){
         Collections.sort(recipeList, new Comparator<Recipe>() {
             @Override

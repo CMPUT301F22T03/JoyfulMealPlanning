@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 /**
  * The Ingredients controller class, responsible for the modification of a list of
@@ -129,7 +130,7 @@ public class IngredientController {
 
     public boolean addIngredient(Ingredients ingredients){
         for (Ingredients ing : this.ingredientList){
-            if (ing.getDescription() == ingredients.getDescription()){
+            if (ing.getDescription().toLowerCase(Locale.ROOT).equals(ingredients.getDescription().toLowerCase(Locale.ROOT))){
                 return false;
             }
         }
@@ -235,6 +236,9 @@ public class IngredientController {
         this.ingredientList.remove(idx);
     }
 
+    /**
+     * Public method that sort the ingredientList by the descriptions
+     */
     public void sortByDescription(){
         Collections.sort(ingredientList, new Comparator<Ingredients>() {
             @Override
@@ -245,6 +249,9 @@ public class IngredientController {
         ingredientsArrayAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Public method that sort the ingredientList according the Best Before Date
+     */
     public void sortByBBD(){
         Collections.sort(ingredientList, new Comparator<Ingredients>() {
             @Override
@@ -255,6 +262,9 @@ public class IngredientController {
         ingredientsArrayAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Public method that sort the ingredientList by Location
+     */
     public void sortByLocation(){
         Collections.sort(ingredientList, new Comparator<Ingredients>() {
             @Override
@@ -265,6 +275,9 @@ public class IngredientController {
         ingredientsArrayAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Public method that sort the ingredientList by Category
+     */
     public void sortByCategory(){
         Collections.sort(ingredientList, new Comparator<Ingredients>() {
             @Override
