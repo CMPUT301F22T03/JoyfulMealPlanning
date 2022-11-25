@@ -30,6 +30,7 @@ public class MealPLan {
         this.Date = Date;
     }
 
+    /*Getters & setters*/
     public String getDate() {
         return Date;
     }
@@ -38,66 +39,34 @@ public class MealPLan {
         Date = date;
     }
 
-    /**
-     * This method returns the mealPlanID for the meal plan
-     * @return {@link String}
-     */
     public String getMealPlanID() {
         return mealPlanID;
     }
 
-    /**
-     * This method sets a new mealPlanID
-     * @param mealPlanID
-     */
     public void setMealPlanID(String mealPlanID) {
         this.mealPlanID = mealPlanID;
     }
 
-    /**
-     * This method returns the ID for the ingredient or recipe the meal plan is based on
-     * @return {@link String}
-     */
     public String getID() {
         return ID;
     }
 
-    /**
-     * This methods sets a new ID for the ingredient or recipe the meal plan is based on
-     * @param ID {@link String}
-     */
     public void setID(String ID) {
         this.ID = ID;
     }
 
-    /**
-     *This method returns the number of servings for the meal plan
-     * @return {@link Integer}
-     */
     public Integer getNumberOfServings() {
         return numberOfServings;
     }
 
-    /**
-     *This method sets a new number of servings for the meal plan
-     * @param numberOfServings {@link Integer}
-     */
     public void setNumberOfServings(Integer numberOfServings) {
         this.numberOfServings = numberOfServings;
     }
 
-    /**
-     *This methods returns whether the meal plan is based on recipe or ingredient (type of meal plan)
-     * @return {@link String}
-     */
     public String getType() {
         return type;
     }
 
-    /**
-     *This methods sets a new type for the meal plan, to modify whether the meal plan is based on recipe or ingredient
-     * @param type {@link String}
-     */
     public void setType(String type) {
         this.type = type;
     }
