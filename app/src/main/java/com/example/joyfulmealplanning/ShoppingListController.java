@@ -399,7 +399,7 @@ public class ShoppingListController extends AppCompatActivity{
         Collections.sort(ShoppingIngredientDataList, new Comparator<Ingredients>() {
             @Override
             public int compare(Ingredients ingredient1, Ingredients ingredient2) {
-                return ingredient1.getDescription().compareTo(ingredient2.getDescription());
+                return ingredient1.getDescription().toLowerCase().compareTo(ingredient2.getDescription().toLowerCase());
             }
         });
         ShoppingListAdaptor.notifyDataSetChanged();
@@ -412,7 +412,7 @@ public class ShoppingListController extends AppCompatActivity{
         Collections.sort(ShoppingIngredientDataList, new Comparator<Ingredients>() {
             @Override
             public int compare(Ingredients ingredient1, Ingredients ingredient2) {
-                return ingredient1.getCategory().compareTo(ingredient2.getCategory());
+                return ingredient1.getCategory().toLowerCase().compareTo(ingredient2.getCategory().toLowerCase());
             }
         });
         ShoppingListAdaptor.notifyDataSetChanged();

@@ -164,7 +164,7 @@ public class MealPlanController extends AppCompatActivity {
         Collections.sort(mealPLanDataList, new Comparator<MealPLan>() {
             @Override
             public int compare(MealPLan mealPLan1, MealPLan mealPLan2) {
-                return mealPLan1.getID().compareTo(mealPLan2.getID());
+                return (mealPLan1.getID().toLowerCase()).compareTo(mealPLan2.getID().toLowerCase());
             }
         });
         mealPLanAdapter.notifyDataSetChanged();
@@ -184,7 +184,7 @@ public class MealPlanController extends AppCompatActivity {
         Collections.sort(mealPLanDataList, new Comparator<MealPLan>() {
             @Override
             public int compare(MealPLan mealPLan1, MealPLan mealPLan2) {
-                return mealPLan1.getType().compareTo(mealPLan2.getType());
+                return mealPLan1.getType().toLowerCase().compareTo(mealPLan2.getType().toLowerCase());
             }
         });
         mealPLanAdapter.notifyDataSetChanged();
