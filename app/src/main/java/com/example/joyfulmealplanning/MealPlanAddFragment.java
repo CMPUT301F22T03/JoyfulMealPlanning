@@ -200,82 +200,43 @@ public class MealPlanAddFragment extends DialogFragment {
             }
         });
 
-        androidx.appcompat.app.AlertDialog.Builder builder
+        androidx.appcompat.app.AlertDialog MealPlanAddFragmentStage2
                 = new androidx.appcompat.app.AlertDialog.Builder(context)
                 .setView(view)
                 .setTitle(StorageName)
-                .setPositiveButton("Add", null)
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String NOS = NumberOfServings.getText().toString();
+                        String Date = MealPlanAddStage2DatePicker.getText().toString();
+                        if ((!NOS.equals("")) && selectedItemPosition!=null && !Date.equals("Choose Date")){
+                            String title;
+                            Integer NumOfServing = Integer.parseInt(NOS);
+                            if (StorageName.equals("ingredient")){
+                                title = ingredientDataList.get(selectedItemPosition).getDescription();
+                                new MealPlanController(context).AddMealPlan(title,"ingredient",NumOfServing,Date);
+                                Toast.makeText(context,"You have added a new Meal Plan" ,Toast.LENGTH_LONG).show();
+
+                            }else{
+                                title = recipeDataList.get(selectedItemPosition).getRecipeTitle();
+                                new MealPlanController(context).AddMealPlan(title,"recipe",NumOfServing,Date);
+                                Toast.makeText(context,"You have added a new Meal Plan" ,Toast.LENGTH_LONG).show();
+
+                            }
+                        }else {
+                            Toast.makeText(context,"Adding Fails" ,Toast.LENGTH_LONG).show();
+                        }
+                        selectedItemPosition = null;
+                    }
+                })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         selectedItemPosition = null;
                         dialog.dismiss();
                     }
-                });
-
-        androidx.appcompat.app.AlertDialog dialog = builder.create();
-        dialog.show();
-        dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String NOS = NumberOfServings.getText().toString();
-                String Date = MealPlanAddStage2DatePicker.getText().toString();
-                if (selectedItemPosition == null){
-                    Toast.makeText(context,"Please make a selection" ,Toast.LENGTH_LONG).show();
-                } else if (NOS.isEmpty() || Date.isEmpty()){
-                    Toast.makeText(context,"Please make sure all fields are filled" ,Toast.LENGTH_LONG).show();
-                } else {
-                    String title;
-                    Integer NumOfServing = Integer.parseInt(NOS);
-                    if (StorageName.equals("ingredient")){
-                        boolean repeatedIngredient = false;
-                        title = ingredientDataList.get(selectedItemPosition).getDescription();
-                        for (Ingredients ingredients : ingredientDataList){
-                            if (title == ingredients.getDescription()){
-                                repeatedIngredient = true;
-                                new androidx.appcompat.app.AlertDialog.Builder(getContext())
-                                        .setTitle("Add Issue")
-                                        .setMessage(ingredients.getDescription() + " already exist! \n " +
-                                                "Please edit the existing one.")
-                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
-                                        })
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .show();
-                            }
-                        }
-                        if (!repeatedIngredient){
-                            new MealPlanController(context).AddMealPlan(title,"ingredient",NumOfServing,Date);
-                        }
-                        dialog.dismiss();
-                    }else{
-                        boolean repeatedRecipe = false;
-                        title = recipeDataList.get(selectedItemPosition).getRecipeTitle();
-                        for (Recipe recipe : recipeDataList){
-                            if (title == recipe.getRecipeTitle()){
-                                repeatedRecipe = true;
-                                new androidx.appcompat.app.AlertDialog.Builder(getContext())
-                                        .setTitle("Add Issue")
-                                        .setMessage(recipe.getRecipeTitle() + " already exist! \n " +
-                                                "Please edit the existing one.")
-                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
-                                        })
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .show();
-                            }
-                        }
-                        if (!repeatedRecipe){
-                            new MealPlanController(context).AddMealPlan(title,"recipe",NumOfServing,Date);
-                        }
-                        dialog.dismiss();
-                    }
-                }
-            }
-        });
-
-        return dialog;
+                })
+                .create();
+        return MealPlanAddFragmentStage2;
     }
 
     /*defines how the the datePicker should be initialized and what to do when a date is selected*/
