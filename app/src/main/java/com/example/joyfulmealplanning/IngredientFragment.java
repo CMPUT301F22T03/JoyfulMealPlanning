@@ -171,7 +171,15 @@ public class IngredientFragment extends DialogFragment {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                         month = month+1;
-                        BBDate = year + "-" + month + "-" + dayOfMonth;
+                        String monthStr = Integer.toString(month);
+                        String dayOfMonthStr = Integer.toString(dayOfMonth);
+                        if (monthStr.length()<2){
+                            monthStr = "0"+monthStr;
+                        }
+                        if (dayOfMonthStr.length()<2){
+                            dayOfMonthStr = "0"+dayOfMonthStr;
+                        }
+                        BBDate = year + "-" + monthStr + "-" + dayOfMonthStr;
                         BBDateDisplay.setText(BBDate);
                     }
                 };
