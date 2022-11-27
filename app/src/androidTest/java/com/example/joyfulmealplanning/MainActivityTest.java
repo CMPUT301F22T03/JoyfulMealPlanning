@@ -1,7 +1,6 @@
 package com.example.joyfulmealplanning;
 
 import android.app.Activity;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -70,7 +69,7 @@ public class MainActivityTest {
     public void switchToShoppingListTest() {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
         MainActivity activity = (MainActivity) solo.getCurrentActivity();
-        final ImageView S_List_image = activity.findViewById(R.id.imageView2);
+        final ImageView S_List_image = activity.findViewById(R.id.shoppingListButton);
         solo.clickOnView(S_List_image);
         solo.assertCurrentActivity("Wrong activity", ShoppingListActivity.class);
     }
@@ -80,7 +79,7 @@ public class MainActivityTest {
     public void switchToRecipeTest() {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
         MainActivity activity = (MainActivity) solo.getCurrentActivity();
-        final ImageView RecipeImage = activity.findViewById(R.id.imageView3);
+        final ImageView RecipeImage = activity.findViewById(R.id.recipeButton);
         solo.clickOnView(RecipeImage);
         solo.assertCurrentActivity("Wrong activity", RecipeActivity.class);
     }
@@ -89,7 +88,7 @@ public class MainActivityTest {
     public void switchToMealPlanTest() {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
         MainActivity activity = (MainActivity) solo.getCurrentActivity();
-        final ImageView Meal_plan_image = activity.findViewById(R.id.imageView4);
+        final ImageView Meal_plan_image = activity.findViewById(R.id.mealPlanButton);
         solo.clickOnView(Meal_plan_image);
         solo.assertCurrentActivity("Wrong activity", MealPlanActivity.class);
     }
