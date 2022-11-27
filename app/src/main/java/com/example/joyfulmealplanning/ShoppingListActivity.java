@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 public class ShoppingListActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener,ShoppingListAddIngredientFragment.OnFragmentInteractionListener{
 
+    /*Declaration of variables*/
     private ShoppingListController ShoppingListController;
     ListView ShoppingList;
     ArrayAdapter<Ingredients> ShoppingListAdaptor;
@@ -84,8 +85,13 @@ public class ShoppingListActivity extends AppCompatActivity implements AdapterVi
         ShoppingListController.addIngredientIntoDBShoppingListVersion(ingredients);
     }
 
-
-    //For shoppingListSortSpinner
+    /**
+     * For ShoppingListSortSpinner text selection
+     * @param adapterView
+     * @param view
+     * @param position
+     * @param l
+     */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         if (position == 0){//description
@@ -105,6 +111,11 @@ public class ShoppingListActivity extends AppCompatActivity implements AdapterVi
         }
     }
 
+    /**
+     * ???
+     * @param adapterView
+     */
+    //TODO: Requesting Javadocs
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 

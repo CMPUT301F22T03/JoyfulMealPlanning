@@ -103,10 +103,25 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
 
     @Override
     public void onOkPressed(@Nullable String oldRecipeTitle, Recipe newRecipe) {
+        boolean addSuccessful;
         if (oldRecipeTitle != null){
             recipeController.updateRecipe(oldRecipeTitle, newRecipe);
         } else {
-            recipeController.addRecipe(newRecipe);
+            addSuccessful = recipeController.addRecipe(newRecipe);
+            if (!addSuccessful){
+                new AlertDialog.Builder(this)
+                        .setTitle("Add Issue")
+                        .setMessage(newRecipe.getRecipeTitle() + " already exist! \n " +
+                                "Please edit the existing recipe.")
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
         }
     }
 

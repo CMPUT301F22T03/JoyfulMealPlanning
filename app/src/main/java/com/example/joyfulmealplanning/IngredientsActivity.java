@@ -110,12 +110,26 @@ public class IngredientsActivity extends AppCompatActivity implements Ingredient
      */
     @Override
     public void onOkPressed(String oldIngredientDesc, Ingredients newIngredients) {
+        boolean addSuccessful;
         if (oldIngredientDesc != null){
-            controller.deleteIngredient(oldIngredientDesc);
-            controller.addIngredient(newIngredients);
+            controller.updateIngredient(oldIngredientDesc, newIngredients);
         } else {
-            controller.addIngredient(newIngredients);
+            addSuccessful = controller.addIngredient(newIngredients);
+            if (!addSuccessful){
+                new AlertDialog.Builder(this)
+                        .setTitle("Add Issue")
+                        .setMessage(newIngredients.getDescription() + " already exist! \n " +
+                                "Please edit the existing ingredient.")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
         }
+
+
     }
 
 
