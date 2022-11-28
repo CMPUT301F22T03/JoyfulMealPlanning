@@ -3,6 +3,8 @@ package com.example.joyfulmealplanning;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import android.graphics.Bitmap;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +15,7 @@ public class RecipeTest {
 
     private Recipe mockRecipe() {
         return new Recipe("recipe1", "appetizer", "1234",
-                3, 11, null);
+                3, 11, null, null );
     }
 
     @Test

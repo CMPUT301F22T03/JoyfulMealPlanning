@@ -259,7 +259,7 @@ public class IngredientController {
         Collections.sort(ingredientList, new Comparator<Ingredients>() {
             @Override
             public int compare(Ingredients ingredients, Ingredients t1) {
-                return ingredients.getDescription().compareTo(t1.getDescription());
+                return ingredients.getDescription().toLowerCase().compareTo(t1.getDescription().toLowerCase());
             }
         });
         ingredientsArrayAdapter.notifyDataSetChanged();
@@ -285,7 +285,7 @@ public class IngredientController {
         Collections.sort(ingredientList, new Comparator<Ingredients>() {
             @Override
             public int compare(Ingredients ingredients, Ingredients t1) {
-                return ingredients.getLocation().compareTo(t1.getLocation());
+                return ingredients.getLocation().toLowerCase().compareTo(t1.getLocation().toLowerCase());
             }
         });
         ingredientsArrayAdapter.notifyDataSetChanged();
@@ -298,7 +298,7 @@ public class IngredientController {
         Collections.sort(ingredientList, new Comparator<Ingredients>() {
             @Override
             public int compare(Ingredients ingredients, Ingredients t1) {
-                return ingredients.getCategory().compareTo(t1.getCategory());
+                return ingredients.getCategory().toLowerCase().compareTo(t1.getCategory().toLowerCase());
             }
         });
         ingredientsArrayAdapter.notifyDataSetChanged();
