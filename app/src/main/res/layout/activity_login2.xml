@@ -23,6 +23,8 @@
         android:fontFamily="@font/alex_brush"
         android:text="Joyful Meal Planning"
         android:textColor="@color/black"
+        android:textAlignment="center"
+        android:gravity="center"
         android:textSize="48sp"
         app:layout_constraintBottom_toTopOf="@+id/cardViewLogin"
         app:layout_constraintEnd_toEndOf="parent"
