@@ -54,98 +54,50 @@ public class Ingredients implements Serializable{
     }
 
     /*Getters & Setters*/
-    /**
-     * This method returns the Description for the ingredient
-     * @return {@link String}
-     */
     public String getDescription() {
         return this.Description;
     }
 
-    /**
-     * This method sets sets a new Description.
-     * @param newDescription {@link String}
-     */
     public void setDescription(String newDescription) {
         this.Description = newDescription;
     }
 
-    /**
-     * This method returns the Best before date.
-     * @return {@link Integer}
-     */
     public Integer getBest_before_date() {
         return this.Best_before_date;
     }
 
-    /**
-     * This methods sets a new Best before date.
-     * @param newBest_before_date {@link Integer}
-     */
     public void setBest_before_date(Integer newBest_before_date) {
         Best_before_date = newBest_before_date;
     }
 
-    /**
-     * This method returns the location for the ingredient.
-     * @return {@link String}
-     */
     public String getLocation() {
         return this.Location;
     }
 
-    /**
-     * This method sets a new location
-     * @param newLocation {@link String}
-     */
     public void setLocation(String newLocation) {
         Location = newLocation;
     }
 
-    /**
-     * This method returns the category for the ingredient.
-     * @return {@link String}
-     */
     public String getCategory() {
         return this.Category;
     }
 
-    /**
-     * This method sets a new Category for the ingredient.
-     * @param newCategory {@link String}
-     */
     public void setCategory(String newCategory) {
         Category = newCategory;
     }
 
-    /**
-     * This method returns the amount for the ingredient.
-     * @return {@link Integer}
-     */
     public Integer getAmount() {
         return this.Amount;
     }
 
-    /**
-     * This method sets a new amount for the ingredient.
-     * @param newAmount {@link Integer}
-     */
     public void setAmount(Integer newAmount) {
         Amount = newAmount;
     }
 
-    /**
-     * This method returns the units being used to measure the ingredient
-     * @return {@link String}
-     */
     public String getUnit() {
         return this.Unit;
     }
 
-    /**
-     * This method sets a new unit for the ingredient.
-     * @param newUnit {@link String}
-     */
     public void setUnit(String newUnit) {
         Unit = newUnit;
     }

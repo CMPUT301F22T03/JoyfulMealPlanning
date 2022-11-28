@@ -126,7 +126,15 @@ public class ShoppingListAddIngredientFragment extends DialogFragment {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                         month = month+1;
-                        BBDate = year + "-" + month + "-" + dayOfMonth;
+                        String monthStr = Integer.toString(month);
+                        String dayOfMonthStr = Integer.toString(dayOfMonth);
+                        if (monthStr.length()<2){
+                            monthStr = "0"+monthStr;
+                        }
+                        if (dayOfMonthStr.length()<2){
+                            dayOfMonthStr = "0"+dayOfMonthStr;
+                        }
+                        BBDate = year + "-" + monthStr + "-" + dayOfMonthStr;
                         BBDateDisplay.setText(BBDate);
                     }
                 };
@@ -139,6 +147,8 @@ public class ShoppingListAddIngredientFragment extends DialogFragment {
         timePicker =
                 new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
     }
+
+
     public ShoppingListAddIngredientFragment newInstance(Ingredients ingredients){
         Bundle args = new Bundle();
         //context = getContext();

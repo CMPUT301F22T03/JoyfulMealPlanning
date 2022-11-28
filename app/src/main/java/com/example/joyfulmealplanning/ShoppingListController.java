@@ -28,6 +28,13 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * The controller class for ShoppingList
+ * @author Qiaosong Deng & Fan Zhu
+ * @version 1.1
+ * @since IDK
+ */
 public class ShoppingListController extends AppCompatActivity{
 
     /*Declaration of variables*/
@@ -41,7 +48,7 @@ public class ShoppingListController extends AppCompatActivity{
     static final CollectionReference ingredientsCollectionReference = db.collection("ingredient");
     final CollectionReference mealPlanCollectionReference = db.collection("mealPlan");
 
-
+    /*Constructor*/
     public ShoppingListController(Context context) {
         this.context = context;
         IngredientFromIngredientList = new HashMap<>();
@@ -51,19 +58,18 @@ public class ShoppingListController extends AppCompatActivity{
         realTimeReaction();
     }
 
-
+    /**
+     * Public interface that implements the Callback function in the Firebase
+     */
     public interface FirebaseCallback{
         void onCallback(HashMap<String,Ingredients> IngredientMap);
     }
 
+    /**
+     * Public method that synchronizes the changes in the IngredientList and the MealPlanList with the changes in the ingredientsCollection
+     */
     public void realTimeReaction(){
-//        recipeCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                Init();
-//                Log.d(TAG,"recipeCollectionChange!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//            }
-//        });
+
         ingredientsCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -71,15 +77,12 @@ public class ShoppingListController extends AppCompatActivity{
                 Log.d(TAG,"ingredientsCollectionChange!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             }
         });
-//        mealPlanCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                Init();
-//                Log.d(TAG,"mealPlanCollectionChange!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//            }
-//        });
+
     }
 
+    /**
+     * Public method that initializes the DataLists
+     */
     public void Init(){
         IngredientFromIngredientListInit(new FirebaseCallback() {
             @Override
@@ -107,9 +110,13 @@ public class ShoppingListController extends AppCompatActivity{
                 }
             }
         }, 1500);
-        Log.d(TAG,"initialize finished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Log.d(TAG,"initialization complete!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
+    /**
+     * Public method that initializes the IngredientFromMealPlanList
+     * @param callback {@link FirebaseCallback}
+     */
     public void IngredientFromMealPLanListInit(final FirebaseCallback callback){
         HashMap<String,Ingredients> IngredientFromMealPLanList = new HashMap<String,Ingredients>();
         //get ingredients from meal plan.
@@ -204,6 +211,10 @@ public class ShoppingListController extends AppCompatActivity{
         });
     }
 
+    /**
+     * Public method that retrieves ingredients from the IngredientList
+     * @param callback {@link FirebaseCallback}
+     */
     public void IngredientFromIngredientListInit(final FirebaseCallback callback){
         HashMap<String,Ingredients> IngredientFromIngredientList = new HashMap<String,Ingredients>();
         //get ingredients from ingredient.
@@ -234,25 +245,15 @@ public class ShoppingListController extends AppCompatActivity{
         });
     }
 
+    /**
+     * Public method to initialize the ShoppingIngredientDataList
+     */
     public void ShoppingIngredientDataInit(){
 
-//        IngredientFromMealPLanListInit(new FirebaseCallback() {
-//            @Override
-//            public void onCallback(HashMap<String, Ingredients> IngredientMap) {
-//                IngredientFromMealPLanList = IngredientMap;
-//            }
-//        });
-//        IngredientFromIngredientListInit(new FirebaseCallback() {
-//            @Override
-//            public void onCallback(HashMap<String, Ingredients> IngredientMap) {
-//                IngredientFromIngredientList = IngredientMap;
-//            }
-//        });
         ShoppingIngredientDataList.clear();
         //printDataList(IngredientFromMealPLanList);
         //printDataList(IngredientFromIngredientList);
-        //ArrayList<Ingredients> ShoppingIngredientDataList = new ArrayList<>();
-        //ShoppingIngredientDataList = new ArrayList<>();
+
         //Subtract IngredientFromIngredientList from IngredientFromMealPLanList
         for (Map.Entry<String, Ingredients> IngredientFromIngredient: IngredientFromIngredientList.entrySet()){
             String description = IngredientFromIngredient.getKey();
@@ -279,6 +280,7 @@ public class ShoppingListController extends AppCompatActivity{
         //return ShoppingIngredientDataList;
     }
 
+    //TODO: Code smell - Speculative generality, request refactoring
     public void printDataList(HashMap<String,Ingredients> DataList){
         System.out.println("####################################################" + DataList.size());
         for (Map.Entry<String, Ingredients> entry: DataList.entrySet()){
@@ -286,10 +288,18 @@ public class ShoppingListController extends AppCompatActivity{
         }
     }
 
+    /**
+     * Fetches the ShoppingListAdapter
+     * @return {@link ArrayAdapter<Ingredients>}
+     */
     public ArrayAdapter<Ingredients> getShoppingListAdaptor(){
         return ShoppingListAdaptor;
     }
 
+    /**
+     * Public method that retrieves the ShoppingIngredientDataList
+     * @return {@link ArrayList<Ingredients>}
+     */
     public ArrayList<Ingredients> getShoppingIngredientDataList(){
         return ShoppingIngredientDataList;
     }
@@ -331,6 +341,10 @@ public class ShoppingListController extends AppCompatActivity{
         return true;
     }
 
+    /**
+     * Public static method that returns the ingredients from the IngredientList
+     * @return {@link HashMap}
+     */
     public static HashMap<String, Ingredients> getIngredientFromIngredientList() {
         return IngredientFromIngredientList;
     }
@@ -351,21 +365,27 @@ public class ShoppingListController extends AppCompatActivity{
         return packedIngredients;
     }
 
+    /**
+     * Public method that sorts the ShoppingIngredientDataList by description
+     */
     public void sortByDescription(){
         Collections.sort(ShoppingIngredientDataList, new Comparator<Ingredients>() {
             @Override
             public int compare(Ingredients ingredient1, Ingredients ingredient2) {
-                return ingredient1.getDescription().compareTo(ingredient2.getDescription());
+                return ingredient1.getDescription().toLowerCase().compareTo(ingredient2.getDescription().toLowerCase());
             }
         });
         ShoppingListAdaptor.notifyDataSetChanged();
     }
 
+    /**
+     * Public method that sorts the ShoppingIngredientDataList by Category
+     */
     public void sortByCategory(){
         Collections.sort(ShoppingIngredientDataList, new Comparator<Ingredients>() {
             @Override
             public int compare(Ingredients ingredient1, Ingredients ingredient2) {
-                return ingredient1.getCategory().compareTo(ingredient2.getCategory());
+                return ingredient1.getCategory().toLowerCase().compareTo(ingredient2.getCategory().toLowerCase());
             }
         });
         ShoppingListAdaptor.notifyDataSetChanged();
