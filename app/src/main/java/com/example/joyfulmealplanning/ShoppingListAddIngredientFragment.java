@@ -104,7 +104,7 @@ public class ShoppingListAddIngredientFragment extends DialogFragment {
                         unit = unitInput.getText().toString();
                         category = categoryInput.getText().toString();
                         location = locationInput.getText().toString();
-                        if (description!=null && amount!=null && BBDate != null && unit!=null && category!=null && location!=null){
+                        if (!(description.equals("")) && amount!=null && !(BBDate.equals("0")) && !(unit.equals("")) && !(category.equals("")) && !(location.equals(""))){
                             Ingredients newIngredients = new Ingredients(description,Integer.parseInt(BBDate),
                                     location, category, amount, unit);
 
