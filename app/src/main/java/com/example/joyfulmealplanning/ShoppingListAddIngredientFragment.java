@@ -104,7 +104,7 @@ public class ShoppingListAddIngredientFragment extends DialogFragment {
                         unit = unitInput.getText().toString();
                         category = categoryInput.getText().toString();
                         location = locationInput.getText().toString();
-                        if (description!=null && amount!=null && BBDate != null && unit!=null && category!=null && location!=null){
+                        if (!(description.equals("")) && amount!=null && !(BBDate.equals("0")) && !(unit.equals("")) && !(category.equals("")) && !(location.equals(""))){
                             Ingredients newIngredients = new Ingredients(description,Integer.parseInt(BBDate),
                                     location, category, amount, unit);
 
@@ -126,7 +126,15 @@ public class ShoppingListAddIngredientFragment extends DialogFragment {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                         month = month+1;
-                        BBDate = year + "-" + month + "-" + dayOfMonth;
+                        String monthStr = Integer.toString(month);
+                        String dayOfMonthStr = Integer.toString(dayOfMonth);
+                        if (monthStr.length()<2){
+                            monthStr = "0"+monthStr;
+                        }
+                        if (dayOfMonthStr.length()<2){
+                            dayOfMonthStr = "0"+dayOfMonthStr;
+                        }
+                        BBDate = year + "-" + monthStr + "-" + dayOfMonthStr;
                         BBDateDisplay.setText(BBDate);
                     }
                 };
@@ -139,6 +147,8 @@ public class ShoppingListAddIngredientFragment extends DialogFragment {
         timePicker =
                 new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
     }
+
+
     public ShoppingListAddIngredientFragment newInstance(Ingredients ingredients){
         Bundle args = new Bundle();
         //context = getContext();

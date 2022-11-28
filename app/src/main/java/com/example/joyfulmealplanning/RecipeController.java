@@ -260,7 +260,6 @@ public class RecipeController {
         deleteOrUpdateRecipe(title, false, null);
     }
 
-
     /**
      * public method to update a recipe that was originally tiled by oldRecipeTitle
      * @param oldRecipeTitle
@@ -270,7 +269,6 @@ public class RecipeController {
         //calls internal method and set the method to update mode
         deleteOrUpdateRecipe(oldRecipeTitle, true, updatedRecipe);
     }
-
 
     /**
      * private method that either deletes or updates an existing recipe
@@ -381,7 +379,7 @@ public class RecipeController {
         Collections.sort(recipeList, new Comparator<Recipe>() {
             @Override
             public int compare(Recipe recipe, Recipe t1) {
-                return recipe.getRecipeTitle().compareTo(t1.getRecipeTitle());
+                return recipe.getRecipeTitle().toLowerCase().compareTo(t1.getRecipeTitle().toLowerCase());
             }
         });
         recipeArrayAdapter.notifyDataSetChanged();
@@ -414,7 +412,7 @@ public class RecipeController {
         Collections.sort(recipeList, new Comparator<Recipe>() {
             @Override
             public int compare(Recipe recipe, Recipe t1) {
-                return recipe.getRecipeCategory().compareTo(t1.getRecipeCategory());
+                return recipe.getRecipeCategory().toLowerCase().compareTo(t1.getRecipeCategory().toLowerCase());
             }
         });
         recipeArrayAdapter.notifyDataSetChanged();

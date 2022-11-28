@@ -8,39 +8,41 @@
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="368dp"
-        android:layout_height="273dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/title2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/food_icon" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/title2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alex_brush"
         android:text="Joyful Meal Planning"
+        android:textColor="@color/black"
         android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="34sp"
+        android:gravity="center"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toTopOf="@+id/cardViewLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewLogin"
-        android:layout_width="422dp"
-        android:layout_height="302dp"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
         app:cardBackgroundColor="#F3ACAC"
         app:cardCornerRadius="50dp"
         app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,8 +70,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#F1EAEA"
-                    android:elevation="10dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:elevation="2dp"
                     android:fontFamily="sans-serif-medium"
                     android:hint="USER EMAIL"
                     android:inputType="text|textEmailAddress"
@@ -81,8 +83,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#F1EAEA"
-                    android:elevation="10dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:elevation="2dp"
                     android:fontFamily="sans-serif-medium"
                     android:hint="PASSWORD"
                     android:inputType="text|textPassword"
@@ -98,15 +100,14 @@
                     android:text="LOG IN" />
 
                 <TextView
-                    android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/alex_brush"
                     android:text="Not a member yet?"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="34sp" />
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/registration"

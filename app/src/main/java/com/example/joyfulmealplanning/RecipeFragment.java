@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -219,6 +220,11 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                 comments = commentsInput.getText().toString();
                 selectedTime = timeInput.getText().toString();
                 category = categoryInput.getText().toString();
+                if (imageInput.getDrawable() != null){
+                    selectedImage = ((BitmapDrawable)imageInput.getDrawable()).getBitmap();
+                } else {
+                    selectedImage = null;
+                }
 
                 if (title.isEmpty() || selectedTime.isEmpty() ||
                         category.isEmpty() || numberInput.getText().toString().isEmpty()){
@@ -400,7 +406,15 @@ public class RecipeFragment extends DialogFragment implements IngredientFragment
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                         month = month+1;
-                        selectedTime = year + "-" + month + "-" + dayOfMonth;
+                        String monthStr = Integer.toString(month);
+                        String dayOfMonthStr = Integer.toString(dayOfMonth);
+                        if (monthStr.length()<2){
+                            monthStr = "0"+monthStr;
+                        }
+                        if (dayOfMonthStr.length()<2){
+                            dayOfMonthStr = "0"+dayOfMonthStr;
+                        }
+                        selectedTime = year + "-" + monthStr + "-" + dayOfMonthStr;
                         timeInput.setText(selectedTime);
                     }
                 };

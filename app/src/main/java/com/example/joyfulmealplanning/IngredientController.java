@@ -188,36 +188,52 @@ public class IngredientController {
     }
 
     /**
-     * Takes the description of ingredient as the parameter and delete the document from the DB
-     * @param ingredientDesc
+     * Deletes an ingredient at given index
+     * @param idx
      */
-    public void deleteIngredient(String ingredientDesc){
-        this.ingredientsCollectionReference.document(ingredientDesc)
+    public void deleteIngredient(int idx){
+        Ingredients selectedIngredient = this.ingredientList.get(idx);
+        String title = selectedIngredient.getDescription();
+        //calls internal method and set the method to delete mode
+        deleteOrUpdateIngredient(title, false, null);
+    }
+
+    /**
+     * public method to update an ingredient that was originally tiled by oldRecipeTitle
+     * @param oldIngredientDesc
+     * @param updatedIngredient
+     */
+    public void updateIngredient(String oldIngredientDesc, Ingredients updatedIngredient){
+        deleteOrUpdateIngredient(oldIngredientDesc, true, updatedIngredient);
+    }
+
+    /**
+     * private method that either deletes or updates an existing recipe
+     * @param oldIngredientDesc
+     * @param updateIngredient
+     * @param updatedIngredient
+     */
+    private void deleteOrUpdateIngredient(String oldIngredientDesc, boolean updateIngredient,
+                                         @Nullable Ingredients updatedIngredient){
+        this.ingredientsCollectionReference.document(oldIngredientDesc)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Log.d(TAG, ingredientDesc +
+                        Log.d(TAG, oldIngredientDesc +
                                 " ingredient successfully deleted!");
+                        if (updateIngredient){
+                            addIngredient(updatedIngredient);
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error deleting document"
-                                + ingredientDesc + " ingredient", e);
+                                + oldIngredientDesc + " ingredient", e);
                     }
                 });
-    }
-
-    /**
-     * Deletes an ingredient at given index
-     * @param idx
-     */
-    public void deleteIngredient(int idx){
-        Ingredients selectedIngredient = this.ingredientList.get(idx);
-        String desc = selectedIngredient.getDescription();
-        deleteIngredient(desc);
     }
 
     /**
@@ -243,7 +259,7 @@ public class IngredientController {
         Collections.sort(ingredientList, new Comparator<Ingredients>() {
             @Override
             public int compare(Ingredients ingredients, Ingredients t1) {
-                return ingredients.getDescription().compareTo(t1.getDescription());
+                return ingredients.getDescription().toLowerCase().compareTo(t1.getDescription().toLowerCase());
             }
         });
         ingredientsArrayAdapter.notifyDataSetChanged();
@@ -269,7 +285,7 @@ public class IngredientController {
         Collections.sort(ingredientList, new Comparator<Ingredients>() {
             @Override
             public int compare(Ingredients ingredients, Ingredients t1) {
-                return ingredients.getLocation().compareTo(t1.getLocation());
+                return ingredients.getLocation().toLowerCase().compareTo(t1.getLocation().toLowerCase());
             }
         });
         ingredientsArrayAdapter.notifyDataSetChanged();
@@ -282,7 +298,7 @@ public class IngredientController {
         Collections.sort(ingredientList, new Comparator<Ingredients>() {
             @Override
             public int compare(Ingredients ingredients, Ingredients t1) {
-                return ingredients.getCategory().compareTo(t1.getCategory());
+                return ingredients.getCategory().toLowerCase().compareTo(t1.getCategory().toLowerCase());
             }
         });
         ingredientsArrayAdapter.notifyDataSetChanged();
