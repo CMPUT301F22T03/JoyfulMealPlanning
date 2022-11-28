@@ -68,15 +68,8 @@ public class ShoppingListController extends AppCompatActivity{
     /**
      * Public method that synchronizes the changes in the IngredientList and the MealPlanList with the changes in the ingredientsCollection
      */
-    //TODO: Obliterate the code smell (Excessive comments), request refactoring
     public void realTimeReaction(){
-//        recipeCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                Init();
-//                Log.d(TAG,"recipeCollectionChange!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//            }
-//        });
+
         ingredientsCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -84,13 +77,7 @@ public class ShoppingListController extends AppCompatActivity{
                 Log.d(TAG,"ingredientsCollectionChange!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             }
         });
-//        mealPlanCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                Init();
-//                Log.d(TAG,"mealPlanCollectionChange!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//            }
-//        });
+
     }
 
     /**
@@ -261,26 +248,12 @@ public class ShoppingListController extends AppCompatActivity{
     /**
      * Public method to initialize the ShoppingIngredientDataList
      */
-    //TODO: Wipe out Code smell - excessive comments,  request refactoring
     public void ShoppingIngredientDataInit(){
 
-//        IngredientFromMealPLanListInit(new FirebaseCallback() {
-//            @Override
-//            public void onCallback(HashMap<String, Ingredients> IngredientMap) {
-//                IngredientFromMealPLanList = IngredientMap;
-//            }
-//        });
-//        IngredientFromIngredientListInit(new FirebaseCallback() {
-//            @Override
-//            public void onCallback(HashMap<String, Ingredients> IngredientMap) {
-//                IngredientFromIngredientList = IngredientMap;
-//            }
-//        });
         ShoppingIngredientDataList.clear();
         //printDataList(IngredientFromMealPLanList);
         //printDataList(IngredientFromIngredientList);
-        //ArrayList<Ingredients> ShoppingIngredientDataList = new ArrayList<>();
-        //ShoppingIngredientDataList = new ArrayList<>();
+
         //Subtract IngredientFromIngredientList from IngredientFromMealPLanList
         for (Map.Entry<String, Ingredients> IngredientFromIngredient: IngredientFromIngredientList.entrySet()){
             String description = IngredientFromIngredient.getKey();
